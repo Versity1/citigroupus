@@ -1,0 +1,27 @@
+{% for notif in notifications %}
+<div class="flex items-start gap-3 px-6 py-4 {% if not notif.is_read %}bg-blue-50/50 dark:bg-primary/5{% endif %} hover:bg-slate-50 dark:hover:bg-slate-750 transition-colors">
+    <div class="w-8 h-8 rounded-full flex items-center justify-center mt-0.5 {% if notif.notification_type == 'transaction' %}bg-green-100 dark:bg-green-900/30{% elif notif.notification_type == 'loan' %}bg-amber-100 dark:bg-amber-900/30{% elif notif.notification_type == 'card' %}bg-violet-100 dark:bg-violet-900/30{% elif notif.notification_type == 'security' %}bg-red-100 dark:bg-red-900/30{% else %}bg-blue-100 dark:bg-blue-900/30{% endif %}">
+        <span class="material-symbols-outlined text-[16px] {% if notif.notification_type == 'transaction' %}text-green-600{% elif notif.notification_type == 'loan' %}text-amber-600{% elif notif.notification_type == 'card' %}text-violet-600{% elif notif.notification_type == 'security' %}text-red-600{% else %}text-blue-600{% endif %}">
+            {% if notif.notification_type == 'transaction' %}receipt{% elif notif.notification_type == 'loan' %}trending_up{% elif notif.notification_type == 'card' %}credit_card{% elif notif.notification_type == 'security' %}shield{% else %}notifications{% endif %}
+        </span>
+    </div>
+    <div class="flex-1 min-w-0">
+        <div class="flex items-center gap-2">
+            <p class="text-sm font-semibold text-slate-900 dark:text-white">{{ notif.title }}</p>
+            {% if not notif.is_read %}
+            <span class="w-2 h-2 rounded-full bg-primary"></span>
+            {% endif %}
+        </div>
+        <p class="text-sm text-slate-500 mt-0.5">{{ notif.message }}</p>
+        <p class="text-xs text-slate-400 mt-1">{{ notif.created_at|timesince }} ago</p>
+    </div>
+    {% if notif.link %}
+    <a href="{{ notif.link }}" class="text-primary hover:underline text-xs font-medium shrink-0">View</a>
+    {% endif %}
+</div>
+{% empty %}
+<div class="px-6 py-12 text-center">
+    <span class="material-symbols-outlined text-slate-300 dark:text-slate-600 text-[48px] block mb-2">notifications_off</span>
+    <p class="text-sm text-slate-500">No notifications yet</p>
+</div>
+{% endfor %}

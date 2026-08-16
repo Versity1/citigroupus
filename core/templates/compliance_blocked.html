@@ -1,0 +1,144 @@
+{% extends 'base_dashboard.html' %}
+{% load humanize %}
+
+{% block page_title %}Transaction Blocked{% endblock %}
+{% block title %}International Wire Transfer{% endblock %}
+
+{% block content %}
+<div class="max-w-2xl mx-auto">
+    <div class="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 overflow-hidden shadow-lg">
+
+        <!-- ── Header ── -->
+        <div class="px-6 py-5 border-b border-slate-100 dark:border-slate-700">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-full bg-red-100 dark:bg-red-900/30 flex items-center justify-center">
+                    <span class="material-symbols-outlined text-red-600 text-[24px]">block</span>
+                </div>
+                <h2 class="text-xl font-black text-slate-900 dark:text-white tracking-tight">TRANSACTION BLOCKED</h2>
+            </div>
+        </div>
+
+        <!-- ── Reference & Amount ── -->
+        <div class="px-6 py-4 bg-slate-50 dark:bg-slate-900/50 border-b border-slate-200 dark:border-slate-700">
+            <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+                <div>
+                    <p class="text-xs text-slate-500 uppercase font-semibold mb-1">Reference #</p>
+                    <code class="text-sm font-bold text-slate-800 dark:text-slate-200 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-600 px-3 py-1.5 rounded">{{ ref_number }}</code>
+                </div>
+                <div class="text-left sm:text-right">
+                    <p class="text-xs text-slate-500 uppercase font-semibold mb-1">Amount</p>
+                    <p class="text-lg font-black text-slate-900 dark:text-white">${{ tx.amount|floatformat:2|intcomma }} USD</p>
+                </div>
+            </div>
+            <div class="mt-3 flex items-center gap-2">
+                <p class="text-xs font-bold text-slate-500 uppercase">Status:</p>
+                <span class="inline-flex items-center gap-1 text-xs font-bold text-red-700 dark:text-red-400">
+                    <span class="material-symbols-outlined text-[14px]">close</span>
+                    HOLD – COMPLIANCE REVIEW REQUIRED
+                </span>
+            </div>
+        </div>
+
+        <!-- ── IMCD Review Notice ── -->
+        <div class="px-6 py-5">
+            <div class="border border-slate-300 dark:border-slate-600 rounded-xl p-5 bg-white dark:bg-slate-800 mb-6">
+                <h3 class="text-base font-black text-slate-900 dark:text-white mb-3">Foreign Account Tax Compliance Act (FATCA) Review</h3>
+                <p class="text-sm text-slate-600 dark:text-slate-400 mb-3">Your withdrawal request has been intercepted by our Automated Compliance System and flagged for review.</p>
+                <p class="text-sm font-bold text-slate-900 dark:text-white mb-2">REASON : Missing Tax Verification Number (TVN)</p>
+                <p class="text-sm text-slate-600 dark:text-slate-400 mb-3">
+                    Under the Foreign Account Tax Compliance Act (FATCA), the Common Reporting Standard (CRS), and the bilateral tax treaty between our jurisdiction and your country of residence, all international transfers initiated by a foreign individual require a valid Tax Identification Number (TIN) to be filed with the U.S. Internal Revenue Service.
+                </p>
+                <p class="text-sm text-slate-700 dark:text-slate-300 font-medium">
+                    To release your funds and avoid account suspension, you must complete the TVN verification process immediately.
+                </p>
+            </div>
+
+            {% if messages %}
+            <div class="mb-5">
+                {% for message in messages %}
+                <div class="{% if message.tags == 'error' %}bg-red-50 border border-red-200 text-red-700 dark:bg-red-900/20 dark:border-red-700 dark:text-red-400{% else %}bg-green-50 border border-green-200 text-green-700 dark:bg-green-900/20 dark:border-green-700 dark:text-green-400{% endif %} rounded-xl p-4 text-sm font-medium">
+                    {{ message }}
+                </div>
+                {% endfor %}
+            </div>
+            {% endif %}
+
+            <!-- ── TVN Input Section ── -->
+            <div class="mb-5">
+                <p class="text-sm font-semibold text-slate-700 dark:text-slate-300 mb-3">If you already have a Tax Verification Number, enter it here:</p>
+                <form method="POST" action="{% url 'validate_tvn' tx.id %}" class="flex gap-3" id="tvnForm">
+                    {% csrf_token %}
+                    <input type="text" name="tvn_code" placeholder="Enter your TVN (e.g. TVN-USA-2026-XXXX)"
+                           class="flex-1 h-12 rounded-lg border-slate-200 dark:border-slate-700 focus:border-primary focus:ring-primary px-4 text-slate-900 dark:text-white dark:bg-slate-900 placeholder-gray-400 font-medium text-sm" 
+                           required />
+                    <button type="submit" id="btnValidate" class="h-12 px-5 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-sm transition-all whitespace-nowrap shadow-md inline-flex items-center gap-2">
+                        <span class="btn-text">Validate &amp; Continue</span>
+                        <span class="btn-spinner hidden"><svg class="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"></path></svg></span>
+                    </button>
+                </form>
+            </div>
+
+            <!-- ── Separator ── -->
+            <div class="flex items-center gap-4 my-6">
+                <div class="flex-1 border-t border-slate-200 dark:border-slate-700"></div>
+                <span class="text-xs font-bold text-slate-400 uppercase">OR</span>
+                <div class="flex-1 border-t border-slate-200 dark:border-slate-700"></div>
+            </div>
+
+            <!-- ── Request TVN Button ── -->
+            <div class="text-center mb-6">
+                <p class="text-sm text-slate-500 mb-3">Need a Tax Verification Number? Apply now:</p>
+                <a href="{% url 'tvn_request' tx.id %}" id="btnProceed" class="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-teal-600 hover:bg-teal-700 text-white font-bold text-sm shadow-lg transition-all">
+                    <span class="btn-text inline-flex items-center gap-2"><span class="material-symbols-outlined text-[18px]">verified_user</span> PROCEED TO COMPLIANCE DEPARTMENT</span>
+                    <span class="btn-spinner hidden"><svg class="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"></path></svg></span>
+                </a>
+            </div>
+
+            <!-- ── Warning ── -->
+            <div class="bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-700 rounded-xl p-4 mb-4">
+                <div class="flex items-start gap-2">
+                    <span class="material-symbols-outlined text-amber-600 text-[18px] mt-0.5">warning</span>
+                    <p class="text-xs text-amber-800 dark:text-amber-400 font-medium">
+                        <strong>IMPORTANT:</strong> Failure to comply within 72 hours will result in automatic account freezing and reporting to financial intelligence unit.
+                    </p>
+                </div>
+            </div>
+
+            <div class="flex items-center gap-2 text-xs text-slate-400">
+                <span class="material-symbols-outlined text-[14px]">schedule</span>
+                <span>Time remaining: <strong class="text-slate-500">71:44:43</strong> hours before automatic action</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    function showSpinner(el) {
+        const text = el.querySelector('.btn-text');
+        const spinner = el.querySelector('.btn-spinner');
+        if (text) text.classList.add('hidden');
+        if (spinner) spinner.classList.remove('hidden');
+        el.style.pointerEvents = 'none';
+        el.style.opacity = '0.75';
+    }
+
+    // Validate & Continue form submit
+    const tvnForm = document.getElementById('tvnForm');
+    if (tvnForm) {
+        tvnForm.addEventListener('submit', function() {
+            const btn = document.getElementById('btnValidate');
+            if (btn) showSpinner(btn);
+        });
+    }
+
+    // Proceed to Compliance link
+    const btnProceed = document.getElementById('btnProceed');
+    if (btnProceed) {
+        btnProceed.addEventListener('click', function() {
+            showSpinner(this);
+        });
+    }
+});
+</script>
+{% endblock %}

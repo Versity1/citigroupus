@@ -1,0 +1,25 @@
+{% load humanize %}
+<div class="text-center">
+    <div class="w-16 h-16 bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 rounded-full flex items-center justify-center mx-auto mb-4">
+        <span class="material-symbols-outlined text-[32px]">dialpad</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-2">Enter Transfer PIN</h3>
+    <p class="text-slate-500 mb-6 text-sm">We've sent a 6-digit authorization PIN to your email. Please enter it below to authorize this transfer of <strong>${{ amount|floatformat:2|intcomma }}</strong>.</p>
+    
+    <form method="POST" hx-post="{% url 'transfer_verify_pin' %}" hx-target="#transfer-form-container" hx-swap="innerHTML">
+        {% csrf_token %}
+        <div class="mb-6">
+            <input type="text" name="pin" placeholder="••••••" maxlength="6" required
+                   class="w-full text-center tracking-[1em] h-14 rounded-xl border-slate-200 dark:border-slate-700 focus:border-primary focus:ring-primary text-xl font-bold text-slate-900 dark:text-white dark:bg-slate-900 placeholder-gray-300 transition-shadow">
+        </div>
+        
+        <button type="submit" class="w-full flex items-center justify-center gap-2 h-12 rounded-xl bg-primary hover:bg-primary-dark text-white font-bold shadow-lg shadow-primary/20 transition-all active:scale-[0.98]">
+            <span class="htmx-indicator animate-spin"><span class="material-symbols-outlined text-[20px]">progress_activity</span></span>
+            <span class="material-symbols-outlined text-[20px]">check_circle</span>
+            Authorize Transfer
+        </button>
+        <button type="button" class="w-full mt-3 text-sm font-bold text-slate-500 hover:text-slate-700 dark:hover:text-slate-300" onclick="window.location.reload()">
+            Cancel
+        </button>
+    </form>
+</div>

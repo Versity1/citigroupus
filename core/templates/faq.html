@@ -1,0 +1,219 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Help Center & FAQs | Citi Group{% endblock %}
+{% block meta_description %}Find answers to frequently asked questions about Citi Group banking accounts, international transfers, card security, and lending services.{% endblock %}
+
+{% block extra_head %}
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+    :root {
+        --citi-navy: #0F1632;
+        --citi-navy-light: #1a2340;
+        --citi-blue: #255BE3;
+        --citi-blue-hover: #1d4dc4;
+        --citi-accent: #FF3C28;
+        --citi-gold: #C5A059;
+        --citi-white: #FFFFFF;
+        --citi-gray-50: #F7F8FA;
+        --citi-gray-100: #EDEFF3;
+        --citi-gray-200: #D4D8E0;
+        --citi-gray-500: #6B7280;
+        --citi-gray-700: #374151;
+        --citi-gray-900: #111827;
+        --citi-transition: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+    .font-serif { font-family: 'Playfair Display', Georgia, serif; }
+    .accent-bar { width: 48px; height: 3px; background: var(--citi-accent); border-radius: 2px; }
+    .btn-citi-primary {
+        display: inline-flex; align-items: center; justify-content: center; padding: 12px 28px;
+        background: var(--citi-blue); color: var(--citi-white); font-weight: 600; font-size: 14px;
+        border-radius: 4px; border: none; cursor: pointer; transition: all 0.3s var(--citi-transition); text-decoration: none;
+    }
+    .btn-citi-primary:hover { background: var(--citi-blue-hover); transform: translateY(-1px); box-shadow: 0 6px 20px rgba(37, 91, 227, 0.3); }
+    .btn-citi-white {
+        display: inline-flex; align-items: center; justify-content: center; padding: 12px 28px;
+        background: var(--citi-white); color: var(--citi-navy); font-weight: 600; font-size: 14px;
+        border-radius: 4px; border: none; cursor: pointer; transition: all 0.3s var(--citi-transition); text-decoration: none;
+    }
+    .btn-citi-white:hover { background: var(--citi-gray-100); transform: translateY(-1px); }
+    .btn-citi-outline {
+        display: inline-flex; align-items: center; justify-content: center; padding: 12px 28px;
+        background: transparent; color: var(--citi-white); font-weight: 600; font-size: 14px;
+        border-radius: 4px; border: 1.5px solid rgba(255,255,255,0.3); cursor: pointer; transition: all 0.3s var(--citi-transition); text-decoration: none;
+    }
+    .btn-citi-outline:hover { border-color: var(--citi-white); background: rgba(255,255,255,0.06); }
+    .nav-link-premium { position: relative; padding-bottom: 2px; }
+    .nav-link-premium::after {
+        content: ''; position: absolute; bottom: 0; left: 0; width: 0; height: 2px;
+        background: var(--citi-blue); transition: width 0.3s var(--citi-transition);
+    }
+    .nav-link-premium:hover::after, .nav-link-premium.active-tab::after { width: 100%; }
+    .mobile-menu-slide { transform: translateX(100%); transition: transform 0.35s var(--citi-transition); }
+    .mobile-menu-slide.open { transform: translateX(0); }
+</style>
+{% endblock %}
+
+{% block body %}
+<div class="relative flex min-h-screen w-full flex-col overflow-x-hidden bg-white">
+    {% include 'partials/public_header.html' with active_tab='faq' solid_nav=True %}
+
+    <main class="flex-grow pt-20">
+        <!-- Hero Section -->
+        <section class="relative overflow-hidden" style="background: var(--citi-navy); padding: 90px 0 80px 0;">
+            <div class="absolute inset-0 opacity-10" style="background-image: radial-gradient(rgba(255,255,255,0.3) 1px, transparent 1px); background-size: 24px 24px;"></div>
+            <div class="relative mx-auto max-w-[1400px] px-6 lg:px-12">
+                <div class="max-w-3xl">
+                    <span class="text-xs font-semibold tracking-[0.2em] uppercase text-white/50 block mb-4">Client Knowledge Base</span>
+                    <div class="accent-bar mb-6"></div>
+                    <h1 class="font-serif text-4xl sm:text-5xl lg:text-6xl font-bold text-white leading-tight mb-6">
+                        Frequently Asked Questions & Support
+                    </h1>
+                    <p class="text-lg sm:text-xl text-white/70 leading-relaxed">
+                        Find answers to common questions about opening accounts, international wire transfers, card controls, and regulatory compliance.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- FAQ Categories List -->
+        <section class="py-20 lg:py-28 bg-white">
+            <div class="mx-auto max-w-[900px] px-6 lg:px-12">
+                <!-- Search bar -->
+                <div class="mb-14">
+                    <div class="relative">
+                        <span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 text-[22px]">search</span>
+                        <input type="text" id="faq-search" onkeyup="filterFaq()" placeholder="Search questions (e.g. transfer, wire, PIN, fees, security)..."
+                            class="w-full pl-12 pr-4 py-3.5 bg-slate-50 border border-slate-200 rounded-lg text-sm text-slate-800 placeholder-slate-400 focus:outline-none focus:border-[var(--citi-blue)] focus:ring-1 focus:ring-[var(--citi-blue)] transition-all" />
+                    </div>
+                </div>
+
+                <!-- Getting Started -->
+                <div class="faq-category mb-12">
+                    <div class="flex items-center gap-3 mb-6">
+                        <div class="w-10 h-10 rounded bg-blue-50 text-[var(--citi-blue)] flex items-center justify-center">
+                            <span class="material-symbols-outlined text-[22px]">rocket_launch</span>
+                        </div>
+                        <h2 class="font-serif text-2xl font-bold text-slate-900">Getting Started & Account Opening</h2>
+                    </div>
+
+                    <div class="space-y-3">
+                        <details class="faq-item group bg-[var(--citi-gray-50)] rounded-lg border border-slate-200/80 overflow-hidden">
+                            <summary class="flex items-center justify-between cursor-pointer px-6 py-4 text-sm font-semibold text-slate-900 hover:bg-slate-100/60 transition-colors">
+                                <span>How do I open an account with Citi Group?</span>
+                                <span class="material-symbols-outlined text-[20px] text-slate-400 group-open:rotate-180 transition-transform">expand_more</span>
+                            </summary>
+                            <div class="px-6 pb-5 text-xs text-slate-600 leading-relaxed border-t border-slate-200/50 pt-3">
+                                Opening an account is entirely digital. Click "Open Account" at the top of the page, provide your legal name and contact details, and verify your email. The entire onboarding process takes under 3 minutes with instant account number generation.
+                            </div>
+                        </details>
+
+                        <details class="faq-item group bg-[var(--citi-gray-50)] rounded-lg border border-slate-200/80 overflow-hidden">
+                            <summary class="flex items-center justify-between cursor-pointer px-6 py-4 text-sm font-semibold text-slate-900 hover:bg-slate-100/60 transition-colors">
+                                <span>What documents are required to open an account?</span>
+                                <span class="material-symbols-outlined text-[20px] text-slate-400 group-open:rotate-180 transition-transform">expand_more</span>
+                            </summary>
+                            <div class="px-6 pb-5 text-xs text-slate-600 leading-relaxed border-t border-slate-200/50 pt-3">
+                                You will need a government-issued photo ID (passport, national ID, or driver's license) and a valid proof of residential address (utility bill or bank statement issued within the last 90 days).
+                            </div>
+                        </details>
+                    </div>
+                </div>
+
+                <!-- Transfers & International Wires -->
+                <div class="faq-category mb-12">
+                    <div class="flex items-center gap-3 mb-6">
+                        <div class="w-10 h-10 rounded bg-blue-50 text-[var(--citi-blue)] flex items-center justify-center">
+                            <span class="material-symbols-outlined text-[22px]">swap_horiz</span>
+                        </div>
+                        <h2 class="font-serif text-2xl font-bold text-slate-900">Transfers & International Wires</h2>
+                    </div>
+
+                    <div class="space-y-3">
+                        <details class="faq-item group bg-[var(--citi-gray-50)] rounded-lg border border-slate-200/80 overflow-hidden">
+                            <summary class="flex items-center justify-between cursor-pointer px-6 py-4 text-sm font-semibold text-slate-900 hover:bg-slate-100/60 transition-colors">
+                                <span>How long do international wire transfers take to settle?</span>
+                                <span class="material-symbols-outlined text-[20px] text-slate-400 group-open:rotate-180 transition-transform">expand_more</span>
+                            </summary>
+                            <div class="px-6 pb-5 text-xs text-slate-600 leading-relaxed border-t border-slate-200/50 pt-3">
+                                Most international wires settle same-day or within 1 business day via the global SWIFT network. Internal transfers between Citi Group accounts settle instantaneously 24/7.
+                            </div>
+                        </details>
+
+                        <details class="faq-item group bg-[var(--citi-gray-50)] rounded-lg border border-slate-200/80 overflow-hidden">
+                            <summary class="flex items-center justify-between cursor-pointer px-6 py-4 text-sm font-semibold text-slate-900 hover:bg-slate-100/60 transition-colors">
+                                <span>What is the Tax Verification Number (TVN) compliance check?</span>
+                                <span class="material-symbols-outlined text-[20px] text-slate-400 group-open:rotate-180 transition-transform">expand_more</span>
+                            </summary>
+                            <div class="px-6 pb-5 text-xs text-slate-600 leading-relaxed border-t border-slate-200/50 pt-3">
+                                High-value cross-border transactions may undergo automated compliance clearance. In such instances, a valid Tax Verification Number (TVN) ensures full international AML and tax transparency. You can request or validate TVNs directly in your compliance dashboard.
+                            </div>
+                        </details>
+                    </div>
+                </div>
+
+                <!-- Security & 2FA -->
+                <div class="faq-category mb-12">
+                    <div class="flex items-center gap-3 mb-6">
+                        <div class="w-10 h-10 rounded bg-blue-50 text-[var(--citi-blue)] flex items-center justify-center">
+                            <span class="material-symbols-outlined text-[22px]">security</span>
+                        </div>
+                        <h2 class="font-serif text-2xl font-bold text-slate-900">Security & Account Protection</h2>
+                    </div>
+
+                    <div class="space-y-3">
+                        <details class="faq-item group bg-[var(--citi-gray-50)] rounded-lg border border-slate-200/80 overflow-hidden">
+                            <summary class="flex items-center justify-between cursor-pointer px-6 py-4 text-sm font-semibold text-slate-900 hover:bg-slate-100/60 transition-colors">
+                                <span>How does Citi Group protect my financial assets?</span>
+                                <span class="material-symbols-outlined text-[20px] text-slate-400 group-open:rotate-180 transition-transform">expand_more</span>
+                            </summary>
+                            <div class="px-6 pb-5 text-xs text-slate-600 leading-relaxed border-t border-slate-200/50 pt-3">
+                                Deposits are protected under applicable regulatory frameworks including FDIC insurance up to $250,000 for US accounts and FINMA capital safeguards for European accounts. Every session is encrypted with 256-bit SSL and safeguarded by automated fraud monitors.
+                            </div>
+                        </details>
+
+                        <details class="faq-item group bg-[var(--citi-gray-50)] rounded-lg border border-slate-200/80 overflow-hidden">
+                            <summary class="flex items-center justify-between cursor-pointer px-6 py-4 text-sm font-semibold text-slate-900 hover:bg-slate-100/60 transition-colors">
+                                <span>How do I enable Two-Factor Authentication (2FA)?</span>
+                                <span class="material-symbols-outlined text-[20px] text-slate-400 group-open:rotate-180 transition-transform">expand_more</span>
+                            </summary>
+                            <div class="px-6 pb-5 text-xs text-slate-600 leading-relaxed border-t border-slate-200/50 pt-3">
+                                Navigate to your Profile settings after logging in. Under the Security section, toggle Two-Factor Authentication to active. You will receive one-time PIN codes via registered email/SMS for all sensitive transaction authorizations.
+                            </div>
+                        </details>
+                    </div>
+                </div>
+
+                <!-- Need more help CTA -->
+                <div class="p-8 rounded-lg text-center border border-slate-200 bg-[var(--citi-gray-50)]">
+                    <h3 class="font-serif text-xl font-bold text-slate-900 mb-2">Still have questions?</h3>
+                    <p class="text-xs text-slate-500 mb-6">Our 24/7 global support team is available via live chat, email, and phone.</p>
+                    <a href="{% url 'contact' %}" class="btn-citi-primary text-xs">Contact Support</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    {% include 'partials/public_footer.html' %}
+</div>
+
+<script>
+    function toggleMobileMenu() {
+        const menu = document.getElementById('mobile-menu');
+        const overlay = document.getElementById('mobile-overlay');
+        menu.classList.toggle('open');
+        overlay.classList.toggle('hidden');
+    }
+
+    function filterFaq() {
+        const q = document.getElementById('faq-search').value.toLowerCase();
+        const items = document.querySelectorAll('.faq-item');
+        items.forEach(item => {
+            const text = item.textContent.toLowerCase();
+            item.style.display = text.includes(q) ? 'block' : 'none';
+        });
+    }
+</script>
+{% endblock %}

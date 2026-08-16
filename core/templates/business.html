@@ -1,0 +1,202 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Business & Commercial Banking — Global Solutions | Citi Group{% endblock %}
+{% block meta_description %}Empower your enterprise with Citi Group commercial banking. Treasury solutions, cross-border payments, working capital loans, and multi-currency accounts.{% endblock %}
+
+{% block extra_head %}
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+    :root {
+        --citi-navy: #0F1632;
+        --citi-navy-light: #1a2340;
+        --citi-blue: #255BE3;
+        --citi-blue-hover: #1d4dc4;
+        --citi-accent: #FF3C28;
+        --citi-gold: #C5A059;
+        --citi-white: #FFFFFF;
+        --citi-gray-50: #F7F8FA;
+        --citi-gray-100: #EDEFF3;
+        --citi-gray-200: #D4D8E0;
+        --citi-gray-500: #6B7280;
+        --citi-gray-700: #374151;
+        --citi-gray-900: #111827;
+        --citi-transition: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+    .font-serif { font-family: 'Playfair Display', Georgia, serif; }
+    .accent-bar { width: 48px; height: 3px; background: var(--citi-accent); border-radius: 2px; }
+    .btn-citi-primary {
+        display: inline-flex; align-items: center; justify-content: center; padding: 12px 28px;
+        background: var(--citi-blue); color: var(--citi-white); font-weight: 600; font-size: 14px;
+        border-radius: 4px; border: none; cursor: pointer; transition: all 0.3s var(--citi-transition); text-decoration: none;
+    }
+    .btn-citi-primary:hover { background: var(--citi-blue-hover); transform: translateY(-1px); box-shadow: 0 6px 20px rgba(37, 91, 227, 0.3); }
+    .btn-citi-white {
+        display: inline-flex; align-items: center; justify-content: center; padding: 12px 28px;
+        background: var(--citi-white); color: var(--citi-navy); font-weight: 600; font-size: 14px;
+        border-radius: 4px; border: none; cursor: pointer; transition: all 0.3s var(--citi-transition); text-decoration: none;
+    }
+    .btn-citi-white:hover { background: var(--citi-gray-100); transform: translateY(-1px); }
+    .btn-citi-outline {
+        display: inline-flex; align-items: center; justify-content: center; padding: 12px 28px;
+        background: transparent; color: var(--citi-white); font-weight: 600; font-size: 14px;
+        border-radius: 4px; border: 1.5px solid rgba(255,255,255,0.3); cursor: pointer; transition: all 0.3s var(--citi-transition); text-decoration: none;
+    }
+    .btn-citi-outline:hover { border-color: var(--citi-white); background: rgba(255,255,255,0.06); }
+    .nav-link-premium { position: relative; padding-bottom: 2px; }
+    .nav-link-premium::after {
+        content: ''; position: absolute; bottom: 0; left: 0; width: 0; height: 2px;
+        background: var(--citi-blue); transition: width 0.3s var(--citi-transition);
+    }
+    .nav-link-premium:hover::after, .nav-link-premium.active-tab::after { width: 100%; }
+    .mobile-menu-slide { transform: translateX(100%); transition: transform 0.35s var(--citi-transition); }
+    .mobile-menu-slide.open { transform: translateX(0); }
+</style>
+{% endblock %}
+
+{% block body %}
+<div class="relative flex min-h-screen w-full flex-col overflow-x-hidden bg-white">
+    {% include 'partials/public_header.html' with active_tab='business' solid_nav=True %}
+
+    <main class="flex-grow pt-20">
+        <!-- Hero Section -->
+        <section class="relative overflow-hidden" style="background: var(--citi-navy); padding: 90px 0 80px 0;">
+            <div class="absolute inset-0 opacity-10" style="background-image: radial-gradient(rgba(255,255,255,0.3) 1px, transparent 1px); background-size: 24px 24px;"></div>
+            <div class="relative mx-auto max-w-[1400px] px-6 lg:px-12">
+                <div class="grid lg:grid-cols-12 gap-12 items-center">
+                    <div class="lg:col-span-7">
+                        <span class="text-xs font-semibold tracking-[0.2em] uppercase text-white/50 block mb-4">Commercial & Corporate Banking</span>
+                        <div class="accent-bar mb-6"></div>
+                        <h1 class="font-serif text-4xl sm:text-5xl lg:text-6xl font-bold text-white leading-tight mb-6">
+                            Powering Global Commerce & Institutional Growth
+                        </h1>
+                        <p class="text-lg sm:text-xl text-white/70 leading-relaxed mb-8 max-w-xl">
+                            From mid-sized enterprises to multinational corporations, Citi Group delivers tailored treasury services, commercial financing, and cross-border settlement capabilities.
+                        </p>
+                        <div class="flex flex-wrap gap-4">
+                            <a href="{% url 'contact' %}" class="btn-citi-primary">Consult an Advisor</a>
+                            <a href="{% url 'loans' %}" class="btn-citi-outline">Commercial Loans</a>
+                        </div>
+                    </div>
+                    <div class="lg:col-span-5">
+                        <div class="rounded-lg overflow-hidden shadow-2xl border border-white/10" style="aspect-ratio: 16/10;">
+                            <img src="{% static 'images/business_corporate.jpg' %}" alt="Corporate Banking" class="w-full h-full object-cover" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Business Solutions -->
+        <section class="py-20 lg:py-28 bg-white">
+            <div class="mx-auto max-w-[1400px] px-6 lg:px-12">
+                <div class="text-center max-w-2xl mx-auto mb-16">
+                    <div class="accent-bar mx-auto mb-6"></div>
+                    <h2 class="font-serif text-3xl sm:text-4xl font-bold text-slate-900 leading-tight mb-4">
+                        Comprehensive Enterprise Solutions
+                    </h2>
+                    <p class="text-slate-600 text-base">
+                        Scalable infrastructure and personalized advisory designed to support your company's growth at home and abroad.
+                    </p>
+                </div>
+
+                <div class="grid md:grid-cols-3 gap-8">
+                    <!-- Treasury & Trade -->
+                    <div class="bg-[var(--citi-gray-50)] rounded-lg p-8 border border-slate-200/60 hover:shadow-lg transition-all">
+                        <div class="w-12 h-12 rounded-lg flex items-center justify-center mb-6 bg-blue-50 text-[var(--citi-blue)]">
+                            <span class="material-symbols-outlined text-[26px]">account_tree</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-slate-900 mb-3">Treasury & Trade Solutions</h3>
+                        <p class="text-slate-600 text-sm leading-relaxed mb-6">
+                            Automate cash flows, manage liquidity across borders, and optimize foreign exchange risk with our unified global treasury platform.
+                        </p>
+                        <ul class="space-y-2.5 text-xs text-slate-600">
+                            <li class="flex items-center gap-2"><span class="material-symbols-outlined text-green-600 text-[16px]">check_circle</span> Automated sweep accounts & pooling</li>
+                            <li class="flex items-center gap-2"><span class="material-symbols-outlined text-green-600 text-[16px]">check_circle</span> Real-time FX hedging & spot execution</li>
+                            <li class="flex items-center gap-2"><span class="material-symbols-outlined text-green-600 text-[16px]">check_circle</span> Letters of credit & trade guarantees</li>
+                        </ul>
+                    </div>
+
+                    <!-- Commercial Lending -->
+                    <div class="bg-[var(--citi-gray-50)] rounded-lg p-8 border border-slate-200/60 hover:shadow-lg transition-all">
+                        <div class="w-12 h-12 rounded-lg flex items-center justify-center mb-6 bg-blue-50 text-[var(--citi-blue)]">
+                            <span class="material-symbols-outlined text-[26px]">payments</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-slate-900 mb-3">Commercial Credit & Loans</h3>
+                        <p class="text-slate-600 text-sm leading-relaxed mb-6">
+                            Flexible working capital lines, structured equipment financing, and commercial real estate loans backed by competitive institutional rates.
+                        </p>
+                        <ul class="space-y-2.5 text-xs text-slate-600">
+                            <li class="flex items-center gap-2"><span class="material-symbols-outlined text-green-600 text-[16px]">check_circle</span> Revolving credit lines up to $25M</li>
+                            <li class="flex items-center gap-2"><span class="material-symbols-outlined text-green-600 text-[16px]">check_circle</span> Tailored amortization schedules</li>
+                            <li class="flex items-center gap-2"><span class="material-symbols-outlined text-green-600 text-[16px]">check_circle</span> Fast underwriting & expedited disbursement</li>
+                        </ul>
+                    </div>
+
+                    <!-- Multi-Currency Accounts -->
+                    <div class="bg-[var(--citi-gray-50)] rounded-lg p-8 border border-slate-200/60 hover:shadow-lg transition-all">
+                        <div class="w-12 h-12 rounded-lg flex items-center justify-center mb-6 bg-blue-50 text-[var(--citi-blue)]">
+                            <span class="material-symbols-outlined text-[26px]">currency_exchange</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-slate-900 mb-3">Multi-Currency Accounts</h3>
+                        <p class="text-slate-600 text-sm leading-relaxed mb-6">
+                            Hold, convert, and pay in over 40 major world currencies with local banking coordinates in North America, Europe, and Asia-Pacific.
+                        </p>
+                        <ul class="space-y-2.5 text-xs text-slate-600">
+                            <li class="flex items-center gap-2"><span class="material-symbols-outlined text-green-600 text-[16px]">check_circle</span> Local IBAN, ACH & Fedwire coordinates</li>
+                            <li class="flex items-center gap-2"><span class="material-symbols-outlined text-green-600 text-[16px]">check_circle</span> Same-day international wire settlement</li>
+                            <li class="flex items-center gap-2"><span class="material-symbols-outlined text-green-600 text-[16px]">check_circle</span> Direct ERP & accounting software integration</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Global Advantage (Dark) -->
+        <section style="background: var(--citi-navy); padding: 90px 0;">
+            <div class="mx-auto max-w-[1400px] px-6 lg:px-12 text-center text-white">
+                <div class="accent-bar mx-auto mb-6"></div>
+                <h2 class="font-serif text-3xl sm:text-4xl font-bold mb-4">Why Global Enterprises Choose Citi Group</h2>
+                <p class="text-white/60 text-base max-w-xl mx-auto mb-12">
+                    Our direct presence in 160+ jurisdictions eliminates intermediaries, cuts settlement friction, and protects client capital.
+                </p>
+
+                <div class="grid md:grid-cols-3 gap-8 text-left">
+                    <div class="p-6 rounded bg-white/5 border border-white/10">
+                        <p class="text-3xl font-bold text-[var(--citi-blue)] mb-2">90+</p>
+                        <h4 class="text-base font-bold text-white mb-2">Direct Local Clearing</h4>
+                        <p class="text-xs text-white/50 leading-relaxed">Direct member of domestic clearing systems worldwide for lower costs and lightning-fast execution.</p>
+                    </div>
+                    <div class="p-6 rounded bg-white/5 border border-white/10">
+                        <p class="text-3xl font-bold text-[var(--citi-blue)] mb-2">24/7/365</p>
+                        <h4 class="text-base font-bold text-white mb-2">Dedicated Coverage</h4>
+                        <p class="text-xs text-white/50 leading-relaxed">Assigned corporate relationship directors providing strategic advisory and ongoing operational support.</p>
+                    </div>
+                    <div class="p-6 rounded bg-white/5 border border-white/10">
+                        <p class="text-3xl font-bold text-[var(--citi-blue)] mb-2">AAA</p>
+                        <h4 class="text-base font-bold text-white mb-2">Institutional Safety</h4>
+                        <p class="text-xs text-white/50 leading-relaxed">Industry-leading capital ratios and conservative liquidity reserves protecting your operational reserves.</p>
+                    </div>
+                </div>
+
+                <div class="mt-12">
+                    <a href="{% url 'contact' %}" class="btn-citi-white !py-3.5 !px-8 text-sm font-bold">Schedule an Institutional Consultation</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    {% include 'partials/public_footer.html' %}
+</div>
+
+<script>
+    function toggleMobileMenu() {
+        const menu = document.getElementById('mobile-menu');
+        const overlay = document.getElementById('mobile-overlay');
+        menu.classList.toggle('open');
+        overlay.classList.toggle('hidden');
+    }
+</script>
+{% endblock %}

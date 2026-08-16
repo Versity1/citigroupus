@@ -1,0 +1,135 @@
+{% extends 'management/base_admin.html' %}
+{% load humanize %}
+
+{% block page_title %}Transactions{% endblock %}
+{% block title %}Transactions{% endblock %}
+
+{% block content %}
+<!-- Filters -->
+<div class="flex flex-col sm:flex-row gap-3 mb-6">
+    <form method="GET" class="flex-1 flex flex-wrap gap-2">
+        <div class="relative flex-1 min-w-[200px]">
+            <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-[18px]">search</span>
+            <input type="text" name="q" value="{{ q }}" placeholder="Search user or description..."
+                class="w-full pl-10 pr-4 py-2.5 bg-panel border border-slate-200 dark:border-slate-700 rounded-xl text-sm text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:border-primary outline-none">
+        </div>
+        <select name="status" class="px-3 py-2.5 bg-panel border border-slate-200 dark:border-slate-700 rounded-xl text-sm text-slate-900 dark:text-white outline-none">
+            <option value="">All Status</option>
+            <option value="pending" {% if status_filter == 'pending' %}selected{% endif %}>Pending</option>
+            <option value="completed" {% if status_filter == 'completed' %}selected{% endif %}>Completed</option>
+            <option value="rejected" {% if status_filter == 'rejected' %}selected{% endif %}>Rejected</option>
+        </select>
+        <select name="type" class="px-3 py-2.5 bg-panel border border-slate-200 dark:border-slate-700 rounded-xl text-sm text-slate-900 dark:text-white outline-none">
+            <option value="">All Types</option>
+            <option value="deposit" {% if type_filter == 'deposit' %}selected{% endif %}>Deposit</option>
+            <option value="withdrawal" {% if type_filter == 'withdrawal' %}selected{% endif %}>Withdrawal</option>
+            <option value="transfer_out" {% if type_filter == 'transfer_out' %}selected{% endif %}>Transfer Out</option>
+            <option value="transfer_in" {% if type_filter == 'transfer_in' %}selected{% endif %}>Transfer In</option>
+        </select>
+        <button type="submit" class="px-4 py-2 bg-primary text-white rounded-xl text-sm font-semibold hover:bg-primary-dark transition-colors">Filter</button>
+    </form>
+</div>
+
+<!-- Table -->
+<div class="bg-panel rounded-xl border border-slate-200 dark:border-slate-700/50 overflow-hidden">
+    <div class="overflow-x-auto">
+        <table class="w-full text-sm">
+            <thead>
+                <tr class="border-b border-slate-200 dark:border-slate-700/50">
+                    <th class="text-left px-5 py-3 text-xs font-bold text-slate-500 uppercase">ID</th>
+                    <th class="text-left px-5 py-3 text-xs font-bold text-slate-500 uppercase">User</th>
+                    <th class="text-left px-5 py-3 text-xs font-bold text-slate-500 uppercase">Type</th>
+                    <th class="text-left px-5 py-3 text-xs font-bold text-slate-500 uppercase">Method</th>
+                    <th class="text-right px-5 py-3 text-xs font-bold text-slate-500 uppercase">Amount</th>
+                    <th class="text-left px-5 py-3 text-xs font-bold text-slate-500 uppercase">Status</th>
+                    <th class="text-left px-5 py-3 text-xs font-bold text-slate-500 uppercase">Date</th>
+                    <th class="text-right px-5 py-3 text-xs font-bold text-slate-500 uppercase">Actions</th>
+                </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-100 dark:divide-slate-700/30">
+                {% for tx in transactions %}
+                <tr class="hover:bg-slate-50 dark:hover:bg-slate-700/20 transition-colors">
+                    <td class="px-5 py-3 font-mono text-xs text-slate-500 dark:text-slate-400">{{ tx.transaction_id }}</td>
+                    <td class="px-5 py-3">
+                        <a href="{% url 'admin_user_detail' tx.user.id %}" class="text-slate-900 dark:text-white hover:text-primary font-medium">{{ tx.user.get_full_name }}</a>
+                        <p class="text-[11px] text-slate-500">{{ tx.user.email }}</p>
+                    </td>
+                    <td class="px-5 py-3">
+                        <span class="inline-flex items-center gap-1 text-xs font-medium
+                            {% if tx.transaction_type == 'deposit' %}text-green-600 dark:text-green-400
+                            {% elif tx.transaction_type == 'withdrawal' %}text-red-600 dark:text-red-400
+                            {% else %}text-blue-600 dark:text-blue-400{% endif %}">
+                            <span class="material-symbols-outlined text-[14px]">
+                                {% if tx.transaction_type == 'deposit' %}arrow_downward{% elif tx.transaction_type == 'withdrawal' %}arrow_upward{% else %}swap_horiz{% endif %}
+                            </span>
+                            {{ tx.get_transaction_type_display }}
+                        </span>
+                    </td>
+                    <td class="px-5 py-3 align-top min-w-[200px]">
+                        <div class="text-xs font-semibold text-slate-900 dark:text-slate-200 mb-1">{{ tx.get_deposit_method_display|default:"—" }}</div>
+                        {% if tx.transaction_type == 'withdrawal' and tx.recipient_account %}
+                            <div class="text-[11px] font-mono break-all text-slate-600 dark:text-slate-400 bg-slate-50 dark:bg-slate-800/50 rounded flex flex-col gap-0.5 p-1.5 border border-slate-100 dark:border-slate-700">
+                                {% if tx.deposit_method == 'crypto' %}
+                                    <div><span class="text-slate-400 dark:text-slate-500 select-none">Addr: </span><span class="text-slate-800 dark:text-slate-300">{{ tx.recipient_account }}</span></div>
+                                    <div><span class="text-slate-400 dark:text-slate-500 select-none">Net:  </span><span class="text-slate-800 dark:text-slate-300">{{ tx.recipient_name }}</span></div>
+                                {% elif tx.deposit_method == 'bank' %}
+                                    <div><span class="text-slate-400 dark:text-slate-500 select-none">Acct: </span><span class="text-slate-800 dark:text-slate-300">{{ tx.recipient_account }}</span></div>
+                                    <div><span class="text-slate-400 dark:text-slate-500 select-none">Bank: </span><span class="text-slate-800 dark:text-slate-300">{{ tx.recipient_name }}</span></div>
+                                {% endif %}
+                            </div>
+                        {% endif %}
+                    </td>
+                    <td class="px-5 py-3 text-right font-bold text-slate-900 dark:text-white">${{ tx.amount|floatformat:2|intcomma }}</td>
+                    <td class="px-5 py-3">
+                        <span class="text-[10px] font-medium px-2 py-0.5 rounded-full
+                            {% if tx.status == 'completed' %}bg-green-100 dark:bg-green-500/10 text-green-700 dark:text-green-400
+                            {% elif tx.status == 'pending' %}bg-amber-100 dark:bg-amber-500/10 text-amber-700 dark:text-amber-400
+                            {% else %}bg-red-100 dark:bg-red-500/10 text-red-700 dark:text-red-400{% endif %}">{{ tx.get_status_display }}</span>
+                    </td>
+                    <td class="px-5 py-3 text-xs text-slate-500">{{ tx.created_at|date:"M d, H:i" }}</td>
+                    <td class="px-5 py-3 text-right">
+                        <div class="flex items-center justify-end gap-1">
+                            {% if tx.status == 'pending' %}
+                            <form method="POST" action="{% url 'admin_transaction_action' tx.id %}">
+                                {% csrf_token %}
+                                <input type="hidden" name="action" value="approve">
+                                <button type="submit" class="p-1.5 rounded-lg bg-green-100 dark:bg-green-500/10 text-green-700 dark:text-green-400 hover:bg-green-200 dark:hover:bg-green-500/20 transition-colors" title="Approve">
+                                    <span class="material-symbols-outlined text-[16px]">check</span>
+                                </button>
+                            </form>
+                            <form method="POST" action="{% url 'admin_transaction_action' tx.id %}">
+                                {% csrf_token %}
+                                <input type="hidden" name="action" value="reject">
+                                <button type="submit" class="p-1.5 rounded-lg bg-red-100 dark:bg-red-500/10 text-red-700 dark:text-red-400 hover:bg-red-200 dark:hover:bg-red-500/20 transition-colors" title="Reject">
+                                    <span class="material-symbols-outlined text-[16px]">close</span>
+                                </button>
+                            </form>
+                            {% endif %}
+                            <a href="{% url 'admin_transaction_edit' tx.id %}" class="p-1.5 rounded-lg bg-slate-100 dark:bg-slate-700/50 text-slate-600 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-600 transition-colors" title="Edit Metadata">
+                                <span class="material-symbols-outlined text-[16px]">edit</span>
+                            </a>
+                        </div>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr><td colspan="8" class="px-5 py-8 text-center text-slate-500">No transactions found</td></tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    {% if transactions.has_other_pages %}
+    <div class="px-5 py-3 border-t border-slate-200 dark:border-slate-700/50 flex items-center justify-between">
+        <span class="text-xs text-slate-500">Page {{ transactions.number }} of {{ transactions.paginator.num_pages }}</span>
+        <div class="flex gap-1">
+            {% if transactions.has_previous %}
+            <a href="?page={{ transactions.previous_page_number }}&q={{ q }}&status={{ status_filter }}&type={{ type_filter }}" class="px-3 py-1 rounded-lg text-xs bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-600">Prev</a>
+            {% endif %}
+            {% if transactions.has_next %}
+            <a href="?page={{ transactions.next_page_number }}&q={{ q }}&status={{ status_filter }}&type={{ type_filter }}" class="px-3 py-1 rounded-lg text-xs bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-600">Next</a>
+            {% endif %}
+        </div>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

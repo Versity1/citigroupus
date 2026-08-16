@@ -1,0 +1,206 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}About Us — Global Banking & Financial Services | Citi Group{% endblock %}
+{% block meta_description %}Learn about Citi Group's history, global reach, leadership, and mission to enable growth and economic progress worldwide.{% endblock %}
+
+{% block extra_head %}
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+    :root {
+        --citi-navy: #0F1632;
+        --citi-navy-light: #1a2340;
+        --citi-blue: #255BE3;
+        --citi-blue-hover: #1d4dc4;
+        --citi-accent: #FF3C28;
+        --citi-gold: #C5A059;
+        --citi-white: #FFFFFF;
+        --citi-gray-50: #F7F8FA;
+        --citi-gray-100: #EDEFF3;
+        --citi-gray-200: #D4D8E0;
+        --citi-gray-500: #6B7280;
+        --citi-gray-700: #374151;
+        --citi-gray-900: #111827;
+        --citi-transition: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+    .font-serif { font-family: 'Playfair Display', Georgia, serif; }
+    .accent-bar { width: 48px; height: 3px; background: var(--citi-accent); border-radius: 2px; }
+    .btn-citi-primary {
+        display: inline-flex; align-items: center; justify-content: center; padding: 12px 28px;
+        background: var(--citi-blue); color: var(--citi-white); font-weight: 600; font-size: 14px;
+        border-radius: 4px; border: none; cursor: pointer; transition: all 0.3s var(--citi-transition); text-decoration: none;
+    }
+    .btn-citi-primary:hover { background: var(--citi-blue-hover); transform: translateY(-1px); box-shadow: 0 6px 20px rgba(37, 91, 227, 0.3); }
+    .btn-citi-white {
+        display: inline-flex; align-items: center; justify-content: center; padding: 12px 28px;
+        background: var(--citi-white); color: var(--citi-navy); font-weight: 600; font-size: 14px;
+        border-radius: 4px; border: none; cursor: pointer; transition: all 0.3s var(--citi-transition); text-decoration: none;
+    }
+    .btn-citi-white:hover { background: var(--citi-gray-100); transform: translateY(-1px); }
+    .btn-citi-outline {
+        display: inline-flex; align-items: center; justify-content: center; padding: 12px 28px;
+        background: transparent; color: var(--citi-white); font-weight: 600; font-size: 14px;
+        border-radius: 4px; border: 1.5px solid rgba(255,255,255,0.3); cursor: pointer; transition: all 0.3s var(--citi-transition); text-decoration: none;
+    }
+    .btn-citi-outline:hover { border-color: var(--citi-white); background: rgba(255,255,255,0.06); }
+    .nav-link-premium { position: relative; padding-bottom: 2px; }
+    .nav-link-premium::after {
+        content: ''; position: absolute; bottom: 0; left: 0; width: 0; height: 2px;
+        background: var(--citi-blue); transition: width 0.3s var(--citi-transition);
+    }
+    .nav-link-premium:hover::after, .nav-link-premium.active-tab::after { width: 100%; }
+    .mobile-menu-slide { transform: translateX(100%); transition: transform 0.35s var(--citi-transition); }
+    .mobile-menu-slide.open { transform: translateX(0); }
+</style>
+{% endblock %}
+
+{% block body %}
+<div class="relative flex min-h-screen w-full flex-col overflow-x-hidden bg-white">
+    {% include 'partials/public_header.html' with active_tab='about' solid_nav=True %}
+
+    <main class="flex-grow pt-20">
+        <!-- Hero Section -->
+        <section class="relative overflow-hidden" style="background: var(--citi-navy); padding: 90px 0 80px 0;">
+            <div class="absolute inset-0 opacity-10" style="background-image: radial-gradient(rgba(255,255,255,0.3) 1px, transparent 1px); background-size: 24px 24px;"></div>
+            <div class="relative mx-auto max-w-[1400px] px-6 lg:px-12">
+                <div class="max-w-3xl">
+                    <span class="text-xs font-semibold tracking-[0.2em] uppercase text-white/50 block mb-4">About Citi Group</span>
+                    <div class="accent-bar mb-6"></div>
+                    <h1 class="font-serif text-4xl sm:text-5xl lg:text-6xl font-bold text-white leading-tight mb-6">
+                        Enabling Growth and Economic Progress Worldwide
+                    </h1>
+                    <p class="text-lg sm:text-xl text-white/70 leading-relaxed">
+                        Citi Group is a preeminent global financial institution, connecting millions of clients across more than 160 countries and jurisdictions to world-class banking, wealth management, and capital market solutions.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Key Metrics Banner -->
+        <section style="background: var(--citi-navy-light); padding: 50px 0; border-top: 1px solid rgba(255,255,255,0.08); border-bottom: 1px solid rgba(255,255,255,0.08);">
+            <div class="mx-auto max-w-[1400px] px-6 lg:px-12">
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center text-white">
+                    <div>
+                        <p class="font-serif text-4xl lg:text-5xl font-bold text-[var(--citi-blue)] mb-2">160+</p>
+                        <p class="text-xs font-semibold tracking-wider uppercase text-white/60">Countries & Jurisdictions</p>
+                    </div>
+                    <div>
+                        <p class="font-serif text-4xl lg:text-5xl font-bold text-[var(--citi-blue)] mb-2">$12B+</p>
+                        <p class="text-xs font-semibold tracking-wider uppercase text-white/60">Assets Under Management</p>
+                    </div>
+                    <div>
+                        <p class="font-serif text-4xl lg:text-5xl font-bold text-[var(--citi-blue)] mb-2">2M+</p>
+                        <p class="text-xs font-semibold tracking-wider uppercase text-white/60">Active Global Clients</p>
+                    </div>
+                    <div>
+                        <p class="font-serif text-4xl lg:text-5xl font-bold text-[var(--citi-blue)] mb-2">99.99%</p>
+                        <p class="text-xs font-semibold tracking-wider uppercase text-white/60">Operational Reliability</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Mission & Heritage with Image -->
+        <section class="py-20 lg:py-28 bg-white">
+            <div class="mx-auto max-w-[1400px] px-6 lg:px-12">
+                <div class="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+                    <div class="rounded-lg overflow-hidden shadow-2xl border border-slate-100" style="aspect-ratio: 16/11;">
+                        <img src="{% static 'images/about_boardroom.jpg' %}" alt="Executive Boardroom" class="w-full h-full object-cover" />
+                    </div>
+                    <div>
+                        <div class="accent-bar mb-6"></div>
+                        <h2 class="font-serif text-3xl sm:text-4xl font-bold text-slate-900 leading-tight mb-6">
+                            A Trusted Global Partner for Institutions, Corporations, and Individuals
+                        </h2>
+                        <p class="text-slate-600 text-base leading-relaxed mb-6">
+                            At Citi Group, our mission is to serve as a trusted partner to our clients by responsibly providing financial services that enable growth and economic progress. Our core activities are safeguarding assets, lending money, making payments and accessing the capital markets on behalf of our clients.
+                        </p>
+                        <p class="text-slate-600 text-base leading-relaxed mb-8">
+                            We have two centuries of experience helping our clients meet the world's toughest challenges and embrace its greatest opportunities. We are Citi Group, the global bank — an institution connecting millions of people across hundreds of cities and countries.
+                        </p>
+                        <div class="flex flex-wrap gap-4">
+                            <a href="{% url 'personal' %}" class="btn-citi-primary">Explore Personal Banking</a>
+                            <a href="{% url 'business' %}" class="inline-flex items-center text-sm font-semibold text-[var(--citi-blue)] hover:underline ml-2">Commercial Banking &rarr;</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Our Core Pillars -->
+        <section style="background: var(--citi-gray-50); padding: 100px 0;">
+            <div class="mx-auto max-w-[1400px] px-6 lg:px-12">
+                <div class="text-center max-w-2xl mx-auto mb-16">
+                    <div class="accent-bar mx-auto mb-6"></div>
+                    <h2 class="font-serif text-3xl sm:text-4xl font-bold text-slate-900 leading-tight mb-4">
+                        Our Guiding Principles
+                    </h2>
+                    <p class="text-slate-600 text-base">
+                        Every decision we make is rooted in high ethical standards and institutional accountability.
+                    </p>
+                </div>
+
+                <div class="grid md:grid-cols-3 gap-8">
+                    <div class="bg-white rounded-lg p-8 border border-slate-200/80 shadow-sm hover:shadow-md transition-all">
+                        <div class="w-12 h-12 rounded-lg flex items-center justify-center mb-6 bg-blue-50 text-[var(--citi-blue)]">
+                            <span class="material-symbols-outlined text-[26px]">verified_user</span>
+                        </div>
+                        <h3 class="text-lg font-bold text-slate-900 mb-3">Integrity & Governance</h3>
+                        <p class="text-slate-600 text-sm leading-relaxed">
+                            We hold ourselves to the highest standards of governance and regulatory compliance across every jurisdiction in which we operate.
+                        </p>
+                    </div>
+
+                    <div class="bg-white rounded-lg p-8 border border-slate-200/80 shadow-sm hover:shadow-md transition-all">
+                        <div class="w-12 h-12 rounded-lg flex items-center justify-center mb-6 bg-blue-50 text-[var(--citi-blue)]">
+                            <span class="material-symbols-outlined text-[26px]">public</span>
+                        </div>
+                        <h3 class="text-lg font-bold text-slate-900 mb-3">Global Connectivity</h3>
+                        <p class="text-slate-600 text-sm leading-relaxed">
+                            Our cross-border infrastructure allows seamless capital flows, multi-currency settlements, and uninterrupted international operations.
+                        </p>
+                    </div>
+
+                    <div class="bg-white rounded-lg p-8 border border-slate-200/80 shadow-sm hover:shadow-md transition-all">
+                        <div class="w-12 h-12 rounded-lg flex items-center justify-center mb-6 bg-blue-50 text-[var(--citi-blue)]">
+                            <span class="material-symbols-outlined text-[26px]">bolt</span>
+                        </div>
+                        <h3 class="text-lg font-bold text-slate-900 mb-3">Client-Centric Innovation</h3>
+                        <p class="text-slate-600 text-sm leading-relaxed">
+                            We continually invest in digital security, real-time analytics, and automated banking solutions that empower our clients.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA Section -->
+        <section style="background: linear-gradient(135deg, var(--citi-blue), #1a3fa0); padding: 90px 0;">
+            <div class="mx-auto max-w-[1400px] px-6 lg:px-12 text-center text-white">
+                <div class="accent-bar mx-auto mb-6"></div>
+                <h2 class="font-serif text-3xl sm:text-4xl font-bold mb-6">Ready to Partner With Citi Group?</h2>
+                <p class="text-white/70 text-base max-w-xl mx-auto mb-8">
+                    Discover how our global network, wealth advisory, and commercial banking solutions can help you achieve your financial goals.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                    <a href="{% url 'register' %}" class="btn-citi-white !py-3.5 !px-8 text-sm font-bold">Open an Account</a>
+                    <a href="{% url 'contact' %}" class="btn-citi-outline !py-3.5 !px-8 text-sm font-bold">Contact Our Advisors</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    {% include 'partials/public_footer.html' %}
+</div>
+
+<script>
+    function toggleMobileMenu() {
+        const menu = document.getElementById('mobile-menu');
+        const overlay = document.getElementById('mobile-overlay');
+        menu.classList.toggle('open');
+        overlay.classList.toggle('hidden');
+    }
+</script>
+{% endblock %}

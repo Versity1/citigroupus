@@ -1,0 +1,20 @@
+{% extends 'base_dashboard.html' %}
+
+{% block page_title %}Notifications{% endblock %}
+{% block title %}Notifications{% endblock %}
+
+{% block content %}
+<div class="max-w-2xl mx-auto">
+    <div class="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 overflow-hidden">
+        <div class="px-6 py-4 border-b border-slate-100 dark:border-slate-700 flex items-center justify-between">
+            <h3 class="text-lg font-bold text-slate-900 dark:text-white">Notifications</h3>
+            {% if unread_count > 0 %}
+            <span class="px-2 py-0.5 text-xs font-bold rounded-full bg-red-100 text-red-600">{{ unread_count }} new</span>
+            {% endif %}
+        </div>
+        <div id="notification-list" class="divide-y divide-slate-100 dark:divide-slate-700">
+            {% include 'partials/notification_list.html' %}
+        </div>
+    </div>
+</div>
+{% endblock %}

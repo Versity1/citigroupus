@@ -1,0 +1,129 @@
+{% extends 'base_dashboard.html' %}
+{% load humanize %}
+
+{% block page_title %}Withdraw{% endblock %}
+{% block title %}Withdraw{% endblock %}
+
+{% block content %}
+<div class="max-w-lg mx-auto">
+    <div class="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 overflow-hidden">
+        <div class="px-6 py-5 border-b border-slate-100 dark:border-slate-700">
+            <h2 class="text-lg font-bold text-slate-900 dark:text-white">Withdraw Funds</h2>
+            <p class="text-sm text-slate-500 mt-1">Withdraw from your account balance</p>
+        </div>
+        <div class="p-6" id="withdraw-form-container">
+            <!-- Withdrawal Method Tabs -->
+            <div class="flex gap-2 mb-6">
+                <button type="button" onclick="switchMethod('crypto')" id="tab-crypto"
+                    class="flex-1 flex items-center justify-center gap-2 py-3 rounded-xl border-2 border-primary bg-primary/5 text-primary font-semibold text-sm transition-all">
+                    <span class="material-symbols-outlined text-[20px]">currency_bitcoin</span>
+                    Crypto Wallet
+                </button>
+                <button type="button" onclick="switchMethod('bank')" id="tab-bank"
+                    class="flex-1 flex items-center justify-center gap-2 py-3 rounded-xl border-2 border-slate-200 dark:border-slate-700 text-slate-500 font-semibold text-sm transition-all hover:border-slate-400">
+                    <span class="material-symbols-outlined text-[20px]">account_balance</span>
+                    Bank Account
+                </button>
+            </div>
+
+            <form method="POST" hx-post="{% url 'withdraw' %}" hx-target="#withdraw-form-container" hx-swap="innerHTML">
+                {% csrf_token %}
+                <input type="hidden" name="withdrawal_method" id="withdrawal-method-input" value="crypto" />
+
+                <div id="withdraw-error" class="empty:hidden mb-4"></div>
+
+                <div class="text-center mb-6">
+                    <p class="text-sm text-slate-500 mb-2">Enter Amount (USD)</p>
+                    <div class="flex items-center justify-center gap-1">
+                        <span class="text-3xl font-bold text-slate-400">$</span>
+                        {{ form.amount }}
+                    </div>
+                </div>
+
+                <!-- Crypto Inputs -->
+                <div id="panel-crypto" class="space-y-4 mb-6">
+                    <div>
+                        <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Wallet Address</label>
+                        <input type="text" name="crypto_address" placeholder="Enter your wallet address" class="w-full rounded-lg border-slate-200 focus:border-primary focus:ring-primary p-3 text-slate-900 placeholder-gray-400 font-medium dark:bg-slate-800 dark:border-slate-700 dark:text-white">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Network (e.g., ERC20, BTC, TRC20)</label>
+                        <input type="text" name="crypto_network" placeholder="Enter network" class="w-full rounded-lg border-slate-200 focus:border-primary focus:ring-primary p-3 text-slate-900 placeholder-gray-400 font-medium dark:bg-slate-800 dark:border-slate-700 dark:text-white">
+                    </div>
+                </div>
+
+                <!-- Bank Inputs -->
+                <div id="panel-bank" class="space-y-4 mb-6 hidden">
+                    <div>
+                        <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Bank Name</label>
+                        <input type="text" name="bank_name" placeholder="Enter bank name" class="w-full rounded-lg border-slate-200 focus:border-primary focus:ring-primary p-3 text-slate-900 placeholder-gray-400 font-medium dark:bg-slate-800 dark:border-slate-700 dark:text-white">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Account Number / IBAN</label>
+                        <input type="text" name="bank_account" placeholder="Enter account number" class="w-full rounded-lg border-slate-200 focus:border-primary focus:ring-primary p-3 text-slate-900 placeholder-gray-400 font-medium dark:bg-slate-800 dark:border-slate-700 dark:text-white">
+                    </div>
+                </div>
+
+                <div class="mb-6">
+                    {{ form.description }}
+                </div>
+
+                <div class="bg-slate-50 dark:bg-slate-700/50 rounded-xl p-4 mb-6">
+                    <div class="flex justify-between text-sm">
+                        <span class="text-slate-500">Available Balance</span>
+                        <span class="font-bold text-slate-900 dark:text-white">${{ user.balance|floatformat:2|intcomma }}</span>
+                    </div>
+                </div>
+
+                <button type="submit" class="w-full flex items-center justify-center gap-2 h-12 rounded-xl bg-orange-600 hover:bg-orange-700 text-white font-bold shadow-lg shadow-orange-500/20 transition-all active:scale-[0.98]">
+                    <span class="htmx-indicator animate-spin"><span class="material-symbols-outlined text-[20px]">progress_activity</span></span>
+                    <span class="material-symbols-outlined text-[20px]">money_off</span>
+                    Withdraw
+                </button>
+            </form>
+        </div>
+
+<script>
+    function switchMethod(method) {
+        const cryptoPanel = document.getElementById('panel-crypto');
+        const bankPanel = document.getElementById('panel-bank');
+        const cryptoTab = document.getElementById('tab-crypto');
+        const bankTab = document.getElementById('tab-bank');
+        const methodInput = document.getElementById('withdrawal-method-input');
+
+        if (method === 'crypto') {
+            cryptoPanel.classList.remove('hidden');
+            bankPanel.classList.add('hidden');
+            cryptoTab.className = 'flex-1 flex items-center justify-center gap-2 py-3 rounded-xl border-2 border-primary bg-primary/5 text-primary font-semibold text-sm transition-all';
+            bankTab.className = 'flex-1 flex items-center justify-center gap-2 py-3 rounded-xl border-2 border-slate-200 dark:border-slate-700 text-slate-500 font-semibold text-sm transition-all hover:border-slate-400';
+            
+            // Manage required attributes
+            document.querySelector('[name="crypto_address"]').setAttribute('required', 'required');
+            document.querySelector('[name="crypto_network"]').setAttribute('required', 'required');
+            document.querySelector('[name="bank_name"]').removeAttribute('required');
+            document.querySelector('[name="bank_account"]').removeAttribute('required');
+
+        } else {
+            cryptoPanel.classList.add('hidden');
+            bankPanel.classList.remove('hidden');
+            bankTab.className = 'flex-1 flex items-center justify-center gap-2 py-3 rounded-xl border-2 border-primary bg-primary/5 text-primary font-semibold text-sm transition-all';
+            cryptoTab.className = 'flex-1 flex items-center justify-center gap-2 py-3 rounded-xl border-2 border-slate-200 dark:border-slate-700 text-slate-500 font-semibold text-sm transition-all hover:border-slate-400';
+            
+            // Manage required attributes
+            document.querySelector('[name="bank_name"]').setAttribute('required', 'required');
+            document.querySelector('[name="bank_account"]').setAttribute('required', 'required');
+            document.querySelector('[name="crypto_address"]').removeAttribute('required');
+            document.querySelector('[name="crypto_network"]').removeAttribute('required');
+        }
+        methodInput.value = method;
+    }
+
+    // Initialize required attributes on load
+    document.addEventListener('DOMContentLoaded', () => {
+        document.querySelector('[name="crypto_address"]').setAttribute('required', 'required');
+        document.querySelector('[name="crypto_network"]').setAttribute('required', 'required');
+    });
+</script>
+    </div>
+</div>
+{% endblock %}

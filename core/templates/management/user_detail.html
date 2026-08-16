@@ -1,0 +1,168 @@
+{% extends 'management/base_admin.html' %}
+{% load humanize %}
+
+{% block page_title %}{{ target_user.get_full_name }}{% endblock %}
+{% block title %}User Detail{% endblock %}
+
+{% block content %}
+<a href="{% url 'admin_users' %}" class="inline-flex items-center gap-1 text-sm text-slate-500 hover:text-slate-700 dark:hover:text-slate-300 mb-6">
+    <span class="material-symbols-outlined text-[16px]">arrow_back</span>Back to Users
+</a>
+
+<div class="grid lg:grid-cols-3 gap-6">
+    <!-- User Info Card -->
+    <div class="bg-panel rounded-xl border border-slate-200 dark:border-slate-700/50 p-6">
+        <div class="flex items-center justify-between mb-6">
+            <div class="flex items-center gap-4">
+                <div class="w-14 h-14 rounded-full bg-primary/10 flex items-center justify-center">
+                    <span class="text-primary font-bold text-xl">{{ target_user.first_name.0 }}{{ target_user.last_name.0 }}</span>
+                </div>
+                <div>
+                    <h3 class="text-lg font-bold text-slate-900 dark:text-white">{{ target_user.get_full_name }}</h3>
+                    <p class="text-sm text-slate-500">{{ target_user.email }}</p>
+                    <p class="text-xs text-slate-400 dark:text-slate-500 mt-0.5">ID: {{ target_user.id }}</p>
+                </div>
+            </div>
+            <a href="{% url 'admin_user_edit' target_user.id %}" class="w-10 h-10 rounded-full bg-slate-100 dark:bg-slate-700 flex items-center justify-center text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-600 transition-colors" title="Edit Profile">
+                <span class="material-symbols-outlined text-[20px]">edit</span>
+            </a>
+        </div>
+
+        <div class="space-y-3 text-sm">
+            <div class="flex justify-between py-2 border-b border-slate-100 dark:border-slate-700/30">
+                <span class="text-slate-500">Account Number</span>
+                <span class="font-mono text-slate-900 dark:text-white">{{ target_user.account_number }}</span>
+            </div>
+            <div class="flex justify-between py-2 border-b border-slate-100 dark:border-slate-700/30">
+                <span class="text-slate-500">Balance</span>
+                <span class="font-bold text-slate-900 dark:text-white">${{ target_user.balance|floatformat:2|intcomma }}</span>
+            </div>
+            <div class="flex justify-between py-2 border-b border-slate-100 dark:border-slate-700/30">
+                <span class="text-slate-500">Tier</span>
+                <span class="text-xs font-medium px-2 py-0.5 rounded-full
+                    {% if target_user.account_tier == 'platinum' %}bg-purple-100 dark:bg-purple-500/10 text-purple-700 dark:text-purple-400
+                    {% elif target_user.account_tier == 'gold' %}bg-amber-100 dark:bg-amber-500/10 text-amber-700 dark:text-amber-400
+                    {% else %}bg-slate-100 dark:bg-slate-500/10 text-slate-600 dark:text-slate-400{% endif %}">{{ target_user.get_account_tier_display }}</span>
+            </div>
+            <div class="flex justify-between py-2 border-b border-slate-100 dark:border-slate-700/30">
+                <span class="text-slate-500">Status</span>
+                <span class="text-xs font-medium px-2 py-0.5 rounded-full {% if target_user.is_active %}bg-green-100 dark:bg-green-500/10 text-green-700 dark:text-green-400{% else %}bg-red-100 dark:bg-red-500/10 text-red-700 dark:text-red-400{% endif %}">{% if target_user.is_active %}Active{% else %}Inactive{% endif %}</span>
+            </div>
+            <div class="flex justify-between py-2 border-b border-slate-100 dark:border-slate-700/30">
+                <span class="text-slate-500">Email Verified</span>
+                <span class="text-xs font-medium px-2 py-0.5 rounded-full {% if target_user.is_email_verified %}bg-green-100 dark:bg-green-500/10 text-green-700 dark:text-green-400{% else %}bg-amber-100 dark:bg-amber-500/10 text-amber-700 dark:text-amber-400{% endif %}">{% if target_user.is_email_verified %}Yes{% else %}No{% endif %}</span>
+            </div>
+            <div class="flex justify-between py-2">
+                <span class="text-slate-500">Joined</span>
+                <span class="text-slate-900 dark:text-white">{{ target_user.date_joined|date:"M d, Y" }}</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Actions -->
+    <div class="lg:col-span-2 space-y-6">
+        <!-- Quick Actions -->
+        <div class="grid sm:grid-cols-2 gap-4">
+            <!-- Credit Account -->
+            <form method="POST" class="bg-panel rounded-xl border border-slate-200 dark:border-slate-700/50 p-5">
+                {% csrf_token %}
+                <input type="hidden" name="action" value="credit">
+                <label class="text-xs font-bold text-slate-500 block mb-2 text-green-600 dark:text-green-400">⊕ Credit Account</label>
+                <div class="space-y-2 mb-3">
+                    <input type="number" step="0.01" name="amount" placeholder="Amount (e.g. 500)" required min="0.01"
+                        class="w-full px-3 py-2 bg-surface border border-slate-200 dark:border-slate-700 rounded-lg text-slate-900 dark:text-white text-sm focus:border-green-500 outline-none">
+                    <input type="text" name="description" placeholder="Description (Optional)"
+                        class="w-full px-3 py-2 bg-surface border border-slate-200 dark:border-slate-700 rounded-lg text-slate-900 dark:text-white text-sm focus:border-green-500 outline-none">
+                </div>
+                <button type="submit" class="w-full py-2 bg-green-500 text-white rounded-lg text-sm font-semibold hover:bg-green-600 transition-colors">Credit Funds</button>
+            </form>
+
+            <!-- Debit Account -->
+            <form method="POST" class="bg-panel rounded-xl border border-slate-200 dark:border-slate-700/50 p-5">
+                {% csrf_token %}
+                <input type="hidden" name="action" value="debit">
+                <label class="text-xs font-bold text-slate-500 block mb-2 text-red-600 dark:text-red-400">⊖ Debit Account</label>
+                <div class="space-y-2 mb-3">
+                    <input type="number" step="0.01" name="amount" placeholder="Amount (e.g. 100)" required min="0.01"
+                        class="w-full px-3 py-2 bg-surface border border-slate-200 dark:border-slate-700 rounded-lg text-slate-900 dark:text-white text-sm focus:border-red-500 outline-none">
+                    <input type="text" name="description" placeholder="Description (Optional)"
+                        class="w-full px-3 py-2 bg-surface border border-slate-200 dark:border-slate-700 rounded-lg text-slate-900 dark:text-white text-sm focus:border-red-500 outline-none">
+                </div>
+                <button type="submit" class="w-full py-2 bg-red-500 text-white rounded-lg text-sm font-semibold hover:bg-red-600 transition-colors">Debit Funds</button>
+            </form>
+
+            <!-- Update Tier -->
+            <form method="POST" class="sm:col-span-2 bg-panel rounded-xl border border-slate-200 dark:border-slate-700/50 p-5">
+                {% csrf_token %}
+                <input type="hidden" name="action" value="update_tier">
+                <label class="text-xs font-bold text-slate-500 block mb-2">Account Tier</label>
+                <div class="flex gap-2">
+                    <select name="tier" class="flex-1 px-3 py-2 bg-surface border border-slate-200 dark:border-slate-700 rounded-lg text-slate-900 dark:text-white text-sm outline-none">
+                        <option value="standard" {% if target_user.account_tier == 'standard' %}selected{% endif %}>Standard</option>
+                        <option value="gold" {% if target_user.account_tier == 'gold' %}selected{% endif %}>Gold</option>
+                        <option value="platinum" {% if target_user.account_tier == 'platinum' %}selected{% endif %}>Platinum</option>
+                    </select>
+                    <button type="submit" class="px-6 py-2 bg-primary text-white rounded-lg text-sm font-semibold hover:bg-primary-dark transition-colors">Save Tier</button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Toggle Buttons -->
+        <div class="flex flex-wrap gap-3">
+            <form method="POST">
+                {% csrf_token %}
+                <input type="hidden" name="action" value="toggle_active">
+                <button type="submit" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-semibold border transition-colors
+                    {% if target_user.is_active %}bg-red-50 dark:bg-red-500/10 border-red-200 dark:border-red-500/20 text-red-700 dark:text-red-400 hover:bg-red-100 dark:hover:bg-red-500/20
+                    {% else %}bg-green-50 dark:bg-green-500/10 border-green-200 dark:border-green-500/20 text-green-700 dark:text-green-400 hover:bg-green-100 dark:hover:bg-green-500/20{% endif %}">
+                    <span class="material-symbols-outlined text-[16px]">{% if target_user.is_active %}block{% else %}check_circle{% endif %}</span>
+                    {% if target_user.is_active %}Deactivate{% else %}Activate{% endif %} Account
+                </button>
+            </form>
+            <form method="POST">
+                {% csrf_token %}
+                <input type="hidden" name="action" value="toggle_verified">
+                <button type="submit" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-semibold border transition-colors
+                    {% if target_user.is_email_verified %}bg-amber-50 dark:bg-amber-500/10 border-amber-200 dark:border-amber-500/20 text-amber-700 dark:text-amber-400
+                    {% else %}bg-green-50 dark:bg-green-500/10 border-green-200 dark:border-green-500/20 text-green-700 dark:text-green-400{% endif %}">
+                    <span class="material-symbols-outlined text-[16px]">{% if target_user.is_email_verified %}remove_moderator{% else %}verified{% endif %}</span>
+                    {% if target_user.is_email_verified %}Unverify{% else %}Verify{% endif %} Email
+                </button>
+            </form>
+        </div>
+
+        <!-- Recent Transactions -->
+        <div class="bg-panel rounded-xl border border-slate-200 dark:border-slate-700/50">
+            <div class="px-5 py-4 border-b border-slate-200 dark:border-slate-700/50">
+                <h3 class="text-sm font-bold text-slate-900 dark:text-white">Recent Transactions</h3>
+            </div>
+            <div class="divide-y divide-slate-100 dark:divide-slate-700/30">
+                {% for tx in transactions %}
+                <div class="px-5 py-3 flex items-center justify-between">
+                    <div>
+                        <p class="text-sm text-slate-900 dark:text-white">{{ tx.description|default:tx.get_transaction_type_display }}</p>
+                        <p class="text-xs text-slate-500">{{ tx.created_at|date:"M d, Y H:i" }}</p>
+                    </div>
+                    <div class="flex items-center gap-3 text-right">
+                        <div>
+                            <p class="text-sm font-bold {% if tx.transaction_type == 'deposit' or tx.transaction_type == 'transfer_in' %}text-green-600 dark:text-green-400{% else %}text-red-600 dark:text-red-400{% endif %}">
+                                {% if tx.transaction_type == 'deposit' or tx.transaction_type == 'transfer_in' %}+{% else %}-{% endif %}${{ tx.amount|floatformat:2|intcomma }}
+                            </p>
+                            <span class="text-[10px] font-medium px-1.5 py-0.5 rounded-full
+                                {% if tx.status == 'completed' %}bg-green-100 dark:bg-green-500/10 text-green-700 dark:text-green-400
+                                {% elif tx.status == 'pending' %}bg-amber-100 dark:bg-amber-500/10 text-amber-700 dark:text-amber-400
+                                {% else %}bg-red-100 dark:bg-red-500/10 text-red-700 dark:text-red-400{% endif %}">{{ tx.get_status_display }}</span>
+                        </div>
+                        <a href="{% url 'admin_transaction_edit' tx.id %}" class="w-8 h-8 rounded-full bg-slate-100 dark:bg-slate-700/50 flex items-center justify-center text-slate-600 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-600 transition-colors" title="Edit Transaction">
+                            <span class="material-symbols-outlined text-[16px]">edit</span>
+                        </a>
+                    </div>
+                </div>
+                {% empty %}
+                <div class="px-5 py-6 text-center text-sm text-slate-500">No transactions yet</div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

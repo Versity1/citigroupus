@@ -1,0 +1,132 @@
+{% extends 'management/base_admin.html' %}
+{% load humanize %}
+
+{% block page_title %}Dashboard{% endblock %}
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+<!-- KPI Cards -->
+<div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+    <div class="bg-panel rounded-xl border border-slate-200 dark:border-slate-700/50 p-5">
+        <div class="flex items-center justify-between mb-2">
+            <span class="text-xs font-bold text-slate-500 uppercase">Total Users</span>
+            <span class="material-symbols-outlined text-primary text-[20px]">group</span>
+        </div>
+        <p class="text-2xl font-bold text-slate-900 dark:text-white">{{ total_users|intcomma }}</p>
+        <p class="text-xs text-slate-500 mt-1">+{{ new_users_month }} this month</p>
+    </div>
+    <div class="bg-panel rounded-xl border border-slate-200 dark:border-slate-700/50 p-5">
+        <div class="flex items-center justify-between mb-2">
+            <span class="text-xs font-bold text-slate-500 uppercase">Total Balance</span>
+            <span class="material-symbols-outlined text-green-500 text-[20px]">account_balance</span>
+        </div>
+        <p class="text-2xl font-bold text-slate-900 dark:text-white">${{ total_balance|floatformat:2|intcomma }}</p>
+        <p class="text-xs text-green-500 mt-1">${{ monthly_deposits|floatformat:0|intcomma }} deposits this month</p>
+    </div>
+    <div class="bg-panel rounded-xl border border-slate-200 dark:border-slate-700/50 p-5">
+        <div class="flex items-center justify-between mb-2">
+            <span class="text-xs font-bold text-slate-500 uppercase">Withdrawals</span>
+            <span class="material-symbols-outlined text-red-400 text-[20px]">trending_down</span>
+        </div>
+        <p class="text-2xl font-bold text-slate-900 dark:text-white">${{ monthly_withdrawals|floatformat:0|intcomma }}</p>
+        <p class="text-xs text-slate-500 mt-1">Last 30 days</p>
+    </div>
+    <div class="bg-panel rounded-xl border border-slate-200 dark:border-slate-700/50 p-5">
+        <div class="flex items-center justify-between mb-2">
+            <span class="text-xs font-bold text-slate-500 uppercase">Pending</span>
+            <span class="material-symbols-outlined text-amber-400 text-[20px]">pending_actions</span>
+        </div>
+        <p class="text-2xl font-bold text-slate-900 dark:text-white">{{ total_pending }}</p>
+        <div class="flex gap-3 mt-1 text-xs text-slate-500">
+            <span>{{ pending_txns }} txns</span>
+            <span>{{ pending_loans }} loans</span>
+            <span>{{ pending_cards }} cards</span>
+        </div>
+    </div>
+</div>
+
+<!-- Pending actions quick links -->
+{% if total_pending > 0 %}
+<div class="bg-amber-50 dark:bg-amber-500/10 border border-amber-200 dark:border-amber-500/20 rounded-xl p-4 mb-8">
+    <div class="flex items-center gap-2 mb-2">
+        <span class="material-symbols-outlined text-amber-600 dark:text-amber-400 text-[18px]">warning</span>
+        <span class="text-sm font-bold text-amber-700 dark:text-amber-400">{{ total_pending }} item{{ total_pending|pluralize }} pending approval</span>
+    </div>
+    <div class="flex flex-wrap gap-2">
+        {% if pending_txns %}
+        <a href="{% url 'admin_transactions' %}?status=pending" class="text-xs font-medium px-3 py-1 bg-amber-100 dark:bg-amber-500/20 text-amber-700 dark:text-amber-400 rounded-lg hover:bg-amber-200 dark:hover:bg-amber-500/30 transition-colors">
+            {{ pending_txns }} Transaction{{ pending_txns|pluralize }}
+        </a>
+        {% endif %}
+        {% if pending_loans %}
+        <a href="{% url 'admin_loans' %}?status=pending" class="text-xs font-medium px-3 py-1 bg-amber-100 dark:bg-amber-500/20 text-amber-700 dark:text-amber-400 rounded-lg hover:bg-amber-200 dark:hover:bg-amber-500/30 transition-colors">
+            {{ pending_loans }} Loan{{ pending_loans|pluralize }}
+        </a>
+        {% endif %}
+        {% if pending_cards %}
+        <a href="{% url 'admin_cards' %}?status=pending" class="text-xs font-medium px-3 py-1 bg-amber-100 dark:bg-amber-500/20 text-amber-700 dark:text-amber-400 rounded-lg hover:bg-amber-200 dark:hover:bg-amber-500/30 transition-colors">
+            {{ pending_cards }} Card{{ pending_cards|pluralize }}
+        </a>
+        {% endif %}
+    </div>
+</div>
+{% endif %}
+
+<div class="grid lg:grid-cols-2 gap-6">
+    <!-- Recent Transactions -->
+    <div class="bg-panel rounded-xl border border-slate-200 dark:border-slate-700/50">
+        <div class="px-5 py-4 border-b border-slate-200 dark:border-slate-700/50 flex items-center justify-between">
+            <h3 class="text-sm font-bold text-slate-900 dark:text-white">Recent Transactions</h3>
+            <a href="{% url 'admin_transactions' %}" class="text-xs text-primary font-medium">View All</a>
+        </div>
+        <div class="divide-y divide-slate-100 dark:divide-slate-700/30">
+            {% for tx in recent_txns %}
+            <div class="px-5 py-3 flex items-center justify-between">
+                <div class="flex items-center gap-3">
+                    <div class="w-8 h-8 rounded-full flex items-center justify-center
+                        {% if tx.transaction_type == 'deposit' %}bg-green-100 dark:bg-green-500/10{% elif tx.transaction_type == 'withdrawal' %}bg-red-100 dark:bg-red-500/10{% else %}bg-blue-100 dark:bg-blue-500/10{% endif %}">
+                        <span class="material-symbols-outlined text-[14px]
+                            {% if tx.transaction_type == 'deposit' %}text-green-600 dark:text-green-400{% elif tx.transaction_type == 'withdrawal' %}text-red-600 dark:text-red-400{% else %}text-blue-600 dark:text-blue-400{% endif %}">
+                            {% if tx.transaction_type == 'deposit' %}arrow_downward{% elif tx.transaction_type == 'withdrawal' %}arrow_upward{% else %}swap_horiz{% endif %}
+                        </span>
+                    </div>
+                    <div>
+                        <p class="text-sm font-medium text-slate-900 dark:text-white">{{ tx.user.get_full_name }}</p>
+                        <p class="text-[11px] text-slate-500">{{ tx.get_transaction_type_display }}</p>
+                    </div>
+                </div>
+                <div class="text-right">
+                    <p class="text-sm font-bold text-slate-900 dark:text-white">${{ tx.amount|floatformat:2|intcomma }}</p>
+                    <span class="text-[10px] font-medium px-1.5 py-0.5 rounded-full
+                        {% if tx.status == 'completed' %}bg-green-100 dark:bg-green-500/10 text-green-700 dark:text-green-400
+                        {% elif tx.status == 'pending' %}bg-amber-100 dark:bg-amber-500/10 text-amber-700 dark:text-amber-400
+                        {% else %}bg-red-100 dark:bg-red-500/10 text-red-700 dark:text-red-400{% endif %}">{{ tx.get_status_display }}</span>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <!-- New Users -->
+    <div class="bg-panel rounded-xl border border-slate-200 dark:border-slate-700/50">
+        <div class="px-5 py-4 border-b border-slate-200 dark:border-slate-700/50 flex items-center justify-between">
+            <h3 class="text-sm font-bold text-slate-900 dark:text-white">New Users</h3>
+            <a href="{% url 'admin_users' %}" class="text-xs text-primary font-medium">View All</a>
+        </div>
+        <div class="divide-y divide-slate-100 dark:divide-slate-700/30">
+            {% for u in recent_users %}
+            <a href="{% url 'admin_user_detail' u.id %}" class="px-5 py-3 flex items-center gap-3 hover:bg-slate-50 dark:hover:bg-slate-700/20 transition-colors block">
+                <div class="w-9 h-9 rounded-full bg-primary/10 flex items-center justify-center">
+                    <span class="text-primary font-bold text-xs">{{ u.first_name.0 }}{{ u.last_name.0 }}</span>
+                </div>
+                <div class="flex-1 min-w-0">
+                    <p class="text-sm font-medium text-slate-900 dark:text-white truncate">{{ u.get_full_name }}</p>
+                    <p class="text-[11px] text-slate-500 truncate">{{ u.email }}</p>
+                </div>
+                <p class="text-xs text-slate-500">{{ u.date_joined|date:"M d" }}</p>
+            </a>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}

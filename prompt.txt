@@ -1,0 +1,10 @@
+You are a senior django developer. I want you to create a django project called Citi Group Bank. This a demo fintech application. User should be able to create an account, login, deposit money, withdraw money, transfer money, view transaction history, view account balance, Request for a loan, Repay loan, request for and get a debit or credit cards, view profile, edit profile, change password, logout. 
+
+** this website should be built using django for backend, htmx for front-end interactivity with minimal server reloads, and tailwindcss for styling. There should be email notifications for registration, login, password reset, transaction notifications, loan notifications, card notifications, etc. **
+
+Please this website should be built using best practices for django development and should be mobile friendly and responsive. the mobile navbar should be a bottom navbar that slides out from the bottom of the screen.
+use the html design in the template directory as a guide to build the website.
+
+Add other features you think are necessary for a Banking application.
+
+You are to study the html design in the template directory and understand the design patterns and best practices used in the design. then use the same design patterns and best practices to build the website.

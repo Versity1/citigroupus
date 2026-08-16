@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Citi Group - Secure Registration</title>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#135bec",
+                        "primary-hover": "#0f4bc4",
+                        "gold": "#D4AF37", 
+                        "gold-light": "#F3E5AB",
+                        "background-light": "#f6f6f8",
+                        "background-dark": "#101622",
+                    },
+                    fontFamily: {
+                        "display": ["Manrope", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        /* Custom scrollbar for better aesthetics */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1; 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #c1c1c1; 
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #a8a8a8; 
+        }
+        
+        /* Subtle animation for form elements */
+        .form-input:focus {
+            box-shadow: 0 0 0 4px rgba(19, 91, 236, 0.1);
+            border-color: #135bec;
+        }
+    </style>
+</head>
+<body class="font-display bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 antialiased selection:bg-primary/20 selection:text-primary">
+<div class="flex min-h-screen w-full flex-row overflow-hidden">
+<!-- Left Panel: Immersive Image & Branding -->
+<div class="hidden lg:flex w-5/12 relative flex-col justify-between p-12 bg-slate-900 overflow-hidden">
+<!-- Background Image with Overlay -->
+<div class="absolute inset-0 z-0">
+<img alt="Abstract modern skyscraper architecture reaching towards blue sky" class="h-full w-full object-cover opacity-60 mix-blend-overlay" data-alt="Abstract modern skyscraper architecture reaching towards blue sky" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCXTRTaNC4-oexN1LNQ4dc5JUMpo_MxD4FifbzB4uAmxwPOHtOhMzYfWz5lHXUlnyogjheMTScpFlKtWCbNdPoqwnc1raxKVhG8vwM9T-JGdsxnHRhqIkajCFUf6TilskWqmZRWbrQfJ5fp9gPvVaIZM_3L68D167pwfWw_8Rw5XTxCJaMTmwJ-kCbuCgILbms7xvZVZVtXuiTCD17bV4OVVtgFFf7jXA2uPq8xBPaXz39TOmmihnWlegKhhSu5-lRRuBPpd473Jyt5"/>
+<div class="absolute inset-0 bg-gradient-to-br from-primary/90 to-slate-900/90 mix-blend-multiply"></div>
+<!-- Golden Accent Gradient -->
+<div class="absolute bottom-0 left-0 right-0 h-1/2 bg-gradient-to-t from-slate-900 via-transparent to-transparent opacity-80"></div>
+</div>
+<!-- Content -->
+<div class="relative z-10">
+<div class="flex items-center gap-3 text-white mb-8">
+<div class="size-8 text-gold">
+<svg fill="none" viewbox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+<path d="M13.8261 30.5736C16.7203 29.8826 20.2244 29.4783 24 29.4783C27.7756 29.4783 31.2797 29.8826 34.1739 30.5736C36.9144 31.2278 39.9967 32.7669 41.3563 33.8352L24.8486 7.36089C24.4571 6.73303 23.5429 6.73303 23.1514 7.36089L6.64374 33.8352C8.00331 32.7669 11.0856 31.2278 13.8261 30.5736Z" fill="currentColor"></path>
+<path clip-rule="evenodd" d="M39.998 35.764C39.9944 35.7463 39.9875 35.7155 39.9748 35.6706C39.9436 35.5601 39.8949 35.4259 39.8346 35.2825C39.8168 35.2403 39.7989 35.1993 39.7813 35.1602C38.5103 34.2887 35.9788 33.0607 33.7095 32.5189C30.9875 31.8691 27.6413 31.4783 24 31.4783C20.3587 31.4783 17.0125 31.8691 14.2905 32.5189C12.0012 33.0654 9.44505 34.3104 8.18538 35.1832C8.17384 35.2075 8.16216 35.233 8.15052 35.2592C8.09919 35.3751 8.05721 35.4886 8.02977 35.589C8.00356 35.6848 8.00039 35.7333 8.00004 35.7388C8.00004 35.739 8 35.7393 8.00004 35.7388C8.00004 35.7641 8.0104 36.0767 8.68485 36.6314C9.34546 37.1746 10.4222 37.7531 11.9291 38.2772C14.9242 39.319 19.1919 40 24 40C28.8081 40 33.0758 39.319 36.0709 38.2772C37.5778 37.7531 38.6545 37.1746 39.3151 36.6314C39.9006 36.1499 39.9857 35.8511 39.998 35.764ZM4.95178 32.7688L21.4543 6.30267C22.6288 4.4191 25.3712 4.41909 26.5457 6.30267L43.0534 32.777C43.0709 32.8052 43.0878 32.8338 43.104 32.8629L41.3563 33.8352C43.104 32.8629 43.1038 32.8626 43.104 32.8629L43.1051 32.865L43.1065 32.8675L43.1101 32.8739L43.1199 32.8918C43.1276 32.906 43.1377 32.9246 43.1497 32.9473C43.1738 32.9925 43.2062 33.0545 43.244 33.1299C43.319 33.2792 43.4196 33.489 43.5217 33.7317C43.6901 34.1321 44 34.9311 44 35.7391C44 37.4427 43.003 38.7775 41.8558 39.7209C40.6947 40.6757 39.1354 41.4464 37.385 42.0552C33.8654 43.2794 29.133 44 24 44C18.867 44 14.1346 43.2794 10.615 42.0552C8.86463 41.4464 7.30529 40.6757 6.14419 39.7209C4.99695 38.7775 3.99999 37.4427 3.99999 35.7391C3.99999 34.8725 4.29264 34.0922 4.49321 33.6393C4.60375 33.3898 4.71348 33.1804 4.79687 33.0311C4.83898 32.9556 4.87547 32.8935 4.9035 32.8471C4.91754 32.8238 4.92954 32.8043 4.93916 32.7889L4.94662 32.777L4.95178 32.7688ZM35.9868 29.004L24 9.77997L12.0131 29.004C12.4661 28.8609 12.9179 28.7342 13.3617 28.6282C16.4281 27.8961 20.0901 27.4783 24 27.4783C27.9099 27.4783 31.5719 27.8961 34.6383 28.6282C35.082 28.7342 35.5339 28.8609 35.9868 29.004Z" fill="currentColor" fill-rule="evenodd"></path>
+</svg>
+</div>
+<span class="text-2xl font-bold tracking-tight text-white">Citi Group</span>
+</div>
+<div class="mt-20">
+<h1 class="text-4xl md:text-5xl font-bold text-white leading-tight mb-6">Finance for the<br/><span class="text-gold">modern era</span></h1>
+<p class="text-slate-200 text-lg leading-relaxed max-w-md">
+                        Join over 2 million users trusting Citi Group for secure, fast, and reliable financial services. Experience enterprise-grade security with a personal touch.
+                    </p>
+</div>
+</div>
+<!-- Footer Quote -->
+<div class="relative z-10">
+<blockquote class="border-l-4 border-gold pl-4 text-slate-300 italic">
+                    "The most seamless financial experience I've ever had. Registration was instant."
+                </blockquote>
+<div class="mt-4 flex items-center gap-3">
+<img alt="Profile picture of a smiling professional woman" class="w-10 h-10 rounded-full border-2 border-white/20" data-alt="Profile picture of a smiling professional woman" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC47I7jFXCLQNRpbzI_nL07luQcbzW4Y-AuS5evwoBAS1MHRrRGlSmVCpq_VJs3e97FVntaojqpFOUI2e7zHeVJcZbjGcVZ5Pp2J-yjNgUjvqNWv1qkWtsYkFOTE0O_EJ22rmMnXs5trWG28jk_3CgjUf-zhEv-Er1doMJRQ5EDqyW-oNRTycUJ5o27uDz2eoeud_o1ZRDbxb5CoeJfQU4v-1mxlh1grZnFNOSCjBLzSv_7X_9x4_2sLHrr2GBODciJfssWAhBUUtgu"/>
+<div>
+<p class="text-white text-sm font-semibold">Sarah Jenkins</p>
+<p class="text-slate-400 text-xs">Small Business Owner</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Panel: Registration Form -->
+<div class="w-full lg:w-7/12 flex flex-col h-screen overflow-y-auto bg-white dark:bg-background-dark">
+<!-- Mobile Header -->
+<div class="lg:hidden flex items-center justify-between p-6 border-b border-slate-100 dark:border-slate-800">
+<div class="flex items-center gap-2 text-primary">
+<span class="material-symbols-outlined text-3xl">account_balance</span>
+<span class="text-xl font-bold text-slate-900 dark:text-white">Citi Group</span>
+</div>
+</div>
+<div class="flex-1 flex flex-col justify-center items-center p-6 md:p-12 lg:p-20">
+<div class="w-full max-w-lg">
+<!-- Form Header -->
+<div class="mb-10 text-center lg:text-left">
+<h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-2">Create your account</h2>
+<p class="text-slate-500 dark:text-slate-400">Please enter your details to get started.</p>
+</div>
+<!-- Progress Stepper -->
+<div class="mb-10">
+<div class="flex items-center justify-between mb-4">
+<span class="text-sm font-bold text-primary">Personal Info</span>
+<span class="text-sm font-medium text-slate-400 dark:text-slate-500">Identity</span>
+<span class="text-sm font-medium text-slate-400 dark:text-slate-500">Set PIN</span>
+</div>
+<div class="h-1.5 w-full bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden">
+<div class="h-full bg-primary w-1/3 rounded-full relative">
+<div class="absolute inset-0 bg-white/20"></div>
+</div>
+</div>
+</div>
+<!-- Registration Form -->
+<form class="flex flex-col gap-5">
+<!-- Full Name -->
+<div class="space-y-1.5">
+<label class="text-sm font-medium text-slate-900 dark:text-slate-200" for="fullname">Full Name</label>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-[20px]">person</span>
+<input class="form-input w-full pl-10 pr-4 py-3 rounded-lg border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:border-primary focus:ring-0 transition-colors" id="fullname" placeholder="Enter your full legal name" required="" type="text"/>
+</div>
+</div>
+<!-- Email & Phone Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+<!-- Email -->
+<div class="space-y-1.5 relative group">
+<label class="text-sm font-medium text-slate-900 dark:text-slate-200" for="email">Email Address</label>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-[20px]">mail</span>
+<input class="form-input w-full pl-10 pr-10 py-3 rounded-lg border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:border-primary focus:ring-0 transition-colors" hx-post="/check-email" hx-target="#email-error" hx-trigger="blur" id="email" placeholder="name@example.com" required="" type="email"/>
+<!-- Validation Icon Placeholder (Simulated HTMX success state) -->
+<span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-green-500 text-[20px] hidden peer-valid:block">check_circle</span>
+</div>
+<!-- HTMX Target Area -->
+<div class="text-xs text-red-500 h-4 mt-1" id="email-error"></div>
+</div>
+<!-- Phone -->
+<div class="space-y-1.5">
+<label class="text-sm font-medium text-slate-900 dark:text-slate-200" for="phone">Phone Number</label>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-[20px]">call</span>
+<input class="form-input w-full pl-10 pr-4 py-3 rounded-lg border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:border-primary focus:ring-0 transition-colors" id="phone" placeholder="+1 (555) 000-0000" required="" type="tel"/>
+</div>
+<div class="h-4 mt-1"></div>
+</div>
+</div>
+<!-- Password -->
+<div class="space-y-1.5">
+<label class="text-sm font-medium text-slate-900 dark:text-slate-200" for="password">Password</label>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-[20px]">lock</span>
+<input class="form-input w-full pl-10 pr-10 py-3 rounded-lg border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:border-primary focus:ring-0 transition-colors" hx-post="/check-password-strength" hx-trigger="keyup changed delay:200ms" id="password" placeholder="Create a strong password" required="" type="password"/>
+<button class="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 focus:outline-none" type="button">
+<span class="material-symbols-outlined text-[20px]">visibility_off</span>
+</button>
+</div>
+<!-- Password Strength Meter (Visual only simulation) -->
+<div class="flex gap-1 pt-1">
+<div class="h-1 flex-1 bg-yellow-400 rounded-full"></div>
+<div class="h-1 flex-1 bg-yellow-400 rounded-full"></div>
+<div class="h-1 flex-1 bg-slate-200 dark:bg-slate-700 rounded-full"></div>
+<div class="h-1 flex-1 bg-slate-200 dark:bg-slate-700 rounded-full"></div>
+</div>
+<p class="text-xs text-slate-500 mt-1">Must be at least 8 characters with 1 special character.</p>
+</div>
+<!-- Confirm Password -->
+<div class="space-y-1.5">
+<label class="text-sm font-medium text-slate-900 dark:text-slate-200" for="confirm_password">Confirm Password</label>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-[20px]">lock_reset</span>
+<input class="form-input w-full pl-10 pr-4 py-3 rounded-lg border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:border-primary focus:ring-0 transition-colors" id="confirm_password" placeholder="Confirm your password" required="" type="password"/>
+</div>
+</div>
+<!-- Terms Checkbox -->
+<div class="flex items-start gap-3 mt-2">
+<div class="flex items-center h-5">
+<input class="w-4 h-4 rounded border-slate-300 text-primary focus:ring-primary dark:border-slate-600 dark:bg-slate-800" id="terms" required="" type="checkbox"/>
+</div>
+<div class="text-sm">
+<label class="font-medium text-slate-700 dark:text-slate-300" for="terms">I agree to the <a class="text-primary hover:underline" href="#">Terms of Service</a> and <a class="text-primary hover:underline" href="#">Privacy Policy</a>.</label>
+</div>
+</div>
+<!-- Submit Button -->
+<button class="mt-4 flex w-full items-center justify-center rounded-lg bg-primary hover:bg-primary-hover px-8 py-4 text-base font-bold text-white shadow-lg shadow-primary/30 transition-all duration-200 active:scale-[0.98]" type="submit">
+                            Continue to Verification
+                            <span class="material-symbols-outlined ml-2 text-xl">arrow_forward</span>
+</button>
+</form>
+<!-- Login Link -->
+<div class="mt-8 text-center">
+<p class="text-sm text-slate-600 dark:text-slate-400">
+                            Already have an account? 
+                            <a class="font-bold text-primary hover:text-primary-hover transition-colors" href="#">Log in here</a>
+</p>
+</div>
+<!-- Trust Badges -->
+<div class="mt-12 pt-8 border-t border-slate-100 dark:border-slate-800 flex flex-wrap justify-center gap-6 opacity-70">
+<div class="flex items-center gap-2 text-slate-500 dark:text-slate-400">
+<span class="material-symbols-outlined text-[20px]">shield</span>
+<span class="text-xs font-semibold">Bank-grade Security</span>
+</div>
+<div class="flex items-center gap-2 text-slate-500 dark:text-slate-400">
+<span class="material-symbols-outlined text-[20px]">lock</span>
+<span class="text-xs font-semibold">256-bit Encryption</span>
+</div>
+<div class="flex items-center gap-2 text-slate-500 dark:text-slate-400">
+<span class="material-symbols-outlined text-[20px]">verified_user</span>
+<span class="text-xs font-semibold">GDPR Compliant</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Mobile Footer Spacer -->
+<div class="h-6 lg:hidden"></div>
+</div>
+</div>
+</body></html>

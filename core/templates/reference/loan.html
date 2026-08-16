@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Citi Group - Loans &amp; Credit Center</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        primary: "#135bec",
+                        "primary-hover": "#0e4bca",
+                        "background-light": "#f6f6f8",
+                        "background-dark": "#101622",
+                    },
+                    fontFamily: {
+                        display: ["Manrope", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "2xl": "1rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        /* Custom range slider styling */
+        input[type=range] {
+            -webkit-appearance: none;
+            width: 100%;
+            background: transparent;
+        }
+
+        input[type=range]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            height: 20px;
+            width: 20px;
+            border-radius: 50%;
+            background: #135bec;
+            cursor: pointer;
+            margin-top: -8px;
+            box-shadow: 0 0 2px rgba(0, 0, 0, 0.2);
+        }
+
+        input[type=range]::-webkit-slider-runnable-track {
+            width: 100%;
+            height: 4px;
+            cursor: pointer;
+            background: #e5e7eb;
+            border-radius: 999px;
+        }
+        
+        .dark input[type=range]::-webkit-slider-runnable-track {
+            background: #374151;
+        }
+
+        input[type=range]:focus::-webkit-slider-runnable-track {
+            background: #e5e7eb;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 font-display transition-colors duration-200">
+<div class="relative flex h-screen w-full flex-col overflow-hidden">
+<!-- Header -->
+<header class="flex-none flex items-center justify-between whitespace-nowrap border-b border-solid border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 px-10 py-3 z-20">
+<div class="flex items-center gap-8">
+<div class="flex items-center gap-4">
+<div class="size-8 text-primary">
+<svg class="w-full h-full" fill="none" viewbox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+<path d="M13.8261 30.5736C16.7203 29.8826 20.2244 29.4783 24 29.4783C27.7756 29.4783 31.2797 29.8826 34.1739 30.5736C36.9144 31.2278 39.9967 32.7669 41.3563 33.8352L24.8486 7.36089C24.4571 6.73303 23.5429 6.73303 23.1514 7.36089L6.64374 33.8352C8.00331 32.7669 11.0856 31.2278 13.8261 30.5736Z" fill="currentColor"></path>
+<path clip-rule="evenodd" d="M39.998 35.764C39.9944 35.7463 39.9875 35.7155 39.9748 35.6706C39.9436 35.5601 39.8949 35.4259 39.8346 35.2825C39.8168 35.2403 39.7989 35.1993 39.7813 35.1602C38.5103 34.2887 35.9788 33.0607 33.7095 32.5189C30.9875 31.8691 27.6413 31.4783 24 31.4783C20.3587 31.4783 17.0125 31.8691 14.2905 32.5189C12.0012 33.0654 9.44505 34.3104 8.18538 35.1832C8.17384 35.2075 8.16216 35.233 8.15052 35.2592C8.09919 35.3751 8.05721 35.4886 8.02977 35.589C8.00356 35.6848 8.00039 35.7333 8.00004 35.7388C8.00004 35.739 8 35.7393 8.00004 35.7388C8.00004 35.7641 8.0104 36.0767 8.68485 36.6314C9.34546 37.1746 10.4222 37.7531 11.9291 38.2772C14.9242 39.319 19.1919 40 24 40C28.8081 40 33.0758 39.319 36.0709 38.2772C37.5778 37.7531 38.6545 37.1746 39.3151 36.6314C39.9006 36.1499 39.9857 35.8511 39.998 35.764ZM4.95178 32.7688L21.4543 6.30267C22.6288 4.4191 25.3712 4.41909 26.5457 6.30267L43.0534 32.777C43.0709 32.8052 43.0878 32.8338 43.104 32.8629L41.3563 33.8352C43.104 32.8629 43.1038 32.8626 43.104 32.8629L43.1051 32.865L43.1065 32.8675L43.1101 32.8739L43.1199 32.8918C43.1276 32.906 43.1377 32.9246 43.1497 32.9473C43.1738 32.9925 43.2062 33.0545 43.244 33.1299C43.319 33.2792 43.4196 33.489 43.5217 33.7317C43.6901 34.1321 44 34.9311 44 35.7391C44 37.4427 43.003 38.7775 41.8558 39.7209C40.6947 40.6757 39.1354 41.4464 37.385 42.0552C33.8654 43.2794 29.133 44 24 44C18.867 44 14.1346 43.2794 10.615 42.0552C8.86463 41.4464 7.30529 40.6757 6.14419 39.7209C4.99695 38.7775 3.99999 37.4427 3.99999 35.7391C3.99999 34.8725 4.29264 34.0922 4.49321 33.6393C4.60375 33.3898 4.71348 33.1804 4.79687 33.0311C4.83898 32.9556 4.87547 32.8935 4.9035 32.8471C4.91754 32.8238 4.92954 32.8043 4.93916 32.7889L4.94662 32.777L4.95178 32.7688ZM35.9868 29.004L24 9.77997L12.0131 29.004C12.4661 28.8609 12.9179 28.7342 13.3617 28.6282C16.4281 27.8961 20.0901 27.4783 24 27.4783C27.9099 27.4783 31.5719 27.8961 34.6383 28.6282C35.082 28.7342 35.5339 28.8609 35.9868 29.004Z" fill="currentColor" fill-rule="evenodd"></path>
+</svg>
+</div>
+<h2 class="text-slate-900 dark:text-white text-lg font-bold leading-tight tracking-[-0.015em]">Citi Group</h2>
+</div>
+<label class="flex flex-col min-w-40 !h-10 max-w-64 hidden md:flex">
+<div class="flex w-full flex-1 items-center rounded-lg h-full bg-slate-100 dark:bg-slate-800 px-3">
+<span class="material-symbols-outlined text-slate-400 text-xl">search</span>
+<input class="w-full bg-transparent border-none text-slate-900 dark:text-white placeholder:text-slate-400 focus:ring-0 text-sm ml-2" placeholder="Search loans, transactions..."/>
+</div>
+</label>
+</div>
+<div class="flex flex-1 justify-end gap-6 items-center">
+<nav class="hidden lg:flex items-center gap-6">
+<a class="text-slate-600 dark:text-slate-400 hover:text-primary dark:hover:text-primary transition-colors text-sm font-medium" href="#">Dashboard</a>
+<a class="text-slate-600 dark:text-slate-400 hover:text-primary dark:hover:text-primary transition-colors text-sm font-medium" href="#">Accounts</a>
+<a class="text-primary dark:text-white text-sm font-bold" href="#">Loans</a>
+<a class="text-slate-600 dark:text-slate-400 hover:text-primary dark:hover:text-primary transition-colors text-sm font-medium" href="#">Cards</a>
+</nav>
+<div class="flex items-center gap-4">
+<button class="relative p-2 text-slate-500 hover:text-primary dark:text-slate-400 transition-colors">
+<span class="material-symbols-outlined">notifications</span>
+<span class="absolute top-2 right-2 size-2 bg-red-500 rounded-full border-2 border-white dark:border-slate-900"></span>
+</button>
+<div class="size-9 rounded-full bg-slate-200 dark:bg-slate-700 overflow-hidden border border-slate-200 dark:border-slate-700">
+<img alt="User Profile" class="w-full h-full object-cover" data-alt="Portrait of a smiling man in a suit" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCqw_IRDxlL-CvU4lKbmHsZdSMZQJLgn0pYC7F3QbjV4BG7vLVnhufr5PXdPE5kDbSdvsiAm2CxEn2EyYAyeLdlgVTZw4boa24_fKfQHB8UHAFQiajZ1ksho_xHCoDbkpRYR8OOPhT38hMw8RdrS_MfAmj086XAxdsE8WVqsZR_mMPAq1QVSmo-dBF5bjqT69ZsqPuxKe0XDi-6ZbtYwK5nDdUJuEHYiPl-M7cNoiGazLyxLT7LNFuFz4X0JwszFx-B2uiSGUBlsSAD"/>
+</div>
+</div>
+</div>
+</header>
+<!-- Main Content -->
+<main class="flex-1 flex overflow-hidden">
+<!-- Left Side: Dashboard & Active Loans -->
+<div class="flex-1 overflow-y-auto p-6 md:p-8 lg:p-10 scrollbar-hide">
+<div class="max-w-5xl mx-auto space-y-8">
+<!-- Header Section -->
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+<div>
+<h1 class="text-3xl md:text-4xl font-extrabold text-slate-900 dark:text-white tracking-tight">Loans &amp; Credit</h1>
+<p class="text-slate-500 dark:text-slate-400 mt-1 text-sm md:text-base">Manage your active loans and track your repayment progress.</p>
+</div>
+<button class="flex items-center justify-center gap-2 bg-primary hover:bg-primary-hover text-white px-5 py-2.5 rounded-lg font-bold text-sm transition-colors shadow-lg shadow-primary/20">
+<span class="material-symbols-outlined text-[20px]">add_circle</span>
+                            Request New Loan
+                        </button>
+</div>
+<!-- Stats Row -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+<div class="bg-white dark:bg-slate-800 p-6 rounded-xl border border-slate-100 dark:border-slate-700 shadow-sm">
+<div class="flex items-center gap-3 mb-2">
+<div class="p-2 bg-blue-50 dark:bg-blue-900/30 rounded-lg text-primary">
+<span class="material-symbols-outlined">account_balance_wallet</span>
+</div>
+<span class="text-slate-500 dark:text-slate-400 text-sm font-medium">Total Balance</span>
+</div>
+<p class="text-2xl font-bold text-slate-900 dark:text-white">$12,450.00</p>
+<p class="text-xs text-slate-400 mt-1">Total outstanding debt</p>
+</div>
+<div class="bg-white dark:bg-slate-800 p-6 rounded-xl border border-slate-100 dark:border-slate-700 shadow-sm">
+<div class="flex items-center gap-3 mb-2">
+<div class="p-2 bg-orange-50 dark:bg-orange-900/30 rounded-lg text-orange-600 dark:text-orange-400">
+<span class="material-symbols-outlined">calendar_today</span>
+</div>
+<span class="text-slate-500 dark:text-slate-400 text-sm font-medium">Next Payment</span>
+</div>
+<p class="text-2xl font-bold text-slate-900 dark:text-white">Oct 15, 2023</p>
+<p class="text-xs text-slate-400 mt-1">$452.00 scheduled auto-pay</p>
+</div>
+<div class="bg-white dark:bg-slate-800 p-6 rounded-xl border border-slate-100 dark:border-slate-700 shadow-sm">
+<div class="flex items-center gap-3 mb-2">
+<div class="p-2 bg-green-50 dark:bg-green-900/30 rounded-lg text-green-600 dark:text-green-400">
+<span class="material-symbols-outlined">trending_up</span>
+</div>
+<span class="text-slate-500 dark:text-slate-400 text-sm font-medium">Credit Limit</span>
+</div>
+<p class="text-2xl font-bold text-slate-900 dark:text-white">$25,000.00</p>
+<p class="text-xs text-slate-400 mt-1">Available to borrow now</p>
+</div>
+</div>
+<!-- Active Loans Section -->
+<section>
+<h2 class="text-xl font-bold text-slate-900 dark:text-white mb-4 flex items-center gap-2">
+                            Active Loans
+                            <span class="bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 text-xs px-2 py-0.5 rounded-full font-medium">2</span>
+</h2>
+<div class="space-y-4">
+<!-- Loan Card 1 -->
+<div class="group bg-white dark:bg-slate-800 rounded-xl p-5 border border-slate-100 dark:border-slate-700 shadow-sm hover:shadow-md transition-shadow">
+<div class="flex flex-col md:flex-row gap-6">
+<div class="w-full md:w-16 h-16 rounded-lg bg-blue-100 dark:bg-blue-900/20 flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-3xl text-primary">home</span>
+</div>
+<div class="flex-1 space-y-4">
+<div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-2">
+<div>
+<div class="flex items-center gap-2">
+<h3 class="text-lg font-bold text-slate-900 dark:text-white">Home Renovation Loan</h3>
+<span class="bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400 text-xs px-2 py-0.5 rounded font-semibold uppercase">Active</span>
+</div>
+<p class="text-sm text-slate-500 dark:text-slate-400 mt-0.5">Loan #4921 • 4.5% APR</p>
+</div>
+<div class="text-right">
+<p class="text-sm text-slate-500 dark:text-slate-400">Outstanding Balance</p>
+<p class="text-xl font-bold text-slate-900 dark:text-white">$8,200.00</p>
+</div>
+</div>
+<!-- Progress Bar -->
+<div class="space-y-2">
+<div class="flex justify-between text-xs font-medium text-slate-500 dark:text-slate-400">
+<span>Paid: $6,800</span>
+<span>Total: $15,000</span>
+</div>
+<div class="w-full bg-slate-100 dark:bg-slate-700 rounded-full h-2.5 overflow-hidden">
+<div class="bg-primary h-2.5 rounded-full" style="width: 45%"></div>
+</div>
+<div class="flex justify-between items-center pt-2">
+<span class="text-xs text-slate-400">18 months remaining</span>
+<button class="text-primary hover:text-primary-hover text-sm font-semibold flex items-center gap-1">
+                                                    Make Payment <span class="material-symbols-outlined text-sm">arrow_forward</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Loan Card 2 -->
+<div class="group bg-white dark:bg-slate-800 rounded-xl p-5 border border-slate-100 dark:border-slate-700 shadow-sm hover:shadow-md transition-shadow">
+<div class="flex flex-col md:flex-row gap-6">
+<div class="w-full md:w-16 h-16 rounded-lg bg-purple-100 dark:bg-purple-900/20 flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-3xl text-purple-600 dark:text-purple-400">directions_car</span>
+</div>
+<div class="flex-1 space-y-4">
+<div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-2">
+<div>
+<div class="flex items-center gap-2">
+<h3 class="text-lg font-bold text-slate-900 dark:text-white">Auto Loan</h3>
+<span class="bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400 text-xs px-2 py-0.5 rounded font-semibold uppercase">Active</span>
+</div>
+<p class="text-sm text-slate-500 dark:text-slate-400 mt-0.5">Loan #8832 • 3.2% APR</p>
+</div>
+<div class="text-right">
+<p class="text-sm text-slate-500 dark:text-slate-400">Outstanding Balance</p>
+<p class="text-xl font-bold text-slate-900 dark:text-white">$4,250.00</p>
+</div>
+</div>
+<!-- Progress Bar -->
+<div class="space-y-2">
+<div class="flex justify-between text-xs font-medium text-slate-500 dark:text-slate-400">
+<span>Paid: $15,750</span>
+<span>Total: $20,000</span>
+</div>
+<div class="w-full bg-slate-100 dark:bg-slate-700 rounded-full h-2.5 overflow-hidden">
+<div class="bg-purple-600 dark:bg-purple-500 h-2.5 rounded-full" style="width: 78%"></div>
+</div>
+<div class="flex justify-between items-center pt-2">
+<span class="text-xs text-slate-400">8 months remaining</span>
+<button class="text-purple-600 dark:text-purple-400 hover:text-purple-700 text-sm font-semibold flex items-center gap-1">
+                                                    Make Payment <span class="material-symbols-outlined text-sm">arrow_forward</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Recent Transactions -->
+<section>
+<h2 class="text-xl font-bold text-slate-900 dark:text-white mb-4">Recent Transactions</h2>
+<div class="bg-white dark:bg-slate-800 rounded-xl border border-slate-100 dark:border-slate-700 overflow-hidden">
+<table class="w-full text-left text-sm">
+<thead class="bg-slate-50 dark:bg-slate-900/50 text-slate-500 dark:text-slate-400 border-b border-slate-100 dark:border-slate-700">
+<tr>
+<th class="px-6 py-3 font-medium">Date</th>
+<th class="px-6 py-3 font-medium">Description</th>
+<th class="px-6 py-3 font-medium">Loan ID</th>
+<th class="px-6 py-3 font-medium text-right">Amount</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-slate-100 dark:divide-slate-700">
+<tr class="hover:bg-slate-50 dark:hover:bg-slate-700/30">
+<td class="px-6 py-4 text-slate-500 dark:text-slate-400">Oct 01, 2023</td>
+<td class="px-6 py-4 font-medium text-slate-900 dark:text-white">Auto-Pay Repayment</td>
+<td class="px-6 py-4 text-slate-500 dark:text-slate-400">#4921</td>
+<td class="px-6 py-4 text-right text-slate-900 dark:text-white font-medium">-$452.00</td>
+</tr>
+<tr class="hover:bg-slate-50 dark:hover:bg-slate-700/30">
+<td class="px-6 py-4 text-slate-500 dark:text-slate-400">Sep 15, 2023</td>
+<td class="px-6 py-4 font-medium text-slate-900 dark:text-white">Early Principal Payment</td>
+<td class="px-6 py-4 text-slate-500 dark:text-slate-400">#8832</td>
+<td class="px-6 py-4 text-right text-slate-900 dark:text-white font-medium">-$1,000.00</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+</div>
+</div>
+<!-- Right Side: New Loan Simulator Panel -->
+<aside class="w-[400px] hidden xl:flex flex-col border-l border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 z-10 shadow-xl overflow-y-auto">
+<div class="p-8 flex-1 flex flex-col">
+<div class="mb-8">
+<h2 class="text-2xl font-bold text-slate-900 dark:text-white">Apply for a Loan</h2>
+<p class="text-slate-500 dark:text-slate-400 mt-2 text-sm">Calculate your payments and apply in minutes. No impact on credit score.</p>
+</div>
+<form class="space-y-8 flex-1">
+<!-- Loan Purpose -->
+<div class="space-y-3">
+<label class="block text-sm font-semibold text-slate-700 dark:text-slate-300">What is this loan for?</label>
+<div class="relative">
+<select class="w-full appearance-none bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white rounded-lg py-3 px-4 focus:ring-2 focus:ring-primary focus:border-transparent cursor-pointer">
+<option>Home Improvement</option>
+<option>Debt Consolidation</option>
+<option>Auto Purchase</option>
+<option>Major Purchase</option>
+<option>Business</option>
+</select>
+<div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-slate-500">
+<span class="material-symbols-outlined">expand_more</span>
+</div>
+</div>
+</div>
+<!-- Loan Amount Slider -->
+<div class="space-y-4">
+<div class="flex justify-between items-end">
+<label class="block text-sm font-semibold text-slate-700 dark:text-slate-300">Loan Amount</label>
+<div class="text-xl font-bold text-primary bg-blue-50 dark:bg-blue-900/30 px-3 py-1 rounded-lg border border-blue-100 dark:border-blue-800">$10,000</div>
+</div>
+<input class="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer dark:bg-slate-700" max="50000" min="1000" step="500" type="range" value="10000"/>
+<div class="flex justify-between text-xs text-slate-400 font-medium">
+<span>$1,000</span>
+<span>$50,000</span>
+</div>
+</div>
+<!-- Duration Selector -->
+<div class="space-y-4">
+<label class="block text-sm font-semibold text-slate-700 dark:text-slate-300">Repayment Term</label>
+<div class="grid grid-cols-3 gap-2">
+<label class="cursor-pointer">
+<input class="peer sr-only" name="term" type="radio"/>
+<div class="text-center py-2 border border-slate-200 dark:border-slate-700 rounded-lg peer-checked:bg-primary peer-checked:text-white peer-checked:border-primary text-slate-600 dark:text-slate-400 text-sm font-medium transition-all hover:bg-slate-50 dark:hover:bg-slate-800">
+                                        12 Months
+                                    </div>
+</label>
+<label class="cursor-pointer">
+<input checked="" class="peer sr-only" name="term" type="radio"/>
+<div class="text-center py-2 border border-slate-200 dark:border-slate-700 rounded-lg peer-checked:bg-primary peer-checked:text-white peer-checked:border-primary text-slate-600 dark:text-slate-400 text-sm font-medium transition-all hover:bg-slate-50 dark:hover:bg-slate-800">
+                                        24 Months
+                                    </div>
+</label>
+<label class="cursor-pointer">
+<input class="peer sr-only" name="term" type="radio"/>
+<div class="text-center py-2 border border-slate-200 dark:border-slate-700 rounded-lg peer-checked:bg-primary peer-checked:text-white peer-checked:border-primary text-slate-600 dark:text-slate-400 text-sm font-medium transition-all hover:bg-slate-50 dark:hover:bg-slate-800">
+                                        36 Months
+                                    </div>
+</label>
+</div>
+</div>
+<!-- Calculation Result Card -->
+<div class="bg-slate-50 dark:bg-slate-800/50 rounded-xl p-6 border border-slate-100 dark:border-slate-700 space-y-4 mt-4">
+<div class="flex justify-between items-center border-b border-slate-200 dark:border-slate-700 pb-4">
+<span class="text-sm text-slate-500 dark:text-slate-400">Monthly Payment</span>
+<span class="text-2xl font-bold text-slate-900 dark:text-white">$436.45</span>
+</div>
+<div class="flex justify-between items-center text-sm">
+<span class="text-slate-500 dark:text-slate-400">Interest Rate (APR)</span>
+<span class="font-semibold text-slate-900 dark:text-white">4.5%</span>
+</div>
+<div class="flex justify-between items-center text-sm">
+<span class="text-slate-500 dark:text-slate-400">Total Interest</span>
+<span class="font-semibold text-slate-900 dark:text-white">$474.80</span>
+</div>
+</div>
+<!-- CTA -->
+<div class="pt-4">
+<button class="w-full bg-primary hover:bg-primary-hover text-white py-4 rounded-xl font-bold text-base shadow-lg shadow-primary/25 transition-all hover:shadow-xl hover:shadow-primary/30 flex items-center justify-center gap-2" type="button">
+                                Start Application
+                                <span class="material-symbols-outlined text-lg">arrow_forward</span>
+</button>
+<p class="text-center text-xs text-slate-400 mt-4">
+                                By clicking above, you agree to our <a class="underline hover:text-slate-600 dark:hover:text-slate-300" href="#">Terms &amp; Conditions</a>.
+                            </p>
+</div>
+</form>
+</div>
+</aside>
+</main>
+</div>
+</body></html>

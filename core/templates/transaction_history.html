@@ -1,0 +1,51 @@
+{% extends 'base_dashboard.html' %}
+{% load humanize %}
+
+{% block page_title %}Transaction History{% endblock %}
+{% block title %}Transaction History{% endblock %}
+
+{% block content %}
+<!-- Filters -->
+<div class="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 p-4 mb-6">
+    <form hx-get="{% url 'transaction_history' %}" hx-target="#transaction-table" hx-swap="innerHTML" hx-trigger="change, keyup delay:500ms from:#search-input" class="flex flex-wrap gap-3 items-end">
+        <div class="flex-1 min-w-[200px]">
+            <label class="text-xs font-medium text-slate-500 mb-1 block">Search</label>
+            <input id="search-input" type="text" name="search" value="{{ search }}" placeholder="Search transactions..." class="w-full h-10 rounded-lg border-slate-200 dark:border-slate-700 dark:bg-slate-900 dark:text-white text-sm pl-3 focus:border-primary focus:ring-primary" />
+        </div>
+        <div class="w-36">
+            <label class="text-xs font-medium text-slate-500 mb-1 block">Type</label>
+            <select name="type" class="w-full h-10 rounded-lg border-slate-200 dark:border-slate-700 dark:bg-slate-900 dark:text-white text-sm focus:border-primary focus:ring-primary">
+                <option value="">All Types</option>
+                <option value="deposit" {% if tx_type == 'deposit' %}selected{% endif %}>Deposit</option>
+                <option value="withdrawal" {% if tx_type == 'withdrawal' %}selected{% endif %}>Withdrawal</option>
+                <option value="transfer_out" {% if tx_type == 'transfer_out' %}selected{% endif %}>Transfer Out</option>
+                <option value="transfer_in" {% if tx_type == 'transfer_in' %}selected{% endif %}>Transfer In</option>
+                <option value="loan_disbursement" {% if tx_type == 'loan_disbursement' %}selected{% endif %}>Loan</option>
+                <option value="loan_repayment" {% if tx_type == 'loan_repayment' %}selected{% endif %}>Repayment</option>
+            </select>
+        </div>
+        <div class="w-32">
+            <label class="text-xs font-medium text-slate-500 mb-1 block">Status</label>
+            <select name="status" class="w-full h-10 rounded-lg border-slate-200 dark:border-slate-700 dark:bg-slate-900 dark:text-white text-sm focus:border-primary focus:ring-primary">
+                <option value="">All</option>
+                <option value="completed" {% if status == 'completed' %}selected{% endif %}>Completed</option>
+                <option value="pending" {% if status == 'pending' %}selected{% endif %}>Pending</option>
+                <option value="failed" {% if status == 'failed' %}selected{% endif %}>Failed</option>
+            </select>
+        </div>
+        <div class="w-36">
+            <label class="text-xs font-medium text-slate-500 mb-1 block">From</label>
+            <input type="date" name="date_from" value="{{ date_from }}" class="w-full h-10 rounded-lg border-slate-200 dark:border-slate-700 dark:bg-slate-900 dark:text-white text-sm focus:border-primary focus:ring-primary" />
+        </div>
+        <div class="w-36">
+            <label class="text-xs font-medium text-slate-500 mb-1 block">To</label>
+            <input type="date" name="date_to" value="{{ date_to }}" class="w-full h-10 rounded-lg border-slate-200 dark:border-slate-700 dark:bg-slate-900 dark:text-white text-sm focus:border-primary focus:ring-primary" />
+        </div>
+    </form>
+</div>
+
+<!-- Transaction Table -->
+<div id="transaction-table">
+    {% include 'partials/transaction_table.html' %}
+</div>
+{% endblock %}

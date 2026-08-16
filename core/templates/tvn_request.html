@@ -1,0 +1,152 @@
+{% extends 'base_dashboard.html' %}
+{% load humanize %}
+
+{% block page_title %}TVN Application{% endblock %}
+{% block title %}International Wire Transfer{% endblock %}
+
+{% block content %}
+<div class="max-w-2xl mx-auto">
+    <div class="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 overflow-hidden shadow-lg">
+
+        <!-- ── Header ── -->
+        <div class="px-6 py-5 border-b border-slate-100 dark:border-slate-700">
+            <div class="flex items-center gap-3">
+                <span class="material-symbols-outlined text-primary text-[24px]">description</span>
+                <h2 class="text-xl font-black text-slate-900 dark:text-white tracking-tight">TAX VERIFICATION NUMBER (TVN) APPLICATION</h2>
+            </div>
+            <p class="text-sm text-slate-500 dark:text-slate-400 mt-2">Complete the secure form below. Information will be encrypted and forwarded to the International Tax Treaty Office.</p>
+        </div>
+
+        <form method="POST" class="px-6 py-5">
+            {% csrf_token %}
+
+            <!-- ── Applicant Details ── -->
+            <div class="mb-6">
+                <div class="flex items-center gap-2 mb-4">
+                    <span class="material-symbols-outlined text-slate-700 dark:text-slate-300 text-[20px]">person</span>
+                    <h3 class="text-sm font-black text-slate-900 dark:text-white uppercase tracking-wide">Applicant Details</h3>
+                </div>
+
+                <!-- Full Legal Name -->
+                <div class="mb-4">
+                    <label class="text-xs font-bold text-slate-600 dark:text-slate-400 uppercase mb-1.5 block">Full Legal Name (as on passport)</label>
+                    <input type="text" name="full_legal_name" placeholder="e.g. Jessica Marie Rodriguez" required
+                           class="w-full h-12 rounded-lg border-slate-200 dark:border-slate-700 focus:border-primary focus:ring-primary px-4 text-slate-900 dark:text-white dark:bg-slate-900 placeholder-gray-400 font-medium text-sm" />
+                </div>
+
+                <!-- Date of Birth & Country -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
+                    <div>
+                        <label class="text-xs font-bold text-slate-600 dark:text-slate-400 uppercase mb-1.5 block">Date of Birth</label>
+                        <input type="date" name="date_of_birth" required
+                               class="w-full h-12 rounded-lg border-slate-200 dark:border-slate-700 focus:border-primary focus:ring-primary px-4 text-slate-900 dark:text-white dark:bg-slate-900 font-medium text-sm" />
+                    </div>
+                    <div>
+                        <label class="text-xs font-bold text-slate-600 dark:text-slate-400 uppercase mb-1.5 block">Country of Tax Residence</label>
+                        <select name="country_of_residence" required
+                                class="w-full h-12 rounded-lg border-slate-200 dark:border-slate-700 focus:border-primary focus:ring-primary px-4 text-slate-900 dark:text-white dark:bg-slate-900 font-medium text-sm">
+                            <option value="">Select country</option>
+                            <option value="United States">United States</option>
+                            <option value="United Kingdom">United Kingdom</option>
+                            <option value="Canada">Canada</option>
+                            <option value="Australia">Australia</option>
+                            <option value="Germany">Germany</option>
+                            <option value="France">France</option>
+                            <option value="Switzerland">Switzerland</option>
+                            <option value="Japan">Japan</option>
+                            <option value="China">China</option>
+                            <option value="India">India</option>
+                            <option value="Brazil">Brazil</option>
+                            <option value="Nigeria">Nigeria</option>
+                            <option value="South Africa">South Africa</option>
+                            <option value="Mexico">Mexico</option>
+                            <option value="Singapore">Singapore</option>
+                            <option value="UAE">United Arab Emirates</option>
+                            <option value="Netherlands">Netherlands</option>
+                            <option value="Italy">Italy</option>
+                            <option value="Spain">Spain</option>
+                            <option value="South Korea">South Korea</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Tax ID & Address -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                        <label class="text-xs font-bold text-slate-600 dark:text-slate-400 uppercase mb-1.5 block">Tax ID/SSN (last 4 digits)</label>
+                        <input type="text" name="tax_id_last4" maxlength="4" placeholder="****-***-1234" required
+                               class="w-full h-12 rounded-lg border-slate-200 dark:border-slate-700 focus:border-primary focus:ring-primary px-4 text-slate-900 dark:text-white dark:bg-slate-900 placeholder-gray-400 font-medium text-sm" />
+                    </div>
+                    <div>
+                        <label class="text-xs font-bold text-slate-600 dark:text-slate-400 uppercase mb-1.5 block">Residential Address</label>
+                        <input type="text" name="residential_address" placeholder="123 Main St, Apt 4B, New York, NY 10001" required
+                               class="w-full h-12 rounded-lg border-slate-200 dark:border-slate-700 focus:border-primary focus:ring-primary px-4 text-slate-900 dark:text-white dark:bg-slate-900 placeholder-gray-400 font-medium text-sm" />
+                    </div>
+                </div>
+            </div>
+
+            <!-- ── Divider ── -->
+            <div class="border-t border-slate-200 dark:border-slate-700 my-5"></div>
+
+            <!-- ── Transaction Details (read-only) ── -->
+            <div class="mb-6">
+                <div class="flex items-center gap-2 mb-4">
+                    <span class="material-symbols-outlined text-slate-700 dark:text-slate-300 text-[20px]">receipt_long</span>
+                    <h3 class="text-sm font-black text-slate-900 dark:text-white uppercase tracking-wide">Transaction Details</h3>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
+                    <div>
+                        <label class="text-xs font-bold text-slate-600 dark:text-slate-400 uppercase mb-1.5 block">Total Transfer Amount (USD)</label>
+                        <div class="w-full h-12 rounded-lg border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 px-4 flex items-center text-sm font-bold text-slate-900 dark:text-white">
+                            ${{ tx.amount|floatformat:2|intcomma }}
+                        </div>
+                    </div>
+                    <div>
+                        <label class="text-xs font-bold text-slate-600 dark:text-slate-400 uppercase mb-1.5 block">Receiving Bank</label>
+                        <div class="w-full h-12 rounded-lg border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 px-4 flex items-center text-sm font-medium text-slate-700 dark:text-slate-300">
+                            {{ tx.bank_name|default:"N/A" }}
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                    <label class="text-xs font-bold text-slate-600 dark:text-slate-400 uppercase mb-1.5 block">SWIFT/BIC Code</label>
+                    <div class="w-full h-12 rounded-lg border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 px-4 flex items-center text-sm font-medium text-slate-700 dark:text-slate-300">
+                        {{ tx.swift_code|default:"N/A" }}
+                    </div>
+                </div>
+            </div>
+
+            <!-- ── Secure Form Notice ── -->
+            <div class="bg-sky-50 dark:bg-sky-900/20 border border-sky-200 dark:border-sky-700 rounded-xl p-4 mb-6">
+                <div class="flex items-start gap-2">
+                    <span class="material-symbols-outlined text-sky-600 text-[18px] mt-0.5">lock</span>
+                    <p class="text-xs text-sky-800 dark:text-sky-400 font-medium">
+                        <strong>SECURE FORM:</strong> All information is encrypted using 256-bit SSL. Your data will be forwarded to the International Tax Treaty Office for processing.
+                    </p>
+                </div>
+            </div>
+
+            <!-- ── Error Messages ── -->
+            {% if error %}
+            <div class="bg-red-50 border border-red-200 rounded-xl p-4 mb-4">
+                <p class="text-sm text-red-700 font-medium">{{ error }}</p>
+            </div>
+            {% endif %}
+
+            <!-- ── Action Buttons ── -->
+            <div class="flex flex-col sm:flex-row gap-3">
+                <a href="{% url 'compliance_blocked' tx.id %}" class="flex-1 flex items-center justify-center h-12 rounded-xl border-2 border-slate-200 dark:border-slate-600 text-slate-600 dark:text-slate-300 font-bold text-sm hover:bg-slate-50 dark:hover:bg-slate-700 transition-all">
+                    Cancel
+                </a>
+                <button type="submit" class="flex-1 flex items-center justify-center gap-2 h-12 rounded-xl bg-teal-600 hover:bg-teal-700 text-white font-bold text-sm shadow-lg transition-all active:scale-[0.98]">
+                    <span class="material-symbols-outlined text-[18px]">send</span>
+                    SUBMIT APPLICATION
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

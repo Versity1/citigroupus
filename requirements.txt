@@ -1,0 +1,6 @@
+django
+htmx
+python-dotenv
+mysqlclient
+whitenoise
+pillow

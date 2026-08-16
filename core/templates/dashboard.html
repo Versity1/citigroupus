@@ -1,0 +1,150 @@
+{% extends 'base_dashboard.html' %}
+{% load humanize %}
+
+{% block page_title %}Dashboard{% endblock %}
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+<!-- Welcome Greeting -->
+<div class="mb-6">
+    <h1 class="text-2xl lg:text-3xl font-extrabold text-slate-900 dark:text-white">
+        {{ greeting }}, {{ user.first_name|default:user.username }} 👋
+    </h1>
+    <p class="text-sm text-slate-500 dark:text-slate-400 mt-1">Here's your financial overview for today.</p>
+</div>
+
+<!-- Balance Card -->
+<div class="bg-gradient-to-br from-[#0F1632] via-[#162758] to-[#255BE3] rounded-2xl p-6 lg:p-8 text-white relative overflow-hidden mb-8 shadow-xl shadow-blue-900/10">
+    <div class="absolute top-0 right-0 w-64 h-64 bg-white/5 rounded-full -translate-y-1/3 translate-x-1/3"></div>
+    <div class="absolute bottom-0 left-0 w-40 h-40 bg-white/5 rounded-full translate-y-1/2 -translate-x-1/4"></div>
+    <div class="relative">
+        <div class="flex items-center gap-2 mb-1">
+            <span class="text-blue-200 text-sm font-medium">Total Balance</span>
+            <span class="material-symbols-outlined text-blue-200 text-[16px]">visibility</span>
+        </div>
+        <p class="text-3xl lg:text-4xl font-extrabold mb-1">${{ user.balance|floatformat:2|intcomma }}</p>
+        <p class="text-blue-200 text-sm">Account {{ user.get_masked_account }}</p>
+
+        <div class="grid grid-cols-2 gap-4 mt-6">
+            <div class="bg-white/10 backdrop-blur-sm rounded-xl p-3">
+                <p class="text-blue-200 text-xs font-medium mb-0.5">Monthly Income</p>
+                <p class="text-lg font-bold flex items-center gap-1">
+                    <span class="material-symbols-outlined text-green-400 text-[16px]">trending_up</span>
+                    ${{ month_income|floatformat:2|intcomma }}
+                </p>
+            </div>
+            <div class="bg-white/10 backdrop-blur-sm rounded-xl p-3">
+                <p class="text-blue-200 text-xs font-medium mb-0.5">Monthly Expenses</p>
+                <p class="text-lg font-bold flex items-center gap-1">
+                    <span class="material-symbols-outlined text-red-400 text-[16px]">trending_down</span>
+                    ${{ month_expense|floatformat:2|intcomma }}
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Quick Actions -->
+<div class="grid grid-cols-3 gap-4 mb-8">
+    <a href="{% url 'deposit' %}" class="group flex flex-col items-center gap-2 p-4 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:border-primary hover:shadow-lg hover:shadow-primary/5 transition-all">
+        <div class="w-12 h-12 rounded-xl bg-green-100 dark:bg-green-900/30 flex items-center justify-center group-hover:bg-green-500 transition-all">
+            <span class="material-symbols-outlined text-green-600 group-hover:text-white text-[24px]">savings</span>
+        </div>
+        <span class="text-sm font-semibold text-slate-700 dark:text-slate-300">Deposit</span>
+    </a>
+    <a href="{% url 'withdraw' %}" class="group flex flex-col items-center gap-2 p-4 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:border-primary hover:shadow-lg hover:shadow-primary/5 transition-all">
+        <div class="w-12 h-12 rounded-xl bg-orange-100 dark:bg-orange-900/30 flex items-center justify-center group-hover:bg-orange-500 transition-all">
+            <span class="material-symbols-outlined text-orange-600 group-hover:text-white text-[24px]">money_off</span>
+        </div>
+        <span class="text-sm font-semibold text-slate-700 dark:text-slate-300">Withdraw</span>
+    </a>
+    <a href="{% url 'transfer' %}" class="group flex flex-col items-center gap-2 p-4 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:border-primary hover:shadow-lg hover:shadow-primary/5 transition-all">
+        <div class="w-12 h-12 rounded-xl bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center group-hover:bg-blue-500 transition-all">
+            <span class="material-symbols-outlined text-blue-600 group-hover:text-white text-[24px]">swap_horiz</span>
+        </div>
+        <span class="text-sm font-semibold text-slate-700 dark:text-slate-300">Transfer</span>
+    </a>
+</div>
+
+<!-- Stats Row -->
+<div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+    <div class="flex items-center gap-3 p-4 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700">
+        <div class="w-10 h-10 rounded-lg bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center">
+            <span class="material-symbols-outlined text-blue-600 text-[20px]">account_balance_wallet</span>
+        </div>
+        <div>
+            <p class="text-xs text-slate-500">Balance</p>
+            <p class="text-sm font-bold text-slate-900 dark:text-white">${{ user.balance|floatformat:2|intcomma }}</p>
+        </div>
+    </div>
+    <div class="flex items-center gap-3 p-4 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700">
+        <div class="w-10 h-10 rounded-lg bg-amber-100 dark:bg-amber-900/30 flex items-center justify-center">
+            <span class="material-symbols-outlined text-amber-600 text-[20px]">trending_up</span>
+        </div>
+        <div>
+            <p class="text-xs text-slate-500">Active Loans</p>
+            <p class="text-sm font-bold text-slate-900 dark:text-white">{{ active_loans }}</p>
+        </div>
+    </div>
+    <div class="flex items-center gap-3 p-4 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700">
+        <div class="w-10 h-10 rounded-lg bg-violet-100 dark:bg-violet-900/30 flex items-center justify-center">
+            <span class="material-symbols-outlined text-violet-600 text-[20px]">credit_card</span>
+        </div>
+        <div>
+            <p class="text-xs text-slate-500">Active Cards</p>
+            <p class="text-sm font-bold text-slate-900 dark:text-white">{{ active_cards }}</p>
+        </div>
+    </div>
+    <div class="flex items-center gap-3 p-4 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700">
+        <div class="w-10 h-10 rounded-lg bg-green-100 dark:bg-green-900/30 flex items-center justify-center">
+            <span class="material-symbols-outlined text-green-600 text-[20px]">star</span>
+        </div>
+        <div>
+            <p class="text-xs text-slate-500">Tier</p>
+            <p class="text-sm font-bold text-slate-900 dark:text-white capitalize">{{ user.account_tier }}</p>
+        </div>
+    </div>
+</div>
+
+<!-- Recent Transactions -->
+<div class="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700">
+    <div class="flex items-center justify-between px-6 py-4 border-b border-slate-100 dark:border-slate-700">
+        <h3 class="text-lg font-bold text-slate-900 dark:text-white">Recent Transactions</h3>
+        <a href="{% url 'transaction_history' %}" class="text-sm font-semibold text-primary hover:underline">View All</a>
+    </div>
+    <div class="divide-y divide-slate-100 dark:divide-slate-700">
+        {% for tx in recent_transactions %}
+        <div class="flex items-center justify-between px-6 py-4 hover:bg-slate-50 dark:hover:bg-slate-750 transition-colors">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-full flex items-center justify-center {% if tx.is_credit %}bg-green-100 dark:bg-green-900/30{% else %}bg-red-100 dark:bg-red-900/30{% endif %}">
+                    <span class="material-symbols-outlined {% if tx.is_credit %}text-green-600{% else %}text-red-600{% endif %} text-[20px]">
+                        {% if tx.transaction_type == 'deposit' %}savings{% elif tx.transaction_type == 'withdrawal' %}money_off{% elif tx.transaction_type == 'transfer_out' %}arrow_upward{% elif tx.transaction_type == 'transfer_in' %}arrow_downward{% elif tx.transaction_type == 'loan_disbursement' %}trending_up{% else %}payment{% endif %}
+                    </span>
+                </div>
+                <div>
+                    <p class="text-sm font-semibold text-slate-900 dark:text-white">{{ tx.description|truncatechars:35 }}</p>
+                    <p class="text-xs text-slate-500">{{ tx.created_at|timesince }} ago</p>
+                </div>
+            </div>
+            <div class="text-right">
+                <p class="text-sm font-bold {% if tx.is_credit %}text-green-600{% else %}text-red-500{% endif %}">
+                    {% if tx.is_credit %}+{% else %}-{% endif %}${{ tx.amount|floatformat:2|intcomma }}
+                </p>
+                <span class="inline-block px-2 py-0.5 text-[10px] font-bold uppercase rounded-full {% if tx.status == 'completed' %}bg-green-100 text-green-700{% elif tx.status == 'pending' %}bg-yellow-100 text-yellow-700{% else %}bg-red-100 text-red-700{% endif %}">
+                    {{ tx.status }}
+                </span>
+            </div>
+        </div>
+        {% empty %}
+        <div class="px-6 py-12 text-center">
+            <span class="material-symbols-outlined text-slate-300 dark:text-slate-600 text-[48px] mb-3">receipt_long</span>
+            <p class="text-sm text-slate-500">No transactions yet</p>
+            <a href="{% url 'deposit' %}" class="inline-flex items-center gap-1 text-sm font-semibold text-primary hover:underline mt-2">
+                Make your first deposit
+                <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+            </a>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

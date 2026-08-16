@@ -1,0 +1,185 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block body %}
+<div class="flex min-h-screen bg-[var(--background-light,#F7F8FA)] dark:bg-[var(--background-dark,#0A0E1F)]">
+    <!-- Sidebar (Desktop) -->
+    <aside id="sidebar" class="hidden lg:flex lg:flex-col w-64 bg-white dark:bg-[#0F1632] border-r border-slate-200/80 dark:border-white/10 fixed inset-y-0 left-0 z-40">
+        <!-- Logo -->
+        <div class="flex items-center px-6 py-5 border-b border-slate-100 dark:border-white/10">
+            <a href="{% url 'dashboard' %}" class="flex items-center no-underline">
+                <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyMDQiIGhlaWdodD0iMTE4IiB2aWV3Qm94PSIwIDAgMjA0IDExOCIgZmlsbD0ibm9uZSI+CjxwYXRoIGQ9Ik0wLjk0Nzc1NCA3OS45NjY4QzAuOTQ3NzU0IDU4Ljk3MzIgMTguMTA5NiA0Mi42MjkyIDQwLjQ3NjMgNDIuNjI5MkM1My40MTggNDIuNjI5MiA2NS4yMzQ0IDQ4LjQwNTkgNzEuOTg2NiA1Ny4xNDE1TDYyLjI4MDMgNjYuODYzNEM1OS43MDU3IDYzLjU2MTggNTYuNDIwOCA2MC44ODQzIDUyLjY3MDEgNTkuMDMwM0M0OC45MTkzIDU3LjE3NjMgNDQuNzk5NCA1Ni4xOTM2IDQwLjYxNjkgNTYuMTU1M0MyNy4yNTMyIDU2LjE1NTMgMTYuNTYyMiA2Ni4xNTg5IDE2LjU2MjIgNzkuOTY2OEMxNi41NjIyIDkzLjkxNTUgMjcuMjUzMiAxMDMuOTE5IDQwLjYxNjkgMTAzLjkxOUM0NC45NDkgMTAzLjkxNCA0OS4yMjE0IDEwMi45MDcgNTMuMTAxIDEwMC45NzZDNTYuOTgwNiA5OS4wNDUyIDYwLjM2MjcgOTYuMjQzMiA2Mi45ODM2IDkyLjc4ODRMNzIuNTQ5MiAxMDIuMjI4QzY2LjA3ODQgMTExLjM4NyA1My42OTkzIDExNy40NDUgNDAuNDc2MyAxMTcuNDQ1QzE4LjEwOTYgMTE3LjQ0NSAwLjk0Nzc1NCAxMDEuMTAxIDAuOTQ3NzU0IDc5Ljk2NjhaIiBmaWxsPSIjMjU1QkUzIi8+CjxwYXRoIGQ9Ik04NS4yMDk1IDQ1LjE2NTNIMTAwLjU0M1YxMTQuOTA5SDg1LjIwOTVWNDUuMTY1M1oiIGZpbGw9IiMyNTVCRTMiLz4KPHBhdGggZD0iTTEyOS4wOTkgOTYuMTY5OFY1OC4xMjc4SDExMi4zNTlWNDUuMTY1M0gxMjkuODAzVjMwLjIzMDJMMTQ0LjE1MSAyMy4xODU0VjQ1LjE2NTNIMTY2Ljk0VjU4LjEyNzhIMTQ0LjE1MVY5My42MzM3QzE0NC4xNTEgMTAwLjY3OSAxNDguMDkgMTAzLjc3OCAxNTUuNTQ1IDEwMy43NzhDMTU5LjQyNSAxMDMuNzk4IDE2My4yNjMgMTAyLjk4MSAxNjYuNzk5IDEwMS4zODNWMTE0LjYyN0MxNjIuMzY5IDExNi41NzQgMTU3LjU2OSAxMTcuNTM2IDE1Mi43MzIgMTE3LjQ0NUMxMzkuMDg3IDExNy40NDUgMTI5LjA5OSAxMDkuOTc4IDEyOS4wOTkgOTYuMTY5OFoiIGZpbGw9IiMyNTVCRTMiLz4KPHBhdGggZD0iTTE3OS4wMzcgNDUuMTY1M0gxOTQuMzdWMTE0LjkwOUgxNzkuMDM3VjQ1LjE2NTNaIiBmaWxsPSIjMjU1QkUzIi8+CjxwYXRoIGQ9Ik0xMzkuNjQ4IDAuNzgyODMyQzE1Mi4yNDEgMC43NTI3MyAxNjQuNjU3IDMuNzU4MzEgMTc1Ljg0NiA5LjU0NTc1QzE4Ny4wMzUgMTUuMzMzMiAxOTYuNjY5IDIzLjczMjUgMjAzLjkzNSAzNC4wMzQ0SDE4Ni4wN0MxODAuMjE0IDI3LjUxNTQgMTczLjA1NSAyMi4zMDI2IDE2NS4wNTggMTguNzM0M0MxNTcuMDYxIDE1LjE2NiAxNDguNDAzIDEzLjMyMjEgMTM5LjY0OCAxMy4zMjIxQzEzMC44OTMgMTMuMzIyMSAxMjIuMjM2IDE1LjE2NiAxMTQuMjM5IDE4LjczNDNDMTA2LjI0MiAyMi4zMDI2IDk5LjA4MjcgMjcuNTE1NCA5My4yMjcgMzQuMDM0NEg3NS4zNjE4QzgyLjYyNzcgMjMuNzMyNSA5Mi4yNjIxIDE1LjMzMzIgMTAzLjQ1MSA5LjU0NTc1QzExNC42NCAzLjc1ODMxIDEyNy4wNTUgMC43NTI3MyAxMzkuNjQ4IDAuNzgyODMyVjAuNzgyODMyWiIgZmlsbD0iI0ZGM0MyOCIvPgo8L3N2Zz4=" alt="Citi Group" class="h-9 transition-all" />
+            </a>
+        </div>
+
+        <!-- Navigation -->
+        <nav class="flex-1 px-3 py-4 space-y-1 overflow-y-auto">
+            <a href="{% url 'dashboard' %}" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium {% if request.resolver_match.url_name == 'dashboard' %}bg-primary/10 text-primary font-semibold border-r-2 border-primary dark:text-blue-400{% else %}text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-white/5{% endif %} transition-colors">
+                <span class="material-symbols-outlined text-[20px]">dashboard</span>
+                Dashboard
+            </a>
+            <a href="{% url 'transfer' %}" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium {% if request.resolver_match.url_name == 'transfer' %}bg-primary/10 text-primary font-semibold border-r-2 border-primary dark:text-blue-400{% else %}text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-white/5{% endif %} transition-colors">
+                <span class="material-symbols-outlined text-[20px]">swap_horiz</span>
+                Transfers
+            </a>
+            <a href="{% url 'transaction_history' %}" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium {% if request.resolver_match.url_name == 'transaction_history' %}bg-primary/10 text-primary font-semibold border-r-2 border-primary dark:text-blue-400{% else %}text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-white/5{% endif %} transition-colors">
+                <span class="material-symbols-outlined text-[20px]">receipt_long</span>
+                Transactions
+            </a>
+            <a href="{% url 'loans' %}" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium {% if request.resolver_match.url_name == 'loans' or request.resolver_match.url_name == 'loan_apply' %}bg-primary/10 text-primary font-semibold border-r-2 border-primary dark:text-blue-400{% else %}text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-white/5{% endif %} transition-colors">
+                <span class="material-symbols-outlined text-[20px]">trending_up</span>
+                Loans
+            </a>
+            <a href="{% url 'cards' %}" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium {% if request.resolver_match.url_name == 'cards' or request.resolver_match.url_name == 'card_request' %}bg-primary/10 text-primary font-semibold border-r-2 border-primary dark:text-blue-400{% else %}text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-white/5{% endif %} transition-colors">
+                <span class="material-symbols-outlined text-[20px]">credit_card</span>
+                Cards
+            </a>
+            <a href="{% url 'profile' %}" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium {% if request.resolver_match.url_name == 'profile' %}bg-primary/10 text-primary font-semibold border-r-2 border-primary dark:text-blue-400{% else %}text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-white/5{% endif %} transition-colors">
+                <span class="material-symbols-outlined text-[20px]">person</span>
+                Profile & Security
+            </a>
+            <a href="{% url 'support_contact' %}" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium {% if request.resolver_match.url_name == 'support_contact' %}bg-primary/10 text-primary font-semibold border-r-2 border-primary dark:text-blue-400{% else %}text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-white/5{% endif %} transition-colors">
+                <span class="material-symbols-outlined text-[20px]">contact_support</span>
+                Get In Touch
+            </a>
+        </nav>
+
+        <!-- User footer -->
+        <div class="px-4 py-4 border-t border-slate-100 dark:border-white/10">
+            <div class="flex items-center gap-3">
+                <div class="w-9 h-9 rounded-full bg-gradient-to-br from-primary to-blue-700 flex items-center justify-center text-white font-bold text-xs shadow-sm">
+                    {{ user.first_name.0 }}{{ user.last_name.0 }}
+                </div>
+                <div class="flex-1 min-w-0">
+                    <p class="text-xs font-bold text-slate-900 dark:text-white truncate">{{ user.get_full_name }}</p>
+                    <p class="text-[11px] text-slate-500 dark:text-slate-400 truncate">{{ user.email }}</p>
+                </div>
+                <a href="{% url 'logout' %}" hx-boost="false" class="text-slate-400 hover:text-red-500 transition-colors" title="Logout">
+                    <span class="material-symbols-outlined text-[20px]">logout</span>
+                </a>
+            </div>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <div class="flex-1 lg:ml-64">
+        <!-- Top Header -->
+        <header class="sticky top-0 z-30 bg-white/90 dark:bg-[#0F1632]/90 backdrop-blur-md border-b border-slate-200/80 dark:border-white/10">
+            <div class="flex items-center justify-between h-16 px-4 lg:px-8">
+                <!-- Mobile menu button -->
+                <button onclick="document.getElementById('mobile-menu').classList.toggle('hidden')" class="lg:hidden p-2 rounded-lg hover:bg-slate-100 dark:hover:bg-white/10 text-slate-700 dark:text-white">
+                    <span class="material-symbols-outlined">menu</span>
+                </button>
+                <!-- Page Title -->
+                <h1 class="text-base lg:text-lg font-bold text-slate-900 dark:text-white">{% block page_title %}Dashboard{% endblock %}</h1>
+                <!-- Right actions -->
+                <div class="flex items-center gap-3">
+                    <button onclick="toggleDarkMode()" class="relative p-2 rounded-lg hover:bg-slate-100 dark:hover:bg-white/10 text-slate-500 dark:text-slate-300">
+                        <span class="material-symbols-outlined text-[20px] dark:hidden">dark_mode</span>
+                        <span class="material-symbols-outlined text-[20px] hidden dark:inline">light_mode</span>
+                    </button>
+                    <a href="{% url 'notifications' %}" class="relative p-2 rounded-lg hover:bg-slate-100 dark:hover:bg-white/10 text-slate-500 dark:text-slate-300">
+                        <span class="material-symbols-outlined text-[20px]">notifications</span>
+                        <span hx-get="{% url 'notification_count' %}" hx-trigger="load, every 30s" hx-swap="innerHTML"></span>
+                    </a>
+                    <a href="{% url 'profile' %}" class="flex items-center gap-2">
+                        <div class="w-8 h-8 rounded-full bg-gradient-to-br from-primary to-blue-700 flex items-center justify-center text-white font-bold text-xs shadow-sm">
+                            {{ user.first_name.0 }}{{ user.last_name.0 }}
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </header>
+
+        <!-- Page Content -->
+        <main class="p-4 lg:p-8 animate-fade-in">
+            {% if messages %}
+            <div class="mb-6 space-y-2">
+                {% for message in messages %}
+                <div class="flex items-center gap-2 p-3 rounded-lg text-sm font-medium {% if message.tags == 'success' %}bg-green-50 text-green-700 border border-green-200{% elif message.tags == 'error' %}bg-red-50 text-red-700 border border-red-200{% else %}bg-blue-50 text-blue-700 border border-blue-200{% endif %}">
+                    <span class="material-symbols-outlined text-[18px]">{% if message.tags == 'success' %}check_circle{% elif message.tags == 'error' %}error{% else %}info{% endif %}</span>
+                    {{ message }}
+                </div>
+                {% endfor %}
+            </div>
+            {% endif %}
+
+            {% block content %}{% endblock %}
+        </main>
+    </div>
+
+    <!-- Mobile Bottom Navbar -->
+    <nav class="fixed bottom-0 left-0 right-0 bg-white/95 dark:bg-[#0F1632]/95 backdrop-blur-md border-t border-slate-200 dark:border-white/10 lg:hidden z-50 animate-slide-up safe-area-bottom">
+        <div class="flex items-center justify-around h-16">
+            <a href="{% url 'dashboard' %}" class="flex flex-col items-center gap-0.5 {% if request.resolver_match.url_name == 'dashboard' %}text-primary font-bold{% else %}text-slate-400{% endif %}">
+                <span class="material-symbols-outlined text-[22px]">dashboard</span>
+                <span class="text-[10px] font-medium">Home</span>
+            </a>
+            <a href="{% url 'transfer' %}" class="flex flex-col items-center gap-0.5 {% if request.resolver_match.url_name == 'transfer' %}text-primary font-bold{% else %}text-slate-400{% endif %}">
+                <span class="material-symbols-outlined text-[22px]">swap_horiz</span>
+                <span class="text-[10px] font-medium">Transfer</span>
+            </a>
+            <a href="{% url 'deposit' %}" class="flex flex-col items-center justify-center -mt-5">
+                <div class="w-12 h-12 rounded-full bg-primary shadow-lg shadow-primary/30 flex items-center justify-center text-white">
+                    <span class="material-symbols-outlined text-[24px]">add</span>
+                </div>
+                <span class="text-[10px] font-medium text-primary mt-0.5">Deposit</span>
+            </a>
+            <a href="{% url 'cards' %}" class="flex flex-col items-center gap-0.5 {% if request.resolver_match.url_name == 'cards' %}text-primary font-bold{% else %}text-slate-400{% endif %}">
+                <span class="material-symbols-outlined text-[22px]">credit_card</span>
+                <span class="text-[10px] font-medium">Cards</span>
+            </a>
+            <a href="{% url 'profile' %}" class="flex flex-col items-center gap-0.5 {% if request.resolver_match.url_name == 'profile' %}text-primary font-bold{% else %}text-slate-400{% endif %}">
+                <span class="material-symbols-outlined text-[22px]">person</span>
+                <span class="text-[10px] font-medium">Profile</span>
+            </a>
+        </div>
+    </nav>
+
+    <!-- Mobile slide-out menu -->
+    <div id="mobile-menu" class="hidden fixed inset-0 z-50 lg:hidden">
+        <div class="absolute inset-0 bg-black/50" onclick="document.getElementById('mobile-menu').classList.add('hidden')"></div>
+        <div class="absolute inset-y-0 left-0 w-64 bg-white dark:bg-[#0F1632] shadow-xl animate-slide-up">
+            <div class="flex items-center px-6 py-5 border-b border-slate-100 dark:border-white/10">
+                <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyMDQiIGhlaWdodD0iMTE4IiB2aWV3Qm94PSIwIDAgMjA0IDExOCIgZmlsbD0ibm9uZSI+CjxwYXRoIGQ9Ik0wLjk0Nzc1NCA3OS45NjY4QzAuOTQ3NzU0IDU4Ljk3MzIgMTguMTA5NiA0Mi42MjkyIDQwLjQ3NjMgNDIuNjI5MkM1My40MTggNDIuNjI5MiA2NS4yMzQ0IDQ4LjQwNTkgNzEuOTg2NiA1Ny4xNDE1TDYyLjI4MDMgNjYuODYzNEM1OS43MDU3IDYzLjU2MTggNTYuNDIwOCA2MC44ODQzIDUyLjY3MDEgNTkuMDMwM0M0OC45MTkzIDU3LjE3NjMgNDQuNzk5NCA1Ni4xOTM2IDQwLjYxNjkgNTYuMTU1M0MyNy4yNTMyIDU2LjE1NTMgMTYuNTYyMiA2Ni4xNTg5IDE2LjU2MjIgNzkuOTY2OEMxNi41NjIyIDkzLjkxNTUgMjcuMjUzMiAxMDMuOTE5IDQwLjYxNjkgMTAzLjkxOUM0NC45NDkgMTAzLjkxNCA0OS4yMjE0IDEwMi45MDcgNTMuMTAxIDEwMC45NzZDNTYuOTgwNiA5OS4wNDUyIDYwLjM2MjcgOTYuMjQzMiA2Mi45ODM2IDkyLjc4ODRMNzIuNTQ5MiAxMDIuMjI4QzY2LjA3ODQgMTExLjM4NyA1My42OTkzIDExNy40NDUgNDAuNDc2MyAxMTcuNDQ1QzE4LjEwOTYgMTE3LjQ0NSAwLjk0Nzc1NCAxMDEuMTAxIDAuOTQ3NzU0IDc5Ljk2NjhaIiBmaWxsPSIjMjU1QkUzIi8+CjxwYXRoIGQ9Ik04NS4yMDk1IDQ1LjE2NTNIMTAwLjU0M1YxMTQuOTA5SDg1LjIwOTVWNDUuMTY1M1oiIGZpbGw9IiMyNTVCRTMiLz4KPHBhdGggZD0iTTEyOS4wOTkgOTYuMTY5OFY1OC4xMjc4SDExMi4zNTlWNDUuMTY1M0gxMjkuODAzVjMwLjIzMDJMMTQ0LjE1MSAyMy4xODU0VjQ1LjE2NTNIMTY2Ljk0VjU4LjEyNzhIMTQ0LjE1MVY5My42MzM3QzE0NC4xNTEgMTAwLjY3OSAxNDguMDkgMTAzLjc3OCAxNTUuNTQ1IDEwMy43NzhDMTU5LjQyNSAxMDMuNzk4IDE2My4yNjMgMTAyLjk4MSAxNjYuNzk5IDEwMS4zODNWMTE0LjYyN0MxNjIuMzY5IDExNi41NzQgMTU3LjU2OSAxMTcuNTM2IDE1Mi43MzIgMTE3LjQ0NUMxMzkuMDg3IDExNy40NDUgMTI5LjA5OSAxMDkuOTc4IDEyOS4wOTkgOTYuMTY5OFoiIGZpbGw9IiMyNTVCRTMiLz4KPHBhdGggZD0iTTE3OS4wMzcgNDUuMTY1M0gxOTQuMzdWMTE0LjkwOUgxNzkuMDM3VjQ1LjE2NTNaIiBmaWxsPSIjMjU1QkUzIi8+CjxwYXRoIGQ9Ik0xMzkuNjQ4IDAuNzgyODMyQzE1Mi4yNDEgMC43NTI3MyAxNjQuNjU3IDMuNzU4MzEgMTc1Ljg0NiA5LjU0NTc1QzE4Ny4wMzUgMTUuMzMzMiAxOTYuNjY5IDIzLjczMjUgMjAzLjkzNSAzNC4wMzQ0SDE4Ni4wN0MxODAuMjE0IDI3LjUxNTQgMTczLjA1NSAyMi4zMDI2IDE2NS4wNTggMTguNzM0M0MxNTcuMDYxIDE1LjE2NiAxNDguNDAzIDEzLjMyMjEgMTM5LjY0OCAxMy4zMjIxQzEzMC44OTMgMTMuMzIyMSAxMjIuMjM2IDE1LjE2NiAxMTQuMjM5IDE4LjczNDNDMTA2LjI0MiAyMi4zMDI2IDk5LjA4MjcgMjcuNTE1NCA5My4yMjcgMzQuMDM0NEg3NS4zNjE4QzgyLjYyNzcgMjMuNzMyNSA5Mi4yNjIxIDE1LjMzMzIgMTAzLjQ1MSA5LjU0NTc1QzExNC42NCAzLjc1ODMxIDEyNy4wNTUgMC43NTI3MyAxMzkuNjQ4IDAuNzgyODMyVjAuNzgyODMyWiIgZmlsbD0iI0ZGM0MyOCIvPgo8L3N2Zz4=" alt="Citi Group" class="h-8" />
+            </div>
+            <nav class="px-3 py-4 space-y-1">
+                <a href="{% url 'dashboard' %}" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-white/5 transition-colors">
+                    <span class="material-symbols-outlined text-[20px]">dashboard</span>Dashboard
+                </a>
+                <a href="{% url 'deposit' %}" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-white/5 transition-colors">
+                    <span class="material-symbols-outlined text-[20px]">savings</span>Deposit
+                </a>
+                <a href="{% url 'withdraw' %}" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-white/5 transition-colors">
+                    <span class="material-symbols-outlined text-[20px]">money_off</span>Withdraw
+                </a>
+                <a href="{% url 'transfer' %}" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-white/5 transition-colors">
+                    <span class="material-symbols-outlined text-[20px]">swap_horiz</span>Transfer
+                </a>
+                <a href="{% url 'transaction_history' %}" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-white/5 transition-colors">
+                    <span class="material-symbols-outlined text-[20px]">receipt_long</span>Transaction History
+                </a>
+                <a href="{% url 'loans' %}" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-white/5 transition-colors">
+                    <span class="material-symbols-outlined text-[20px]">trending_up</span>Loans
+                </a>
+                <a href="{% url 'cards' %}" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-white/5 transition-colors">
+                    <span class="material-symbols-outlined text-[20px]">credit_card</span>Cards
+                </a>
+                <a href="{% url 'profile' %}" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-white/5 transition-colors">
+                    <span class="material-symbols-outlined text-[20px]">person</span>Profile & Settings
+                </a>
+                <a href="{% url 'support_contact' %}" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-white/5 transition-colors">
+                    <span class="material-symbols-outlined text-[20px]">contact_support</span>Get In Touch | Log Complaint
+                </a>
+                <hr class="border-slate-100 dark:border-white/10 my-2">
+                <a href="{% url 'logout' %}" hx-boost="false" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors">
+                    <span class="material-symbols-outlined text-[20px]">logout</span>Logout
+                </a>
+            </nav>
+        </div>
+    </div>
+</div>
+
+<!-- Add bottom padding on mobile for the nav bar -->
+<div class="h-20 lg:hidden"></div>
+{% endblock %}

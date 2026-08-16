@@ -1,0 +1,176 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Contact Us — Global Support & Offices | Citi Group{% endblock %}
+{% block meta_description %}Get in touch with Citi Group's global advisory and client support team. Find international headquarters, phone numbers, and send a direct inquiry.{% endblock %}
+
+{% block extra_head %}
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+    :root {
+        --citi-navy: #0F1632;
+        --citi-navy-light: #1a2340;
+        --citi-blue: #255BE3;
+        --citi-blue-hover: #1d4dc4;
+        --citi-accent: #FF3C28;
+        --citi-gold: #C5A059;
+        --citi-white: #FFFFFF;
+        --citi-gray-50: #F7F8FA;
+        --citi-gray-100: #EDEFF3;
+        --citi-gray-200: #D4D8E0;
+        --citi-gray-500: #6B7280;
+        --citi-gray-700: #374151;
+        --citi-gray-900: #111827;
+        --citi-transition: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+    .font-serif { font-family: 'Playfair Display', Georgia, serif; }
+    .accent-bar { width: 48px; height: 3px; background: var(--citi-accent); border-radius: 2px; }
+    .btn-citi-primary {
+        display: inline-flex; align-items: center; justify-content: center; padding: 12px 28px;
+        background: var(--citi-blue); color: var(--citi-white); font-weight: 600; font-size: 14px;
+        border-radius: 4px; border: none; cursor: pointer; transition: all 0.3s var(--citi-transition); text-decoration: none;
+    }
+    .btn-citi-primary:hover { background: var(--citi-blue-hover); transform: translateY(-1px); box-shadow: 0 6px 20px rgba(37, 91, 227, 0.3); }
+    .btn-citi-white {
+        display: inline-flex; align-items: center; justify-content: center; padding: 12px 28px;
+        background: var(--citi-white); color: var(--citi-navy); font-weight: 600; font-size: 14px;
+        border-radius: 4px; border: none; cursor: pointer; transition: all 0.3s var(--citi-transition); text-decoration: none;
+    }
+    .btn-citi-white:hover { background: var(--citi-gray-100); transform: translateY(-1px); }
+    .btn-citi-outline {
+        display: inline-flex; align-items: center; justify-content: center; padding: 12px 28px;
+        background: transparent; color: var(--citi-white); font-weight: 600; font-size: 14px;
+        border-radius: 4px; border: 1.5px solid rgba(255,255,255,0.3); cursor: pointer; transition: all 0.3s var(--citi-transition); text-decoration: none;
+    }
+    .btn-citi-outline:hover { border-color: var(--citi-white); background: rgba(255,255,255,0.06); }
+    .nav-link-premium { position: relative; padding-bottom: 2px; }
+    .nav-link-premium::after {
+        content: ''; position: absolute; bottom: 0; left: 0; width: 0; height: 2px;
+        background: var(--citi-blue); transition: width 0.3s var(--citi-transition);
+    }
+    .nav-link-premium:hover::after, .nav-link-premium.active-tab::after { width: 100%; }
+    .mobile-menu-slide { transform: translateX(100%); transition: transform 0.35s var(--citi-transition); }
+    .mobile-menu-slide.open { transform: translateX(0); }
+</style>
+{% endblock %}
+
+{% block body %}
+<div class="relative flex min-h-screen w-full flex-col overflow-x-hidden bg-white">
+    {% include 'partials/public_header.html' with active_tab='contact' solid_nav=True %}
+
+    <main class="flex-grow pt-20">
+        <!-- Hero Section -->
+        <section class="relative overflow-hidden" style="background: var(--citi-navy); padding: 90px 0 80px 0;">
+            <div class="absolute inset-0 opacity-10" style="background-image: radial-gradient(rgba(255,255,255,0.3) 1px, transparent 1px); background-size: 24px 24px;"></div>
+            <div class="relative mx-auto max-w-[1400px] px-6 lg:px-12">
+                <div class="max-w-3xl">
+                    <span class="text-xs font-semibold tracking-[0.2em] uppercase text-white/50 block mb-4">Client Relations & Inquiries</span>
+                    <div class="accent-bar mb-6"></div>
+                    <h1 class="font-serif text-4xl sm:text-5xl lg:text-6xl font-bold text-white leading-tight mb-6">
+                        We Are Here to Support Your Financial Journey
+                    </h1>
+                    <p class="text-lg sm:text-xl text-white/70 leading-relaxed">
+                        Connect directly with our 24/7 client services team, schedule an appointment with a private banker, or visit one of our international offices.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Channels & Form -->
+        <section class="py-20 lg:py-28 bg-white">
+            <div class="mx-auto max-w-[1400px] px-6 lg:px-12">
+                <div class="grid lg:grid-cols-12 gap-12 lg:gap-16">
+                    <!-- Left: Contact Channels -->
+                    <div class="lg:col-span-5 space-y-6">
+                        <div>
+                            <span class="text-xs font-semibold tracking-[0.2em] uppercase text-[var(--citi-gray-500)] block mb-2">Direct Access</span>
+                            <h2 class="font-serif text-2xl sm:text-3xl font-bold text-slate-900 mb-6">Global Contact Information</h2>
+                        </div>
+
+                        <!-- Email -->
+                        <div class="p-6 rounded-lg bg-[var(--citi-gray-50)] border border-slate-200/80">
+                            <div class="flex items-center gap-3 mb-2">
+                                <span class="material-symbols-outlined text-[var(--citi-blue)] text-[22px]">mail</span>
+                                <h3 class="text-sm font-bold text-slate-900">Email Support</h3>
+                            </div>
+                            <p class="text-xs text-slate-600 mb-1">General Inquiries & Client Support:</p>
+                            <a href="mailto:support@citigroup.com" class="text-sm font-semibold text-[var(--citi-blue)] hover:underline">support@cbiandtrust.com</a>
+                        </div>
+
+                        <!-- Telephone -->
+                        <div class="p-6 rounded-lg bg-[var(--citi-gray-50)] border border-slate-200/80">
+                            <div class="flex items-center gap-3 mb-2">
+                                <span class="material-symbols-outlined text-[var(--citi-blue)] text-[22px]">call</span>
+                                <h3 class="text-sm font-bold text-slate-900">24/7 Telephone Banking</h3>
+                            </div>
+                            <p class="text-xs text-slate-600 mb-1">North America: <span class="font-semibold text-slate-800">+1 (202) 571-8240</span></p>
+                            <p class="text-xs text-slate-600">International Wire Support: <span class="font-semibold text-slate-800">+41 44 211 8000</span></p>
+                        </div>
+
+                        <!-- Offices -->
+                        <div class="p-6 rounded-lg bg-[var(--citi-gray-50)] border border-slate-200/80">
+                            <div class="flex items-center gap-3 mb-2">
+                                <span class="material-symbols-outlined text-[var(--citi-blue)] text-[22px]">location_on</span>
+                                <h3 class="text-sm font-bold text-slate-900">Primary Global Offices</h3>
+                            </div>
+                            <p class="text-xs text-slate-600 mb-2"><strong class="text-slate-800">United States:</strong> 1600 Pennsylvania Ave NW, Washington, DC 20500</p>
+                            <p class="text-xs text-slate-600"><strong class="text-slate-800">Switzerland:</strong> Paradeplatz 8, 8001 Zürich, Switzerland</p>
+                        </div>
+                    </div>
+
+                    <!-- Right: Form -->
+                    <div class="lg:col-span-7">
+                        <div class="bg-white p-8 sm:p-10 rounded-lg border border-slate-200 shadow-lg" id="contact-form-container">
+                            <h3 class="font-serif text-2xl font-bold text-slate-900 mb-2">Send Us a Secure Message</h3>
+                            <p class="text-xs text-slate-500 mb-8">Fill out the inquiry form below and a representative will respond within 24 hours.</p>
+
+                            <form method="POST" hx-post="{% url 'contact' %}" hx-target="#contact-form-container" hx-swap="innerHTML" class="space-y-6">
+                                {% csrf_token %}
+                                <div class="grid sm:grid-cols-2 gap-6">
+                                    <div>
+                                        <label class="block text-xs font-semibold uppercase tracking-wider text-slate-700 mb-2">Your Full Name *</label>
+                                        {{ form.name }}
+                                    </div>
+                                    <div>
+                                        <label class="block text-xs font-semibold uppercase tracking-wider text-slate-700 mb-2">Email Address *</label>
+                                        {{ form.email }}
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <label class="block text-xs font-semibold uppercase tracking-wider text-slate-700 mb-2">Subject / Inquiry Type *</label>
+                                    {{ form.subject }}
+                                </div>
+
+                                <div>
+                                    <label class="block text-xs font-semibold uppercase tracking-wider text-slate-700 mb-2">Your Message *</label>
+                                    {{ form.message }}
+                                </div>
+
+                                <button type="submit" class="btn-citi-primary w-full !py-3.5 text-sm font-bold">
+                                    <span class="htmx-indicator animate-spin mr-2"><span class="material-symbols-outlined text-[18px]">progress_activity</span></span>
+                                    Submit Inquiry
+                                    <span class="material-symbols-outlined ml-2 text-[18px]">send</span>
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    {% include 'partials/public_footer.html' %}
+</div>
+
+<script>
+    function toggleMobileMenu() {
+        const menu = document.getElementById('mobile-menu');
+        const overlay = document.getElementById('mobile-overlay');
+        menu.classList.toggle('open');
+        overlay.classList.toggle('hidden');
+    }
+</script>
+{% endblock %}

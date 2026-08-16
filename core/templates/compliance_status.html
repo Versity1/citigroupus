@@ -1,0 +1,150 @@
+{% extends 'base_dashboard.html' %}
+{% load humanize %}
+
+{% block page_title %}Compliance Status{% endblock %}
+{% block title %}Compliance Status{% endblock %}
+
+{% block content %}
+<div class="max-w-3xl mx-auto space-y-6">
+
+    <!-- ── Header ── -->
+    <div class="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 p-6">
+        <div class="flex items-center gap-3 mb-1">
+            <div class="w-10 h-10 rounded-xl bg-amber-100 dark:bg-amber-900/30 flex items-center justify-center">
+                <span class="material-symbols-outlined text-amber-600 text-[22px]">gavel</span>
+            </div>
+            <div>
+                <h2 class="text-lg font-bold text-slate-900 dark:text-white">Compliance & Verification</h2>
+                <p class="text-sm text-slate-500">Track the status of compliance reviews and TVN requests</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- ── Blocked Transactions ── -->
+    <div class="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 overflow-hidden">
+        <div class="px-6 py-4 border-b border-slate-100 dark:border-slate-700 flex items-center gap-2">
+            <span class="material-symbols-outlined text-red-500 text-[20px]">block</span>
+            <h3 class="text-sm font-bold text-slate-900 dark:text-white uppercase tracking-wide">Blocked Transactions</h3>
+            {% if blocked_transactions %}
+            <span class="ml-auto text-xs font-bold bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400 px-2 py-0.5 rounded-full">{{ blocked_transactions|length }}</span>
+            {% endif %}
+        </div>
+
+        {% if blocked_transactions %}
+        <div class="divide-y divide-slate-100 dark:divide-slate-700">
+            {% for tx in blocked_transactions %}
+            <div class="px-6 py-4 hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors">
+                <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+                    <div class="flex-1 min-w-0">
+                        <div class="flex items-center gap-2 mb-1">
+                            <code class="text-xs font-bold text-slate-600 dark:text-slate-400 bg-slate-100 dark:bg-slate-700 px-2 py-0.5 rounded">MDL-{{ tx.created_at|date:"Y-m-d" }}-{{ tx.id|truncatechars_html:4 }}</code>
+                            {% if tx.status == 'pending' %}
+                            <span class="inline-flex items-center gap-1 text-xs font-bold text-amber-700 bg-amber-50 dark:bg-amber-900/20 dark:text-amber-400 px-2 py-0.5 rounded-full">
+                                <span class="w-1.5 h-1.5 rounded-full bg-amber-500 animate-pulse"></span>
+                                Pending Review
+                            </span>
+                            {% elif tx.status == 'completed' %}
+                            <span class="inline-flex items-center gap-1 text-xs font-bold text-green-700 bg-green-50 dark:bg-green-900/20 dark:text-green-400 px-2 py-0.5 rounded-full">
+                                <span class="material-symbols-outlined text-[12px]">check_circle</span>
+                                Approved
+                            </span>
+                            {% elif tx.status == 'rejected' %}
+                            <span class="inline-flex items-center gap-1 text-xs font-bold text-red-700 bg-red-50 dark:bg-red-900/20 dark:text-red-400 px-2 py-0.5 rounded-full">
+                                <span class="material-symbols-outlined text-[12px]">cancel</span>
+                                Rejected
+                            </span>
+                            {% endif %}
+                        </div>
+                        <p class="text-sm font-semibold text-slate-900 dark:text-white">International Wire to {{ tx.recipient_name }}</p>
+                        <p class="text-xs text-slate-500 mt-0.5">{{ tx.bank_name }}{% if tx.swift_code %} · {{ tx.swift_code }}{% endif %} · {{ tx.beneficiary_country }}</p>
+                    </div>
+                    <div class="text-left sm:text-right flex-shrink-0">
+                        <p class="text-lg font-bold text-slate-900 dark:text-white">${{ tx.amount|floatformat:2|intcomma }}</p>
+                        <p class="text-xs text-slate-500">{{ tx.created_at|date:"M d, Y · g:i A" }}</p>
+                    </div>
+                </div>
+                <!-- Actions -->
+                <div class="flex items-center gap-2 mt-3">
+                    <a href="{% url 'compliance_blocked' tx.id %}" class="inline-flex items-center gap-1 text-xs font-bold text-primary hover:text-primary-dark transition-colors">
+                        <span class="material-symbols-outlined text-[14px]">visibility</span>
+                        View Details
+                    </a>
+                    <span class="text-slate-300 dark:text-slate-600">·</span>
+                    <a href="{% url 'tvn_request' tx.id %}" class="inline-flex items-center gap-1 text-xs font-bold text-teal-600 hover:text-teal-700 transition-colors">
+                        <span class="material-symbols-outlined text-[14px]">verified_user</span>
+                        Submit TVN
+                    </a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% else %}
+        <div class="px-6 py-12 text-center">
+            <div class="w-14 h-14 rounded-full bg-green-100 dark:bg-green-900/30 flex items-center justify-center mx-auto mb-3">
+                <span class="material-symbols-outlined text-green-600 text-[28px]">check_circle</span>
+            </div>
+            <p class="text-sm font-semibold text-slate-700 dark:text-slate-300">No blocked transactions</p>
+            <p class="text-xs text-slate-500 mt-1">All your transfers are clear of compliance holds.</p>
+        </div>
+        {% endif %}
+    </div>
+
+    <!-- ── TVN Requests ── -->
+    <div class="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 overflow-hidden">
+        <div class="px-6 py-4 border-b border-slate-100 dark:border-slate-700 flex items-center gap-2">
+            <span class="material-symbols-outlined text-teal-600 text-[20px]">description</span>
+            <h3 class="text-sm font-bold text-slate-900 dark:text-white uppercase tracking-wide">TVN Applications</h3>
+            {% if tvn_requests %}
+            <span class="ml-auto text-xs font-bold bg-teal-100 text-teal-700 dark:bg-teal-900/30 dark:text-teal-400 px-2 py-0.5 rounded-full">{{ tvn_requests|length }}</span>
+            {% endif %}
+        </div>
+
+        {% if tvn_requests %}
+        <div class="divide-y divide-slate-100 dark:divide-slate-700">
+            {% for req in tvn_requests %}
+            <div class="px-6 py-4">
+                <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+                    <div class="flex-1 min-w-0">
+                        <div class="flex items-center gap-2 mb-1">
+                            <code class="text-xs font-bold text-slate-600 dark:text-slate-400 bg-slate-100 dark:bg-slate-700 px-2 py-0.5 rounded">{{ req.reference_number }}</code>
+                            {% if req.status == 'pending' %}
+                            <span class="inline-flex items-center gap-1 text-xs font-bold text-amber-700 bg-amber-50 dark:bg-amber-900/20 dark:text-amber-400 px-2 py-0.5 rounded-full">
+                                <span class="w-1.5 h-1.5 rounded-full bg-amber-500 animate-pulse"></span>
+                                Under Review
+                            </span>
+                            {% elif req.status == 'approved' %}
+                            <span class="inline-flex items-center gap-1 text-xs font-bold text-green-700 bg-green-50 dark:bg-green-900/20 dark:text-green-400 px-2 py-0.5 rounded-full">
+                                <span class="material-symbols-outlined text-[12px]">check_circle</span>
+                                Approved
+                            </span>
+                            {% elif req.status == 'rejected' %}
+                            <span class="inline-flex items-center gap-1 text-xs font-bold text-red-700 bg-red-50 dark:bg-red-900/20 dark:text-red-400 px-2 py-0.5 rounded-full">
+                                <span class="material-symbols-outlined text-[12px]">cancel</span>
+                                Rejected
+                            </span>
+                            {% endif %}
+                        </div>
+                        <p class="text-sm font-semibold text-slate-900 dark:text-white">{{ req.full_legal_name }}</p>
+                        <p class="text-xs text-slate-500 mt-0.5">{{ req.country_of_residence }} · Transfer: ${{ req.transfer_amount|floatformat:2|intcomma }}</p>
+                    </div>
+                    <div class="text-left sm:text-right flex-shrink-0">
+                        <p class="text-xs text-slate-500">Submitted</p>
+                        <p class="text-sm font-medium text-slate-700 dark:text-slate-300">{{ req.created_at|date:"M d, Y" }}</p>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% else %}
+        <div class="px-6 py-12 text-center">
+            <div class="w-14 h-14 rounded-full bg-slate-100 dark:bg-slate-700 flex items-center justify-center mx-auto mb-3">
+                <span class="material-symbols-outlined text-slate-400 text-[28px]">description</span>
+            </div>
+            <p class="text-sm font-semibold text-slate-700 dark:text-slate-300">No TVN applications</p>
+            <p class="text-xs text-slate-500 mt-1">You haven't submitted any Tax Verification Number applications yet.</p>
+        </div>
+        {% endif %}
+    </div>
+
+</div>
+{% endblock %}

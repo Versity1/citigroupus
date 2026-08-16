@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Citi Group - Transaction History Ledger</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#135bec",
+                        "background-light": "#f6f6f8",
+                        "background-dark": "#101622",
+                    },
+                    fontFamily: {
+                        "display": ["Manrope", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        /* Custom scrollbar for table container */
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background-color: #cbd5e1;
+            border-radius: 20px;
+        }
+        body {
+            font-family: 'Manrope', sans-serif;
+        }
+    </style>
+</head>
+<body class="bg-background-light text-slate-900 antialiased overflow-hidden">
+<div class="flex h-screen w-full overflow-hidden">
+<!-- Sidebar Navigation -->
+<aside class="w-64 bg-white border-r border-slate-200 flex-shrink-0 flex flex-col h-full z-20">
+<div class="p-6 pb-2">
+<div class="flex items-center gap-3 mb-8">
+<div class="bg-primary/10 rounded-xl p-2">
+<span class="material-symbols-outlined text-primary text-3xl">account_balance</span>
+</div>
+<div class="flex flex-col">
+<h1 class="text-slate-900 text-lg font-bold leading-none">Citi Group</h1>
+<p class="text-slate-500 text-xs font-medium mt-1">Business Finance</p>
+</div>
+</div>
+<nav class="flex flex-col gap-1">
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-600 hover:bg-slate-50 transition-colors group" href="#">
+<span class="material-symbols-outlined text-slate-400 group-hover:text-primary transition-colors">grid_view</span>
+<span class="font-medium text-sm">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-600 hover:bg-slate-50 transition-colors group" href="#">
+<span class="material-symbols-outlined text-slate-400 group-hover:text-primary transition-colors">account_balance_wallet</span>
+<span class="font-medium text-sm">Accounts</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg bg-primary/10 text-primary group" href="#">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">receipt_long</span>
+<span class="font-medium text-sm">Transactions</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-600 hover:bg-slate-50 transition-colors group" href="#">
+<span class="material-symbols-outlined text-slate-400 group-hover:text-primary transition-colors">payments</span>
+<span class="font-medium text-sm">Loans</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-600 hover:bg-slate-50 transition-colors group" href="#">
+<span class="material-symbols-outlined text-slate-400 group-hover:text-primary transition-colors">credit_card</span>
+<span class="font-medium text-sm">Cards</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-600 hover:bg-slate-50 transition-colors group" href="#">
+<span class="material-symbols-outlined text-slate-400 group-hover:text-primary transition-colors">settings</span>
+<span class="font-medium text-sm">Settings</span>
+</a>
+</nav>
+</div>
+<div class="mt-auto p-6 border-t border-slate-100">
+<div class="flex items-center gap-3 mb-4">
+<img alt="User Avatar" class="w-10 h-10 rounded-full object-cover border-2 border-white shadow-sm" data-alt="Professional man profile picture" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD9kCFrTFy7v6WWTGh8QSMXiat9quj-KAT48EbHakKnQ5ee2uWDD1zuTOz7RUwFU1D1cA0gQ-uCns0ft_vpbSG4L28Hc47V27BRKNvcFYlOULrBFN_B73pe4Flk4zhm5hBZVKSi1W9qmka5Zvq5cAC_3kqT-grkyuC2Hh8Sam_n7WPNgM-P7Zwqwu665NnTxPdHkOVDgnGwxnPfQKqxDIsGcpUJGncJw1gN3BAhZYN4ylO1p8wmQ6d8LHmmOI9SNmLOLwPMS-iGS37Q"/>
+<div>
+<p class="text-sm font-bold text-slate-900">Alex Morgan</p>
+<p class="text-xs text-slate-500">alex.m@Citi Groupandtrust.com</p>
+</div>
+</div>
+<button class="flex w-full items-center justify-center gap-2 rounded-lg border border-slate-200 bg-white py-2 text-sm font-semibold text-slate-700 hover:bg-slate-50 hover:text-red-600 transition-colors">
+<span class="material-symbols-outlined text-[18px]">logout</span>
+                    Log Out
+                </button>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="flex-1 flex flex-col h-full overflow-hidden bg-background-light relative">
+<!-- Header -->
+<header class="bg-white border-b border-slate-200 px-8 py-5 flex items-center justify-between shrink-0">
+<div>
+<h2 class="text-2xl font-bold text-slate-900 tracking-tight">Transaction Ledger</h2>
+<p class="text-slate-500 text-sm mt-1">View, filter, and manage all your financial activities.</p>
+</div>
+<div class="flex items-center gap-3">
+<button class="flex items-center gap-2 px-4 py-2 bg-white border border-slate-200 rounded-lg text-slate-600 text-sm font-semibold hover:bg-slate-50 hover:border-slate-300 transition-colors">
+<span class="material-symbols-outlined text-[20px]">file_download</span>
+                        Export CSV
+                    </button>
+<button class="flex items-center gap-2 px-4 py-2 bg-primary text-white rounded-lg text-sm font-bold shadow-sm hover:bg-blue-700 transition-colors">
+<span class="material-symbols-outlined text-[20px]">add</span>
+                        New Transfer
+                    </button>
+</div>
+</header>
+<!-- Scrollable Content -->
+<div class="flex-1 overflow-y-auto custom-scrollbar p-8">
+<!-- Filters Section -->
+<div class="bg-white rounded-xl border border-slate-200 shadow-sm p-5 mb-6">
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 items-end">
+<!-- Search -->
+<div class="lg:col-span-1">
+<label class="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">Search</label>
+<div class="relative group">
+<span class="material-symbols-outlined absolute left-3 top-2.5 text-slate-400 group-focus-within:text-primary transition-colors">search</span>
+<input class="w-full pl-10 pr-4 py-2.5 bg-slate-50 border border-slate-200 rounded-lg text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all" placeholder="Search ID or Merchant..." type="text"/>
+</div>
+</div>
+<!-- Date Range -->
+<div class="lg:col-span-1">
+<label class="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">Date Range</label>
+<div class="flex items-center gap-2">
+<div class="relative flex-1">
+<input class="w-full px-3 py-2.5 bg-slate-50 border border-slate-200 rounded-lg text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all text-slate-500" type="date" value="2023-10-01"/>
+</div>
+<span class="text-slate-400">-</span>
+<div class="relative flex-1">
+<input class="w-full px-3 py-2.5 bg-slate-50 border border-slate-200 rounded-lg text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all text-slate-500" type="date" value="2023-10-31"/>
+</div>
+</div>
+</div>
+<!-- Type -->
+<div class="lg:col-span-1">
+<label class="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">Type</label>
+<div class="relative">
+<select class="w-full px-3 py-2.5 bg-slate-50 border border-slate-200 rounded-lg text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all appearance-none cursor-pointer">
+<option>All Transactions</option>
+<option>Deposits</option>
+<option>Withdrawals</option>
+<option>Transfers</option>
+<option>Loan Repayments</option>
+</select>
+<span class="material-symbols-outlined absolute right-3 top-3 text-slate-400 pointer-events-none text-sm">expand_more</span>
+</div>
+</div>
+<!-- Amount & Actions -->
+<div class="lg:col-span-1 flex gap-2">
+<div class="flex-1">
+<label class="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">Status</label>
+<div class="relative">
+<select class="w-full px-3 py-2.5 bg-slate-50 border border-slate-200 rounded-lg text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all appearance-none cursor-pointer">
+<option>Any Status</option>
+<option>Completed</option>
+<option>Pending</option>
+<option>Failed</option>
+</select>
+<span class="material-symbols-outlined absolute right-3 top-3 text-slate-400 pointer-events-none text-sm">expand_more</span>
+</div>
+</div>
+<div class="flex items-end">
+<button class="h-[42px] px-4 bg-primary text-white rounded-lg text-sm font-bold shadow-sm hover:bg-blue-700 transition-colors flex items-center justify-center">
+<span class="material-symbols-outlined text-[20px]">filter_list</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Advanced Filters (Collapsible trigger, just visual here) -->
+<div class="mt-4 pt-4 border-t border-slate-100 flex items-center justify-between">
+<div class="flex items-center gap-4 text-xs font-medium text-slate-500">
+<span>Active Filters:</span>
+<span class="bg-primary/10 text-primary px-2 py-1 rounded-md flex items-center gap-1">
+                                Last 30 Days 
+                                <button class="hover:text-red-500"><span class="material-symbols-outlined text-[14px]">close</span></button>
+</span>
+</div>
+<button class="text-xs font-semibold text-primary hover:text-blue-700">Clear All</button>
+</div>
+</div>
+<!-- Table Section -->
+<div class="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden flex flex-col">
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-slate-50 border-b border-slate-200">
+<th class="py-4 px-6 text-xs font-bold uppercase tracking-wider text-slate-500 w-[50px]">
+<input class="rounded border-slate-300 text-primary focus:ring-primary/20 cursor-pointer" type="checkbox"/>
+</th>
+<th class="py-4 px-6 text-xs font-bold uppercase tracking-wider text-slate-500 cursor-pointer hover:text-primary group">
+<div class="flex items-center gap-1">
+                                            Date
+                                            <span class="material-symbols-outlined text-[16px] opacity-0 group-hover:opacity-100 transition-opacity">arrow_downward</span>
+</div>
+</th>
+<th class="py-4 px-6 text-xs font-bold uppercase tracking-wider text-slate-500">Description</th>
+<th class="py-4 px-6 text-xs font-bold uppercase tracking-wider text-slate-500">Type</th>
+<th class="py-4 px-6 text-xs font-bold uppercase tracking-wider text-slate-500">Transaction ID</th>
+<th class="py-4 px-6 text-xs font-bold uppercase tracking-wider text-slate-500 text-right">Amount</th>
+<th class="py-4 px-6 text-xs font-bold uppercase tracking-wider text-slate-500 text-center">Status</th>
+<th class="py-4 px-6 text-xs font-bold uppercase tracking-wider text-slate-500 w-[50px]"></th>
+</tr>
+</thead>
+<tbody class="divide-y divide-slate-100">
+<!-- Row 1 -->
+<tr class="hover:bg-slate-50 transition-colors group cursor-pointer">
+<td class="py-4 px-6">
+<input class="rounded border-slate-300 text-primary focus:ring-primary/20 cursor-pointer" type="checkbox"/>
+</td>
+<td class="py-4 px-6">
+<div class="flex flex-col">
+<span class="text-sm font-semibold text-slate-900">Oct 24, 2023</span>
+<span class="text-xs text-slate-500">10:42 AM</span>
+</div>
+</td>
+<td class="py-4 px-6">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center text-slate-600 flex-shrink-0">
+<span class="material-symbols-outlined text-[18px]">movie</span>
+</div>
+<div>
+<p class="text-sm font-semibold text-slate-900">Netflix Subscription</p>
+<p class="text-xs text-slate-500">Recurring Payment</p>
+</div>
+</div>
+</td>
+<td class="py-4 px-6">
+<span class="text-sm text-slate-600 font-medium">Withdrawal</span>
+</td>
+<td class="py-4 px-6">
+<span class="text-sm font-mono text-slate-500">#TXN-8842</span>
+</td>
+<td class="py-4 px-6 text-right">
+<span class="text-sm font-bold text-slate-900">-$15.99</span>
+</td>
+<td class="py-4 px-6 text-center">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium bg-emerald-50 text-emerald-700 border border-emerald-100">
+<span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+                                            Completed
+                                        </span>
+</td>
+<td class="py-4 px-6 text-right">
+<button class="text-slate-400 hover:text-primary transition-colors p-1 rounded-full hover:bg-slate-200">
+<span class="material-symbols-outlined text-[20px]">more_vert</span>
+</button>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="hover:bg-slate-50 transition-colors group cursor-pointer">
+<td class="py-4 px-6">
+<input class="rounded border-slate-300 text-primary focus:ring-primary/20 cursor-pointer" type="checkbox"/>
+</td>
+<td class="py-4 px-6">
+<div class="flex flex-col">
+<span class="text-sm font-semibold text-slate-900">Oct 23, 2023</span>
+<span class="text-xs text-slate-500">09:15 AM</span>
+</div>
+</td>
+<td class="py-4 px-6">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-blue-50 flex items-center justify-center text-primary flex-shrink-0">
+<span class="material-symbols-outlined text-[18px]">work</span>
+</div>
+<div>
+<p class="text-sm font-semibold text-slate-900">TechCorp Salary</p>
+<p class="text-xs text-slate-500">Direct Deposit</p>
+</div>
+</div>
+</td>
+<td class="py-4 px-6">
+<span class="text-sm text-slate-600 font-medium">Deposit</span>
+</td>
+<td class="py-4 px-6">
+<span class="text-sm font-mono text-slate-500">#TXN-8841</span>
+</td>
+<td class="py-4 px-6 text-right">
+<span class="text-sm font-bold text-emerald-600">+$4,200.00</span>
+</td>
+<td class="py-4 px-6 text-center">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium bg-emerald-50 text-emerald-700 border border-emerald-100">
+<span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+                                            Completed
+                                        </span>
+</td>
+<td class="py-4 px-6 text-right">
+<button class="text-slate-400 hover:text-primary transition-colors p-1 rounded-full hover:bg-slate-200">
+<span class="material-symbols-outlined text-[20px]">more_vert</span>
+</button>
+</td>
+</tr>
+<!-- Row 3 -->
+<tr class="hover:bg-slate-50 transition-colors group cursor-pointer bg-amber-50/30">
+<td class="py-4 px-6">
+<input class="rounded border-slate-300 text-primary focus:ring-primary/20 cursor-pointer" type="checkbox"/>
+</td>
+<td class="py-4 px-6">
+<div class="flex flex-col">
+<span class="text-sm font-semibold text-slate-900">Oct 22, 2023</span>
+<span class="text-xs text-slate-500">02:30 PM</span>
+</div>
+</td>
+<td class="py-4 px-6">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-amber-50 flex items-center justify-center text-amber-600 flex-shrink-0">
+<span class="material-symbols-outlined text-[18px]">home</span>
+</div>
+<div>
+<p class="text-sm font-semibold text-slate-900">Mortgage Payment</p>
+<p class="text-xs text-slate-500">Loan Account ...4492</p>
+</div>
+</div>
+</td>
+<td class="py-4 px-6">
+<span class="text-sm text-slate-600 font-medium">Loan Repayment</span>
+</td>
+<td class="py-4 px-6">
+<span class="text-sm font-mono text-slate-500">#TXN-8840</span>
+</td>
+<td class="py-4 px-6 text-right">
+<span class="text-sm font-bold text-slate-900">-$1,200.00</span>
+</td>
+<td class="py-4 px-6 text-center">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium bg-amber-50 text-amber-700 border border-amber-100">
+<span class="w-1.5 h-1.5 rounded-full bg-amber-500 animate-pulse"></span>
+                                            Pending
+                                        </span>
+</td>
+<td class="py-4 px-6 text-right">
+<button class="text-slate-400 hover:text-primary transition-colors p-1 rounded-full hover:bg-slate-200">
+<span class="material-symbols-outlined text-[20px]">more_vert</span>
+</button>
+</td>
+</tr>
+<!-- Row 4 -->
+<tr class="hover:bg-slate-50 transition-colors group cursor-pointer">
+<td class="py-4 px-6">
+<input class="rounded border-slate-300 text-primary focus:ring-primary/20 cursor-pointer" type="checkbox"/>
+</td>
+<td class="py-4 px-6">
+<div class="flex flex-col">
+<span class="text-sm font-semibold text-slate-900">Oct 21, 2023</span>
+<span class="text-xs text-slate-500">11:15 AM</span>
+</div>
+</td>
+<td class="py-4 px-6">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center text-slate-600 flex-shrink-0">
+<span class="material-symbols-outlined text-[18px]">shopping_cart</span>
+</div>
+<div>
+<p class="text-sm font-semibold text-slate-900">Whole Foods Market</p>
+<p class="text-xs text-slate-500">Groceries</p>
+</div>
+</div>
+</td>
+<td class="py-4 px-6">
+<span class="text-sm text-slate-600 font-medium">Card Payment</span>
+</td>
+<td class="py-4 px-6">
+<span class="text-sm font-mono text-slate-500">#TXN-8839</span>
+</td>
+<td class="py-4 px-6 text-right">
+<span class="text-sm font-bold text-slate-900">-$243.50</span>
+</td>
+<td class="py-4 px-6 text-center">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium bg-emerald-50 text-emerald-700 border border-emerald-100">
+<span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+                                            Completed
+                                        </span>
+</td>
+<td class="py-4 px-6 text-right">
+<button class="text-slate-400 hover:text-primary transition-colors p-1 rounded-full hover:bg-slate-200">
+<span class="material-symbols-outlined text-[20px]">more_vert</span>
+</button>
+</td>
+</tr>
+<!-- Row 5 (Failed) -->
+<tr class="hover:bg-slate-50 transition-colors group cursor-pointer bg-red-50/30">
+<td class="py-4 px-6">
+<input class="rounded border-slate-300 text-primary focus:ring-primary/20 cursor-pointer" type="checkbox"/>
+</td>
+<td class="py-4 px-6">
+<div class="flex flex-col">
+<span class="text-sm font-semibold text-slate-900">Oct 20, 2023</span>
+<span class="text-xs text-slate-500">04:45 PM</span>
+</div>
+</td>
+<td class="py-4 px-6">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-red-100 flex items-center justify-center text-red-600 flex-shrink-0">
+<span class="material-symbols-outlined text-[18px]">sync_problem</span>
+</div>
+<div>
+<p class="text-sm font-semibold text-slate-900">Overseas Transfer</p>
+<p class="text-xs text-slate-500">Recipient: John Doe</p>
+</div>
+</div>
+</td>
+<td class="py-4 px-6">
+<span class="text-sm text-slate-600 font-medium">Transfer</span>
+</td>
+<td class="py-4 px-6">
+<span class="text-sm font-mono text-slate-500">#TXN-8838</span>
+</td>
+<td class="py-4 px-6 text-right">
+<span class="text-sm font-bold text-slate-900">-$500.00</span>
+</td>
+<td class="py-4 px-6 text-center">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium bg-red-50 text-red-700 border border-red-100">
+<span class="material-symbols-outlined text-[14px]">error</span>
+                                            Failed
+                                        </span>
+</td>
+<td class="py-4 px-6 text-right">
+<button class="text-slate-400 hover:text-primary transition-colors p-1 rounded-full hover:bg-slate-200">
+<span class="material-symbols-outlined text-[20px]">more_vert</span>
+</button>
+</td>
+</tr>
+<!-- Row 6 -->
+<tr class="hover:bg-slate-50 transition-colors group cursor-pointer">
+<td class="py-4 px-6">
+<input class="rounded border-slate-300 text-primary focus:ring-primary/20 cursor-pointer" type="checkbox"/>
+</td>
+<td class="py-4 px-6">
+<div class="flex flex-col">
+<span class="text-sm font-semibold text-slate-900">Oct 19, 2023</span>
+<span class="text-xs text-slate-500">01:00 PM</span>
+</div>
+</td>
+<td class="py-4 px-6">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center text-slate-600 flex-shrink-0">
+<span class="material-symbols-outlined text-[18px]">local_cafe</span>
+</div>
+<div>
+<p class="text-sm font-semibold text-slate-900">Starbucks</p>
+<p class="text-xs text-slate-500">Coffee &amp; Snacks</p>
+</div>
+</div>
+</td>
+<td class="py-4 px-6">
+<span class="text-sm text-slate-600 font-medium">Card Payment</span>
+</td>
+<td class="py-4 px-6">
+<span class="text-sm font-mono text-slate-500">#TXN-8837</span>
+</td>
+<td class="py-4 px-6 text-right">
+<span class="text-sm font-bold text-slate-900">-$12.50</span>
+</td>
+<td class="py-4 px-6 text-center">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium bg-emerald-50 text-emerald-700 border border-emerald-100">
+<span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+                                            Completed
+                                        </span>
+</td>
+<td class="py-4 px-6 text-right">
+<button class="text-slate-400 hover:text-primary transition-colors p-1 rounded-full hover:bg-slate-200">
+<span class="material-symbols-outlined text-[20px]">more_vert</span>
+</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Pagination -->
+<div class="bg-white px-6 py-4 border-t border-slate-200 flex items-center justify-between">
+<div class="flex items-center gap-2 text-sm text-slate-500">
+<span>Showing</span>
+<select class="border-none bg-slate-50 rounded text-sm font-semibold text-slate-700 focus:ring-0 py-1 pl-2 pr-6 cursor-pointer">
+<option>10</option>
+<option>25</option>
+<option>50</option>
+</select>
+<span>of <span class="font-semibold text-slate-900">142</span> results</span>
+</div>
+<div class="flex items-center gap-2">
+<button class="p-2 rounded-lg border border-slate-200 hover:bg-slate-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors text-slate-500" disabled="">
+<span class="material-symbols-outlined text-[20px]">chevron_left</span>
+</button>
+<button class="px-3 py-1 rounded-lg bg-primary text-white text-sm font-medium">1</button>
+<button class="px-3 py-1 rounded-lg hover:bg-slate-50 text-slate-600 text-sm font-medium transition-colors">2</button>
+<button class="px-3 py-1 rounded-lg hover:bg-slate-50 text-slate-600 text-sm font-medium transition-colors">3</button>
+<span class="text-slate-400">...</span>
+<button class="px-3 py-1 rounded-lg hover:bg-slate-50 text-slate-600 text-sm font-medium transition-colors">14</button>
+<button class="p-2 rounded-lg border border-slate-200 hover:bg-slate-50 text-slate-500 transition-colors">
+<span class="material-symbols-outlined text-[20px]">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Footer Summary -->
+<div class="mt-8 flex justify-end items-center gap-6 text-slate-500 text-sm pb-8">
+<p>Citi Group Secured Gateway</p>
+<div class="flex gap-4">
+<a class="hover:text-primary" href="#">Privacy Policy</a>
+<a class="hover:text-primary" href="#">Terms of Service</a>
+</div>
+</div>
+</div>
+<!-- Floating Expanded Row / Drawer Simulation (Visual only, no JS behavior) -->
+<!-- This represents what happens when a row is clicked - simulating an overlay -->
+<div class="hidden absolute top-0 right-0 h-full w-[400px] bg-white shadow-2xl border-l border-slate-200 z-30 flex flex-col transform transition-transform translate-x-0">
+<div class="p-6 border-b border-slate-100 flex items-center justify-between">
+<h3 class="font-bold text-lg text-slate-900">Transaction Details</h3>
+<button class="text-slate-400 hover:text-slate-600">
+<span class="material-symbols-outlined">close</span>
+</button>
+</div>
+<div class="p-6 flex-1 overflow-y-auto">
+<div class="flex flex-col items-center mb-8">
+<div class="w-16 h-16 bg-slate-100 rounded-full flex items-center justify-center mb-4">
+<span class="material-symbols-outlined text-3xl text-slate-600">movie</span>
+</div>
+<h4 class="text-xl font-bold text-slate-900">Netflix Subscription</h4>
+<p class="text-2xl font-bold text-slate-900 mt-2">-$15.99</p>
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium bg-emerald-50 text-emerald-700 border border-emerald-100 mt-3">Completed</span>
+</div>
+<div class="space-y-4">
+<div class="flex justify-between py-3 border-b border-slate-50">
+<span class="text-slate-500 text-sm">Date &amp; Time</span>
+<span class="text-slate-900 font-medium text-sm">Oct 24, 2023, 10:42 AM</span>
+</div>
+<div class="flex justify-between py-3 border-b border-slate-50">
+<span class="text-slate-500 text-sm">Transaction ID</span>
+<span class="text-slate-900 font-medium text-sm font-mono">#TXN-8842</span>
+</div>
+<div class="flex justify-between py-3 border-b border-slate-50">
+<span class="text-slate-500 text-sm">Category</span>
+<span class="text-slate-900 font-medium text-sm">Entertainment</span>
+</div>
+<div class="flex justify-between py-3 border-b border-slate-50">
+<span class="text-slate-500 text-sm">Payment Method</span>
+<span class="text-slate-900 font-medium text-sm">Visa ending in 4242</span>
+</div>
+</div>
+</div>
+<div class="p-6 border-t border-slate-100 bg-slate-50">
+<button class="w-full py-2.5 bg-white border border-slate-200 rounded-lg text-slate-700 font-semibold text-sm hover:bg-slate-100 transition-colors shadow-sm">
+                        Download Receipt
+                    </button>
+<button class="w-full py-2.5 mt-3 text-red-600 font-semibold text-sm hover:bg-red-50 rounded-lg transition-colors">
+                        Report Issue
+                    </button>
+</div>
+</div>
+</main>
+</div>
+</body></html>

@@ -1,0 +1,256 @@
+{% load humanize %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{% block page_title %}Admin{% endblock %} | Citi Group Management</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: { DEFAULT: '#1152d4', dark: '#0d3fa8' },
+                        gold: '#D4A843',
+                        surface: 'var(--surface)',
+                        panel: 'var(--panel)',
+                    }
+                }
+            }
+        }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet" />
+    <style>
+        * { font-family: 'Inter', sans-serif; }
+        :root { --surface: #f1f5f9; --panel: #ffffff; }
+        .dark { --surface: #0f172a; --panel: #1e293b; }
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: var(--surface); }
+        ::-webkit-scrollbar-thumb { background: #94a3b8; border-radius: 3px; }
+        .dark ::-webkit-scrollbar-thumb { background: #334155; }
+        .sidebar-link { transition: all 0.15s ease; }
+        .sidebar-link:hover, .sidebar-link.active {
+            background: rgba(17, 82, 212, 0.08);
+            color: #1152d4;
+        }
+        .dark .sidebar-link:hover, .dark .sidebar-link.active {
+            background: rgba(17, 82, 212, 0.15);
+            color: #60a5fa;
+        }
+        .sidebar-link.active { border-left: 3px solid #1152d4; }
+    </style>
+</head>
+<body class="bg-surface text-slate-600 dark:text-slate-300 min-h-screen">
+    <div class="flex min-h-screen">
+        <!-- Sidebar -->
+        <aside class="hidden lg:flex flex-col w-64 bg-panel border-r border-slate-200 dark:border-slate-700/50 fixed h-full z-30">
+            <!-- Logo -->
+            <div class="px-6 py-5 border-b border-slate-200 dark:border-slate-700/50">
+                <a href="{% url 'admin_dashboard' %}" class="flex items-center gap-2">
+                    <div class="w-9 h-9 rounded-lg bg-primary flex items-center justify-center">
+                        <span class="text-white font-bold text-sm">ZB</span>
+                    </div>
+                    <div>
+                        <h1 class="text-slate-900 dark:text-white font-bold text-sm">Citi Group</h1>
+                        <p class="text-[10px] text-slate-400 dark:text-slate-500 uppercase tracking-wider">Management</p>
+                    </div>
+                </a>
+            </div>
+
+            <!-- Navigation -->
+            <nav class="flex-1 py-4 px-3 space-y-1 overflow-y-auto">
+                <p class="text-[10px] text-slate-400 dark:text-slate-500 uppercase tracking-wider font-bold px-3 mb-2">Overview</p>
+                <a href="{% url 'admin_dashboard' %}" class="sidebar-link flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium {% if request.resolver_match.url_name == 'admin_dashboard' %}active{% endif %}">
+                    <span class="material-symbols-outlined text-[20px]">dashboard</span>
+                    Dashboard
+                </a>
+
+                <p class="text-[10px] text-slate-400 dark:text-slate-500 uppercase tracking-wider font-bold px-3 mt-5 mb-2">Management</p>
+                <a href="{% url 'admin_users' %}" class="sidebar-link flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium {% if 'user' in request.resolver_match.url_name %}active{% endif %}">
+                    <span class="material-symbols-outlined text-[20px]">group</span>
+                    Users
+                </a>
+                <a href="{% url 'admin_transactions' %}" class="sidebar-link flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium {% if 'transaction' in request.resolver_match.url_name %}active{% endif %}">
+                    <span class="material-symbols-outlined text-[20px]">receipt_long</span>
+                    Transactions
+                </a>
+                <a href="{% url 'admin_loans' %}" class="sidebar-link flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium {% if 'loan' in request.resolver_match.url_name %}active{% endif %}">
+                    <span class="material-symbols-outlined text-[20px]">account_balance</span>
+                    Loans
+                </a>
+                <a href="{% url 'admin_cards' %}" class="sidebar-link flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium {% if 'card' in request.resolver_match.url_name %}active{% endif %}">
+                    <span class="material-symbols-outlined text-[20px]">credit_card</span>
+                    Cards
+                </a>
+                <a href="{% url 'admin_compliance' %}" class="sidebar-link flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium {% if 'compliance' in request.resolver_match.url_name %}active{% endif %}">
+                    <span class="material-symbols-outlined text-[20px]">gavel</span>
+                    Compliance
+                </a>
+                <a href="{% url 'admin_complaints' %}" class="sidebar-link flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium {% if 'complaint' in request.resolver_match.url_name %}active{% endif %}">
+                    <span class="material-symbols-outlined text-[20px]">support_agent</span>
+                    Complaints
+                </a>
+
+                <p class="text-[10px] text-slate-400 dark:text-slate-500 uppercase tracking-wider font-bold px-3 mt-5 mb-2">Configuration</p>
+                <a href="{% url 'admin_wallets' %}" class="sidebar-link flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium {% if 'wallet' in request.resolver_match.url_name %}active{% endif %}">
+                    <span class="material-symbols-outlined text-[20px]">currency_bitcoin</span>
+                    Crypto Wallets
+                </a>
+                <a href="{% url 'admin_bank_accounts' %}" class="sidebar-link flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium {% if 'bank' in request.resolver_match.url_name %}active{% endif %}">
+                    <span class="material-symbols-outlined text-[20px]">account_balance_wallet</span>
+                    Bank Accounts
+                </a>
+                <a href="{% url 'admin_messages' %}" class="sidebar-link flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium {% if 'message' in request.resolver_match.url_name %}active{% endif %}">
+                    <span class="material-symbols-outlined text-[20px]">mail</span>
+                    Messages
+                </a>
+                <a href="{% url 'admin_send_email' %}" class="sidebar-link flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium {% if 'send_email' in request.resolver_match.url_name %}active{% endif %}">
+                    <span class="material-symbols-outlined text-[20px]">forward_to_inbox</span>
+                    Send Email
+                </a>
+            </nav>
+
+            <!-- Bottom -->
+            <div class="px-4 py-4 border-t border-slate-200 dark:border-slate-700/50">
+                <a href="{% url 'dashboard' %}" class="flex items-center gap-2 text-xs text-slate-500 hover:text-slate-700 dark:hover:text-slate-300 transition-colors">
+                    <span class="material-symbols-outlined text-[16px]">arrow_back</span>
+                    Back to Main Site
+                </a>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <div class="flex-1 lg:ml-64">
+            <!-- Top Bar -->
+            <header class="sticky top-0 z-20 bg-panel/80 backdrop-blur-xl border-b border-slate-200 dark:border-slate-700/50">
+                <div class="flex items-center justify-between px-4 lg:px-8 h-16">
+                    <!-- Mobile menu toggle -->
+                    <button onclick="toggleMobileMenu()" class="lg:hidden p-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-700/50 text-slate-500 dark:text-slate-400">
+                        <span class="material-symbols-outlined">menu</span>
+                    </button>
+
+                    <h2 class="text-lg font-bold text-slate-900 dark:text-white">{% block title %}Dashboard{% endblock %}</h2>
+
+                    <div class="flex items-center gap-3">
+                        <!-- Dark mode toggle -->
+                        <button onclick="toggleAdminDarkMode()" class="p-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-700/50 text-slate-500 dark:text-slate-400" title="Toggle theme">
+                            <span class="material-symbols-outlined text-[20px] dark:hidden">dark_mode</span>
+                            <span class="material-symbols-outlined text-[20px] hidden dark:inline">light_mode</span>
+                        </button>
+
+                        <a href="{% url 'dashboard' %}" class="hidden sm:flex items-center gap-1 text-xs text-slate-500 hover:text-slate-700 dark:hover:text-slate-300 px-3 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700 hover:border-slate-300 dark:hover:border-slate-600 transition-colors">
+                            <span class="material-symbols-outlined text-[14px]">open_in_new</span>
+                            Main Site
+                        </a>
+                        <div class="flex items-center gap-2 pl-3 border-l border-slate-200 dark:border-slate-700">
+                            <div class="w-8 h-8 rounded-full bg-primary/20 flex items-center justify-center">
+                                <span class="text-primary font-bold text-xs">{{ user.first_name.0 }}{{ user.last_name.0 }}</span>
+                            </div>
+                            <span class="text-sm font-medium text-slate-900 dark:text-white hidden sm:block">{{ user.get_full_name }}</span>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Messages -->
+            {% if messages %}
+            <div class="px-4 lg:px-8 pt-4">
+                {% for message in messages %}
+                <div class="mb-2 flex items-center gap-2 px-4 py-3 rounded-xl text-sm font-medium
+                    {% if message.tags == 'success' %}bg-green-100 dark:bg-green-500/10 text-green-700 dark:text-green-400 border border-green-200 dark:border-green-500/20
+                    {% elif message.tags == 'error' %}bg-red-100 dark:bg-red-500/10 text-red-700 dark:text-red-400 border border-red-200 dark:border-red-500/20
+                    {% elif message.tags == 'warning' %}bg-amber-100 dark:bg-amber-500/10 text-amber-700 dark:text-amber-400 border border-amber-200 dark:border-amber-500/20
+                    {% else %}bg-blue-100 dark:bg-blue-500/10 text-blue-700 dark:text-blue-400 border border-blue-200 dark:border-blue-500/20{% endif %}">
+                    <span class="material-symbols-outlined text-[18px]">
+                        {% if message.tags == 'success' %}check_circle{% elif message.tags == 'error' %}error{% elif message.tags == 'warning' %}warning{% else %}info{% endif %}
+                    </span>
+                    {{ message }}
+                </div>
+                {% endfor %}
+            </div>
+            {% endif %}
+
+            <!-- Page Content -->
+            <main class="px-4 lg:px-8 py-6">
+                {% block content %}{% endblock %}
+            </main>
+        </div>
+    </div>
+
+    <!-- Mobile Menu Overlay -->
+    <div id="mobile-menu" class="fixed inset-0 z-50 hidden">
+        <div class="absolute inset-0 bg-black/60" onclick="toggleMobileMenu()"></div>
+        <div class="absolute left-0 top-0 h-full w-72 bg-panel border-r border-slate-200 dark:border-slate-700/50 overflow-y-auto">
+            <div class="px-6 py-5 border-b border-slate-200 dark:border-slate-700/50 flex items-center justify-between">
+                <div class="flex items-center gap-2">
+                    <div class="w-9 h-9 rounded-lg bg-primary flex items-center justify-center">
+                        <span class="text-white font-bold text-sm">ZB</span>
+                    </div>
+                    <div>
+                        <h1 class="text-slate-900 dark:text-white font-bold text-sm">Citi Group</h1>
+                        <p class="text-[10px] text-slate-400 dark:text-slate-500 uppercase tracking-wider">Management</p>
+                    </div>
+                </div>
+                <button onclick="toggleMobileMenu()" class="p-1 rounded hover:bg-slate-100 dark:hover:bg-slate-700/50 text-slate-500 dark:text-slate-400">
+                    <span class="material-symbols-outlined">close</span>
+                </button>
+            </div>
+            <nav class="py-4 px-3 space-y-1">
+                <a href="{% url 'admin_dashboard' %}" class="sidebar-link flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium">
+                    <span class="material-symbols-outlined text-[20px]">dashboard</span>Dashboard
+                </a>
+                <a href="{% url 'admin_users' %}" class="sidebar-link flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium">
+                    <span class="material-symbols-outlined text-[20px]">group</span>Users
+                </a>
+                <a href="{% url 'admin_transactions' %}" class="sidebar-link flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium">
+                    <span class="material-symbols-outlined text-[20px]">receipt_long</span>Transactions
+                </a>
+                <a href="{% url 'admin_loans' %}" class="sidebar-link flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium">
+                    <span class="material-symbols-outlined text-[20px]">account_balance</span>Loans
+                </a>
+                <a href="{% url 'admin_cards' %}" class="sidebar-link flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium">
+                    <span class="material-symbols-outlined text-[20px]">credit_card</span>Cards
+                </a>
+                <a href="{% url 'admin_compliance' %}" class="sidebar-link flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium">
+                    <span class="material-symbols-outlined text-[20px]">gavel</span>Compliance
+                </a>
+                <a href="{% url 'admin_complaints' %}" class="sidebar-link flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium">
+                    <span class="material-symbols-outlined text-[20px]">support_agent</span>Complaints
+                </a>
+                <hr class="border-slate-200 dark:border-slate-700/50 my-2">
+                <a href="{% url 'admin_wallets' %}" class="sidebar-link flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium">
+                    <span class="material-symbols-outlined text-[20px]">currency_bitcoin</span>Crypto Wallets
+                </a>
+                <a href="{% url 'admin_bank_accounts' %}" class="sidebar-link flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium">
+                    <span class="material-symbols-outlined text-[20px]">account_balance_wallet</span>Bank Accounts
+                </a>
+                <a href="{% url 'admin_messages' %}" class="sidebar-link flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium">
+                    <span class="material-symbols-outlined text-[20px]">mail</span>Messages
+                </a>
+                <a href="{% url 'admin_send_email' %}" class="sidebar-link flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium">
+                    <span class="material-symbols-outlined text-[20px]">forward_to_inbox</span>Send Email
+                </a>
+            </nav>
+        </div>
+    </div>
+
+    <script>
+        function toggleMobileMenu() {
+            document.getElementById('mobile-menu').classList.toggle('hidden');
+        }
+        function toggleAdminDarkMode() {
+            document.documentElement.classList.toggle('dark');
+            localStorage.setItem('adminDarkMode', document.documentElement.classList.contains('dark'));
+        }
+        // Load preference (default to dark)
+        if (localStorage.getItem('adminDarkMode') === 'false') {
+            document.documentElement.classList.remove('dark');
+        } else {
+            document.documentElement.classList.add('dark');
+        }
+    </script>
+</body>
+</html>

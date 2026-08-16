@@ -1,0 +1,106 @@
+{% extends 'management/base_admin.html' %}
+{% load humanize %}
+
+{% block page_title %}Cards{% endblock %}
+{% block title %}Cards{% endblock %}
+
+{% block content %}
+<div class="flex flex-col sm:flex-row gap-3 mb-6">
+    <form method="GET" class="flex-1 flex flex-wrap gap-2">
+        <div class="relative flex-1 min-w-[200px]">
+            <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-[18px]">search</span>
+            <input type="text" name="q" value="{{ q }}" placeholder="Search user..."
+                class="w-full pl-10 pr-4 py-2.5 bg-panel border border-slate-200 dark:border-slate-700 rounded-xl text-sm text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:border-primary outline-none">
+        </div>
+        <select name="status" class="px-3 py-2.5 bg-panel border border-slate-200 dark:border-slate-700 rounded-xl text-sm text-slate-900 dark:text-white outline-none">
+            <option value="">All Status</option>
+            <option value="pending" {% if status_filter == 'pending' %}selected{% endif %}>Pending</option>
+            <option value="active" {% if status_filter == 'active' %}selected{% endif %}>Active</option>
+            <option value="blocked" {% if status_filter == 'blocked' %}selected{% endif %}>Blocked</option>
+            <option value="expired" {% if status_filter == 'expired' %}selected{% endif %}>Expired</option>
+        </select>
+        <button type="submit" class="px-4 py-2 bg-primary text-white rounded-xl text-sm font-semibold hover:bg-primary-dark transition-colors">Filter</button>
+    </form>
+</div>
+
+<div class="bg-panel rounded-xl border border-slate-200 dark:border-slate-700/50 overflow-hidden">
+    <div class="overflow-x-auto">
+        <table class="w-full text-sm">
+            <thead>
+                <tr class="border-b border-slate-200 dark:border-slate-700/50">
+                    <th class="text-left px-5 py-3 text-xs font-bold text-slate-500 uppercase">Card Holder</th>
+                    <th class="text-left px-5 py-3 text-xs font-bold text-slate-500 uppercase">Card Number</th>
+                    <th class="text-left px-5 py-3 text-xs font-bold text-slate-500 uppercase">Type</th>
+                    <th class="text-left px-5 py-3 text-xs font-bold text-slate-500 uppercase">Network</th>
+                    <th class="text-left px-5 py-3 text-xs font-bold text-slate-500 uppercase">Expiry</th>
+                    <th class="text-left px-5 py-3 text-xs font-bold text-slate-500 uppercase">Status</th>
+                    <th class="text-left px-5 py-3 text-xs font-bold text-slate-500 uppercase">Created</th>
+                    <th class="text-right px-5 py-3 text-xs font-bold text-slate-500 uppercase">Actions</th>
+                </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-100 dark:divide-slate-700/30">
+                {% for card in cards %}
+                <tr class="hover:bg-slate-50 dark:hover:bg-slate-700/20 transition-colors">
+                    <td class="px-5 py-3">
+                        <a href="{% url 'admin_user_detail' card.user.id %}" class="text-slate-900 dark:text-white hover:text-primary font-medium">{{ card.card_holder_name }}</a>
+                        <p class="text-[11px] text-slate-500">{{ card.user.email }}</p>
+                    </td>
+                    <td class="px-5 py-3 font-mono text-xs text-slate-500 dark:text-slate-400">
+                        {{ card.card_number|slice:":4" }} **** **** {{ card.card_number|slice:"-4:" }}
+                    </td>
+                    <td class="px-5 py-3 text-slate-500 dark:text-slate-400 uppercase font-medium">{{ card.card_type }}</td>
+                    <td class="px-5 py-3 text-slate-500 dark:text-slate-400 uppercase font-medium">{{ card.card_network }}</td>
+                    <td class="px-5 py-3 text-slate-500 dark:text-slate-400">{{ card.expiry_month }}/{{ card.expiry_year|stringformat:"i"|slice:"2:" }}</td>
+                    <td class="px-5 py-3">
+                        <span class="text-[10px] font-medium px-2 py-0.5 rounded-full
+                            {% if card.status == 'active' %}bg-green-100 dark:bg-green-500/10 text-green-700 dark:text-green-400
+                            {% elif card.status == 'pending' %}bg-amber-100 dark:bg-amber-500/10 text-amber-700 dark:text-amber-400
+                            {% elif card.status == 'blocked' %}bg-red-100 dark:bg-red-500/10 text-red-700 dark:text-red-400
+                            {% else %}bg-slate-100 dark:bg-slate-500/10 text-slate-600 dark:text-slate-400{% endif %}">{{ card.get_status_display }}</span>
+                    </td>
+                    <td class="px-5 py-3 text-xs text-slate-500">{{ card.created_at|date:"M d, Y" }}</td>
+                    <td class="px-5 py-3 text-right">
+                        {% if card.status == 'pending' %}
+                        <div class="flex items-center justify-end gap-1">
+                            <form method="POST" action="{% url 'admin_card_action' card.id %}">
+                                {% csrf_token %}
+                                <input type="hidden" name="action" value="approve">
+                                <button type="submit" class="p-1.5 rounded-lg bg-green-100 dark:bg-green-500/10 text-green-700 dark:text-green-400 hover:bg-green-200 dark:hover:bg-green-500/20 transition-colors" title="Approve">
+                                    <span class="material-symbols-outlined text-[16px]">check</span>
+                                </button>
+                            </form>
+                            <form method="POST" action="{% url 'admin_card_action' card.id %}">
+                                {% csrf_token %}
+                                <input type="hidden" name="action" value="reject">
+                                <button type="submit" class="p-1.5 rounded-lg bg-red-100 dark:bg-red-500/10 text-red-700 dark:text-red-400 hover:bg-red-200 dark:hover:bg-red-500/20 transition-colors" title="Reject">
+                                    <span class="material-symbols-outlined text-[16px]">close</span>
+                                </button>
+                            </form>
+                        </div>
+                        {% else %}
+                        <span class="text-xs text-slate-400">—</span>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% empty %}
+                <tr><td colspan="8" class="px-5 py-8 text-center text-slate-500">No cards found</td></tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    {% if cards.has_other_pages %}
+    <div class="px-5 py-3 border-t border-slate-200 dark:border-slate-700/50 flex items-center justify-between">
+        <span class="text-xs text-slate-500">Page {{ cards.number }} of {{ cards.paginator.num_pages }}</span>
+        <div class="flex gap-1">
+            {% if cards.has_previous %}
+            <a href="?page={{ cards.previous_page_number }}&q={{ q }}&status={{ status_filter }}" class="px-3 py-1 rounded-lg text-xs bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-600">Prev</a>
+            {% endif %}
+            {% if cards.has_next %}
+            <a href="?page={{ cards.next_page_number }}&q={{ q }}&status={{ status_filter }}" class="px-3 py-1 rounded-lg text-xs bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-600">Next</a>
+            {% endif %}
+        </div>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

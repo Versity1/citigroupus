@@ -1,0 +1,151 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Privacy Policy | Citi Group{% endblock %}
+{% block meta_description %}Citi Group Privacy Policy — how we collect, safeguard, and process your personal and financial information under global data protection standards.{% endblock %}
+
+{% block extra_head %}
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+    :root {
+        --citi-navy: #0F1632;
+        --citi-navy-light: #1a2340;
+        --citi-blue: #255BE3;
+        --citi-blue-hover: #1d4dc4;
+        --citi-accent: #FF3C28;
+        --citi-gold: #C5A059;
+        --citi-white: #FFFFFF;
+        --citi-gray-50: #F7F8FA;
+        --citi-gray-100: #EDEFF3;
+        --citi-gray-200: #D4D8E0;
+        --citi-gray-500: #6B7280;
+        --citi-gray-700: #374151;
+        --citi-gray-900: #111827;
+        --citi-transition: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+    .font-serif { font-family: 'Playfair Display', Georgia, serif; }
+    .accent-bar { width: 48px; height: 3px; background: var(--citi-accent); border-radius: 2px; }
+    .btn-citi-primary {
+        display: inline-flex; align-items: center; justify-content: center; padding: 12px 28px;
+        background: var(--citi-blue); color: var(--citi-white); font-weight: 600; font-size: 14px;
+        border-radius: 4px; border: none; cursor: pointer; transition: all 0.3s var(--citi-transition); text-decoration: none;
+    }
+    .btn-citi-primary:hover { background: var(--citi-blue-hover); transform: translateY(-1px); }
+    .nav-link-premium { position: relative; padding-bottom: 2px; }
+    .nav-link-premium::after {
+        content: ''; position: absolute; bottom: 0; left: 0; width: 0; height: 2px;
+        background: var(--citi-blue); transition: width 0.3s var(--citi-transition);
+    }
+    .nav-link-premium:hover::after { width: 100%; }
+    .mobile-menu-slide { transform: translateX(100%); transition: transform 0.35s var(--citi-transition); }
+    .mobile-menu-slide.open { transform: translateX(0); }
+</style>
+{% endblock %}
+
+{% block body %}
+<div class="relative flex min-h-screen w-full flex-col overflow-x-hidden bg-white">
+    {% include 'partials/public_header.html' with solid_nav=True %}
+
+    <main class="flex-grow pt-20">
+        <!-- Hero Section -->
+        <section class="relative overflow-hidden" style="background: var(--citi-navy); padding: 90px 0 80px 0;">
+            <div class="absolute inset-0 opacity-10" style="background-image: radial-gradient(rgba(255,255,255,0.3) 1px, transparent 1px); background-size: 24px 24px;"></div>
+            <div class="relative mx-auto max-w-[1400px] px-6 lg:px-12">
+                <div class="max-w-3xl">
+                    <span class="text-xs font-semibold tracking-[0.2em] uppercase text-white/50 block mb-4">Legal & Regulatory</span>
+                    <div class="accent-bar mb-6"></div>
+                    <h1 class="font-serif text-4xl sm:text-5xl font-bold text-white leading-tight mb-4">
+                        Privacy Policy
+                    </h1>
+                    <p class="text-sm text-white/60">Effective Date: March 1, 2026 &bull; Global Data Protection Standard</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Content Section with Sidebar -->
+        <section class="py-20 bg-white">
+            <div class="mx-auto max-w-[1400px] px-6 lg:px-12">
+                <div class="grid lg:grid-cols-12 gap-12">
+                    <!-- Sidebar Table of Contents -->
+                    <div class="lg:col-span-4">
+                        <div class="sticky top-28 p-6 rounded-lg bg-[var(--citi-gray-50)] border border-slate-200/80">
+                            <h3 class="text-xs font-bold uppercase tracking-wider text-slate-900 mb-4">Table of Contents</h3>
+                            <nav class="space-y-2 text-xs font-medium text-slate-600">
+                                <a href="#collect" class="block hover:text-[var(--citi-blue)] py-1">1. Information We Collect</a>
+                                <a href="#use" class="block hover:text-[var(--citi-blue)] py-1">2. How We Use Information</a>
+                                <a href="#security" class="block hover:text-[var(--citi-blue)] py-1">3. Data Security & Encryption</a>
+                                <a href="#sharing" class="block hover:text-[var(--citi-blue)] py-1">4. Information Sharing & Transfers</a>
+                                <a href="#rights" class="block hover:text-[var(--citi-blue)] py-1">5. Your Privacy Rights (GDPR / CCPA)</a>
+                                <a href="#retention" class="block hover:text-[var(--citi-blue)] py-1">6. Data Retention Policies</a>
+                                <a href="#contact" class="block hover:text-[var(--citi-blue)] py-1">7. Contact the Data Protection Office</a>
+                            </nav>
+                        </div>
+                    </div>
+
+                    <!-- Main Legal Text -->
+                    <div class="lg:col-span-8 space-y-10 text-slate-700 leading-relaxed text-sm">
+                        <section id="collect">
+                            <h2 class="font-serif text-2xl font-bold text-slate-900 mb-4">1. Information We Collect</h2>
+                            <p class="mb-4">Citi Group collects personal and financial information to provide banking services, satisfy legal Know-Your-Customer (KYC) obligations, and protect your accounts against fraud.</p>
+                            <ul class="list-disc pl-5 space-y-2 text-xs text-slate-600">
+                                <li><strong>Identity Data:</strong> Full legal name, date of birth, government identification numbers (SSN/Tax ID, passport details).</li>
+                                <li><strong>Contact Data:</strong> Residential address, registered email address, telephone numbers.</li>
+                                <li><strong>Financial Data:</strong> Account balances, transaction history, wire transfer beneficiary details, credit scores.</li>
+                                <li><strong>Technical & Biometric Data:</strong> IP addresses, browser fingerprinting, device identifiers, and biometric authorization tokens.</li>
+                            </ul>
+                        </section>
+
+                        <section id="use">
+                            <h2 class="font-serif text-2xl font-bold text-slate-900 mb-4">2. How We Use Information</h2>
+                            <p class="mb-4">We process your information under recognized lawful bases, including the fulfillment of our banking agreement, compliance with statutory obligations, and legitimate institutional interests:</p>
+                            <ul class="list-disc pl-5 space-y-2 text-xs text-slate-600">
+                                <li>Executing domestic and cross-border payment orders and settlements.</li>
+                                <li>Conducting automated sanctions screening, Anti-Money Laundering (AML) monitoring, and fraud prevention.</li>
+                                <li>Delivering customer support, statements, notifications, and security alerts.</li>
+                            </ul>
+                        </section>
+
+                        <section id="security">
+                            <h2 class="font-serif text-2xl font-bold text-slate-900 mb-4">3. Data Security & Encryption</h2>
+                            <p>We deploy end-to-end 256-bit AES encryption at rest and TLS 1.3 in transit. All database vaults reside in certified Tier-4 secure banking enclaves subject to continuous intrusion testing, physical access controls, and FINMA/FDIC data handling standards.</p>
+                        </section>
+
+                        <section id="sharing">
+                            <h2 class="font-serif text-2xl font-bold text-slate-900 mb-4">4. Information Sharing & Transfers</h2>
+                            <p>We do not sell personal data to third parties. We may disclose information only to correspondent clearing banks, card payment networks (Visa/Mastercard), regulatory supervisors, or law enforcement entities when required by lawful subpoena or international treaty.</p>
+                        </section>
+
+                        <section id="rights">
+                            <h2 class="font-serif text-2xl font-bold text-slate-900 mb-4">5. Your Privacy Rights</h2>
+                            <p>Depending on your jurisdiction (e.g. EU GDPR, Swiss FADP, California CCPA), you hold statutory rights to access, rectify, restrict, or request portability of your stored personal records. Contact our Data Protection Officer to submit a verified data subject request.</p>
+                        </section>
+
+                        <section id="contact">
+                            <h2 class="font-serif text-2xl font-bold text-slate-900 mb-4">6. Contact Data Protection</h2>
+                            <p class="mb-4">If you have inquiries regarding our data management practices, please contact our Global Privacy Office:</p>
+                            <div class="p-4 rounded bg-slate-50 border border-slate-200 text-xs space-y-1">
+                                <p><strong>Citi Group Global Privacy Office</strong></p>
+                                <p>Email: <a href="mailto:privacy@cbiandtrust.com" class="text-[var(--citi-blue)] font-medium">privacy@cbiandtrust.com</a></p>
+                                <p>Address: 1600 Pennsylvania Ave NW, Washington, DC 20500</p>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    {% include 'partials/public_footer.html' %}
+</div>
+
+<script>
+    function toggleMobileMenu() {
+        const menu = document.getElementById('mobile-menu');
+        const overlay = document.getElementById('mobile-overlay');
+        menu.classList.toggle('open');
+        overlay.classList.toggle('hidden');
+    }
+</script>
+{% endblock %}

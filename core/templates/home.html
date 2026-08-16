@@ -1,0 +1,792 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Citi Group â€” Global Banking & Financial Services{% endblock %}
+{% block meta_description %}Citi Group is a leading global bank providing financial services for institutions, wealth management, and personal banking.{% endblock %}
+
+{% block extra_head %}
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+    /* ===== CITI-STYLE PREMIUM OVERRIDES ===== */
+    :root {
+        --citi-navy: #0F1632;
+        --citi-navy-light: #1a2340;
+        --citi-blue: #255BE3;
+        --citi-blue-hover: #1d4dc4;
+        --citi-accent: #FF3C28;
+        --citi-gold: #C5A059;
+        --citi-white: #FFFFFF;
+        --citi-gray-50: #F7F8FA;
+        --citi-gray-100: #EDEFF3;
+        --citi-gray-200: #D4D8E0;
+        --citi-gray-500: #6B7280;
+        --citi-gray-700: #374151;
+        --citi-gray-900: #111827;
+        --citi-transition: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+
+    .font-serif { font-family: 'Playfair Display', Georgia, serif; }
+
+    /* Hero overlay gradient */
+    .hero-overlay {
+        background: linear-gradient(
+            to right,
+            rgba(15, 22, 50, 0.92) 0%,
+            rgba(15, 22, 50, 0.75) 45%,
+            rgba(15, 22, 50, 0.35) 75%,
+            rgba(15, 22, 50, 0.15) 100%
+        );
+    }
+
+    /* Animated underline for nav links */
+    .nav-link-premium {
+        position: relative;
+        padding-bottom: 2px;
+    }
+    .nav-link-premium::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 0;
+        height: 2px;
+        background: var(--citi-blue);
+        transition: width 0.3s var(--citi-transition);
+    }
+    .nav-link-premium:hover::after {
+        width: 100%;
+    }
+
+    /* Arrow link style (Citi-like) */
+    .arrow-link {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 14px 0;
+        border-bottom: 1px solid rgba(255,255,255,0.08);
+        color: var(--citi-white);
+        font-size: 15px;
+        font-weight: 500;
+        text-decoration: none;
+        transition: all 0.25s var(--citi-transition);
+    }
+    .arrow-link:hover {
+        color: var(--citi-blue);
+        padding-left: 8px;
+    }
+    .arrow-link:last-child {
+        border-bottom: none;
+    }
+    .arrow-link .arrow-icon {
+        width: 20px;
+        height: 20px;
+        flex-shrink: 0;
+        transition: transform 0.25s var(--citi-transition);
+    }
+    .arrow-link:hover .arrow-icon {
+        transform: translateX(4px);
+    }
+
+    /* Light arrow links */
+    .arrow-link-light {
+        color: var(--citi-gray-700);
+        border-bottom-color: var(--citi-gray-100);
+    }
+    .arrow-link-light:hover {
+        color: var(--citi-blue);
+    }
+
+    /* Section fade-in on scroll */
+    .reveal-section {
+        opacity: 0;
+        transform: translateY(30px);
+        transition: opacity 0.7s var(--citi-transition), transform 0.7s var(--citi-transition);
+    }
+    .reveal-section.revealed {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    /* Premium button style */
+    .btn-citi-primary {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 14px 32px;
+        background: var(--citi-blue);
+        color: var(--citi-white);
+        font-weight: 600;
+        font-size: 15px;
+        border-radius: 4px;
+        border: none;
+        cursor: pointer;
+        letter-spacing: 0.01em;
+        transition: all 0.3s var(--citi-transition);
+        text-decoration: none;
+    }
+    .btn-citi-primary:hover {
+        background: var(--citi-blue-hover);
+        transform: translateY(-1px);
+        box-shadow: 0 8px 25px rgba(37, 91, 227, 0.3);
+    }
+
+    .btn-citi-outline {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 14px 32px;
+        background: transparent;
+        color: var(--citi-white);
+        font-weight: 600;
+        font-size: 15px;
+        border-radius: 4px;
+        border: 1.5px solid rgba(255,255,255,0.3);
+        cursor: pointer;
+        letter-spacing: 0.01em;
+        transition: all 0.3s var(--citi-transition);
+        text-decoration: none;
+    }
+    .btn-citi-outline:hover {
+        border-color: var(--citi-white);
+        background: rgba(255,255,255,0.06);
+    }
+
+    .btn-citi-white {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 12px 28px;
+        background: var(--citi-white);
+        color: var(--citi-navy);
+        font-weight: 600;
+        font-size: 14px;
+        border-radius: 4px;
+        border: none;
+        cursor: pointer;
+        transition: all 0.3s var(--citi-transition);
+        text-decoration: none;
+    }
+    .btn-citi-white:hover {
+        background: var(--citi-gray-100);
+        transform: translateY(-1px);
+    }
+
+    /* Card image hover zoom */
+    .card-img-zoom {
+        overflow: hidden;
+    }
+    .card-img-zoom img {
+        transition: transform 0.6s var(--citi-transition);
+    }
+    .card-img-zoom:hover img {
+        transform: scale(1.05);
+    }
+
+    /* Divider accent */
+    .accent-bar {
+        width: 48px;
+        height: 3px;
+        background: var(--citi-accent);
+        border-radius: 2px;
+    }
+
+    /* Stat counter animation */
+    @keyframes countUp {
+        from { opacity: 0; transform: translateY(12px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+    .stat-item {
+        animation: countUp 0.6s var(--citi-transition) both;
+    }
+    .stat-item:nth-child(2) { animation-delay: 0.1s; }
+    .stat-item:nth-child(3) { animation-delay: 0.2s; }
+    .stat-item:nth-child(4) { animation-delay: 0.3s; }
+
+    /* Footer link style */
+    .footer-link {
+        color: rgba(255,255,255,0.5);
+        font-size: 13px;
+        line-height: 2.2;
+        transition: color 0.2s;
+        text-decoration: none;
+    }
+    .footer-link:hover {
+        color: var(--citi-white);
+    }
+
+    /* Smooth parallax for hero */
+    @keyframes heroSlowZoom {
+        0% { transform: scale(1); }
+        100% { transform: scale(1.08); }
+    }
+    .hero-bg-animate {
+        animation: heroSlowZoom 25s ease-in-out infinite alternate;
+    }
+
+    /* Subtle pulse for live dot */
+    @keyframes livePulse {
+        0%, 100% { opacity: 1; }
+        50% { opacity: 0.4; }
+    }
+    .live-dot {
+        animation: livePulse 2s ease-in-out infinite;
+    }
+
+    /* Mobile menu slide */
+    .mobile-menu-slide {
+        transform: translateX(100%);
+        transition: transform 0.35s var(--citi-transition);
+    }
+    .mobile-menu-slide.open {
+        transform: translateX(0);
+    }
+
+    /* Dark section links */
+    .dark-section a { text-decoration: none; }
+</style>
+{% endblock %}
+
+{% block body %}
+<div class="relative flex min-h-screen w-full flex-col overflow-x-hidden" style="background: var(--citi-white);">
+
+<!-- ===== NAVIGATION ===== -->
+<header id="main-nav" class="fixed top-0 left-0 right-0 z-50 transition-all duration-500" style="background: transparent;">
+    <div class="mx-auto flex h-20 max-w-[1400px] items-center justify-between px-6 lg:px-12">
+        <!-- Logo -->
+        <a href="{% url 'home' %}" class="flex items-center no-underline">
+            <img id="nav-logo-img" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyMDQiIGhlaWdodD0iMTE4IiB2aWV3Qm94PSIwIDAgMjA0IDExOCIgZmlsbD0ibm9uZSI+CjxwYXRoIGQ9Ik0wLjk0Nzc1NCA3OS45NjY4QzAuOTQ3NzU0IDU4Ljk3MzIgMTguMTA5NiA0Mi42MjkyIDQwLjQ3NjMgNDIuNjI5MkM1My40MTggNDIuNjI5MiA2NS4yMzQ0IDQ4LjQwNTkgNzEuOTg2NiA1Ny4xNDE1TDYyLjI4MDMgNjYuODYzNEM1OS43MDU3IDYzLjU2MTggNTYuNDIwOCA2MC44ODQzIDUyLjY3MDEgNTkuMDMwM0M0OC45MTkzIDU3LjE3NjMgNDQuNzk5NCA1Ni4xOTM2IDQwLjYxNjkgNTYuMTU1M0MyNy4yNTMyIDU2LjE1NTMgMTYuNTYyMiA2Ni4xNTg5IDE2LjU2MjIgNzkuOTY2OEMxNi41NjIyIDkzLjkxNTUgMjcuMjUzMiAxMDMuOTE5IDQwLjYxNjkgMTAzLjkxOUM0NC45NDkgMTAzLjkxNCA0OS4yMjE0IDEwMi45MDcgNTMuMTAxIDEwMC45NzZDNTYuOTgwNiA5OS4wNDUyIDYwLjM2MjcgOTYuMjQzMiA2Mi45ODM2IDkyLjc4ODRMNzIuNTQ5MiAxMDIuMjI4QzY2LjA3ODQgMTExLjM4NyA1My42OTkzIDExNy40NDUgNDAuNDc2MyAxMTcuNDQ1QzE4LjEwOTYgMTE3LjQ0NSAwLjk0Nzc1NCAxMDEuMTAxIDAuOTQ3NzU0IDc5Ljk2NjhaIiBmaWxsPSIjMjU1QkUzIi8+CjxwYXRoIGQ9Ik04NS4yMDk1IDQ1LjE2NTNIMTAwLjU0M1YxMTQuOTA5SDg1LjIwOTVWNDUuMTY1M1oiIGZpbGw9IiMyNTVCRTMiLz4KPHBhdGggZD0iTTEyOS4wOTkgOTYuMTY5OFY1OC4xMjc4SDExMi4zNTlWNDUuMTY1M0gxMjkuODAzVjMwLjIzMDJMMTQ0LjE1MSAyMy4xODU0VjQ1LjE2NTNIMTY2Ljk0VjU4LjEyNzhIMTQ0LjE1MVY5My42MzM3QzE0NC4xNTEgMTAwLjY3OSAxNDguMDkgMTAzLjc3OCAxNTUuNTQ1IDEwMy43NzhDMTU5LjQyNSAxMDMuNzk4IDE2My4yNjMgMTAyLjk4MSAxNjYuNzk5IDEwMS4zODNWMTE0LjYyN0MxNjIuMzY5IDExNi41NzQgMTU3LjU2OSAxMTcuNTM2IDE1Mi43MzIgMTE3LjQ0NUMxMzkuMDg3IDExNy40NDUgMTI5LjA5OSAxMDkuOTc4IDEyOS4wOTkgOTYuMTY5OFoiIGZpbGw9IiMyNTVCRTMiLz4KPHBhdGggZD0iTTE3OS4wMzcgNDUuMTY1M0gxOTQuMzdWMTE0LjkwOUgxNzkuMDM3VjQ1LjE2NTNaIiBmaWxsPSIjMjU1QkUzIi8+CjxwYXRoIGQ9Ik0xMzkuNjQ4IDAuNzgyODMyQzE1Mi4yNDEgMC43NTI3MyAxNjQuNjU3IDMuNzU4MzEgMTc1Ljg0NiA5LjU0NTc1QzE4Ny4wMzUgMTUuMzMzMiAxOTYuNjY5IDIzLjczMjUgMjAzLjkzNSAzNC4wMzQ0SDE4Ni4wN0MxODAuMjE0IDI3LjUxNTQgMTczLjA1NSAyMi4zMDI2IDE2NS4wNTggMTguNzM0M0MxNTcuMDYxIDE1LjE2NiAxNDguNDAzIDEzLjMyMjEgMTM5LjY0OCAxMy4zMjIxQzEzMC44OTMgMTMuMzIyMSAxMjIuMjM2IDE1LjE2NiAxMTQuMjM5IDE4LjczNDNDMTA2LjI0MiAyMi4zMDI2IDk5LjA4MjcgMjcuNTE1NCA5My4yMjcgMzQuMDM0NEg3NS4zNjE4QzgyLjYyNzcgMjMuNzMyNSA5Mi4yNjIxIDE1LjMzMzIgMTAzLjQ1MSA5LjU0NTc1QzExNC42NCAzLjc1ODMxIDEyNy4wNTUgMC43NTI3MyAxMzkuNjQ4IDAuNzgyODMyVjAuNzgyODMyWiIgZmlsbD0iI0ZGM0MyOCIvPgo8L3N2Zz4=" alt="Citi Group" class="h-10 transition-all duration-300" style="filter: brightness(0) invert(1);" />
+        </a>
+
+        <!-- Desktop Nav -->
+        <nav class="hidden lg:flex items-center gap-7">
+            <a id="nav-link-personal" class="nav-link-premium text-sm font-medium text-white/80 hover:text-white transition-colors" href="{% url 'personal' %}">Personal</a>
+            <a id="nav-link-business" class="nav-link-premium text-sm font-medium text-white/80 hover:text-white transition-colors" href="{% url 'business' %}">Business</a>
+            <a id="nav-link-wealth" class="nav-link-premium text-sm font-medium text-white/80 hover:text-white transition-colors" href="{% url 'wealth' %}">Wealth</a>
+            <a id="nav-link-cards" class="nav-link-premium text-sm font-medium text-white/80 hover:text-white transition-colors" href="{% url 'cards' %}">Cards</a>
+            <a id="nav-link-about" class="nav-link-premium text-sm font-medium text-white/80 hover:text-white transition-colors" href="{% url 'about' %}">About Us</a>
+            <a id="nav-link-careers" class="nav-link-premium text-sm font-medium text-white/80 hover:text-white transition-colors" href="{% url 'careers' %}">Careers</a>
+            <a id="nav-link-contact" class="nav-link-premium text-sm font-medium text-white/80 hover:text-white transition-colors" href="{% url 'contact' %}">Contact</a>
+        </nav>
+
+        <!-- Right Side -->
+        <div class="flex items-center gap-4">
+            {% if user.is_authenticated %}
+            <a id="nav-btn-dashboard" href="{% url 'dashboard' %}" class="btn-citi-primary text-sm !py-2.5 !px-6">My Account</a>
+            {% else %}
+            <a id="nav-btn-login" href="{% url 'login' %}" class="hidden sm:inline-flex text-sm font-medium text-white/80 hover:text-white transition-colors no-underline">Sign In</a>
+            <a id="nav-btn-register" href="{% url 'register' %}" class="hidden lg:inline-flex btn-citi-primary text-sm !py-2.5 !px-6">Open Account</a>
+            {% endif %}
+            <!-- Mobile Hamburger -->
+            <button id="mobile-menu-btn" onclick="toggleMobileMenu()" class="lg:hidden p-2 text-white hover:bg-white/10 rounded-lg transition-colors">
+                <span class="material-symbols-outlined text-[24px]">menu</span>
+            </button>
+        </div>
+    </div>
+</header>
+
+<!-- ===== MOBILE OFFCANVAS ===== -->
+<div id="mobile-overlay" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-[60] hidden" onclick="toggleMobileMenu()"></div>
+<div id="mobile-menu" class="fixed top-0 right-0 z-[70] h-full w-80 shadow-2xl mobile-menu-slide" style="background: var(--citi-navy);">
+    <div class="flex items-center justify-between px-6 py-5 border-b border-white/10">
+        <div class="flex items-center">
+            <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyMDQiIGhlaWdodD0iMTE4IiB2aWV3Qm94PSIwIDAgMjA0IDExOCIgZmlsbD0ibm9uZSI+CjxwYXRoIGQ9Ik0wLjk0Nzc1NCA3OS45NjY4QzAuOTQ3NzU0IDU4Ljk3MzIgMTguMTA5NiA0Mi42MjkyIDQwLjQ3NjMgNDIuNjI5MkM1My40MTggNDIuNjI5MiA2NS4yMzQ0IDQ4LjQwNTkgNzEuOTg2NiA1Ny4xNDE1TDYyLjI4MDMgNjYuODYzNEM1OS43MDU3IDYzLjU2MTggNTYuNDIwOCA2MC44ODQzIDUyLjY3MDEgNTkuMDMwM0M0OC45MTkzIDU3LjE3NjMgNDQuNzk5NCA1Ni4xOTM2IDQwLjYxNjkgNTYuMTU1M0MyNy4yNTMyIDU2LjE1NTMgMTYuNTYyMiA2Ni4xNTg5IDE2LjU2MjIgNzkuOTY2OEMxNi41NjIyIDkzLjkxNTUgMjcuMjUzMiAxMDMuOTE5IDQwLjYxNjkgMTAzLjkxOUM0NC45NDkgMTAzLjkxNCA0OS4yMjE0IDEwMi45MDcgNTMuMTAxIDEwMC45NzZDNTYuOTgwNiA5OS4wNDUyIDYwLjM2MjcgOTYuMjQzMiA2Mi45ODM2IDkyLjc4ODRMNzIuNTQ5MiAxMDIuMjI4QzY2LjA3ODQgMTExLjM4NyA1My42OTkzIDExNy40NDUgNDAuNDc2MyAxMTcuNDQ1QzE4LjEwOTYgMTE3LjQ0NSAwLjk0Nzc1NCAxMDEuMTAxIDAuOTQ3NzU0IDc5Ljk2NjhaIiBmaWxsPSIjMjU1QkUzIi8+CjxwYXRoIGQ9Ik04NS4yMDk1IDQ1LjE2NTNIMTAwLjU0M1YxMTQuOTA5SDg1LjIwOTVWNDUuMTY1M1oiIGZpbGw9IiMyNTVCRTMiLz4KPHBhdGggZD0iTTEyOS4wOTkgOTYuMTY5OFY1OC4xMjc4SDExMi4zNTlWNDUuMTY1M0gxMjkuODAzVjMwLjIzMDJMMTQ0LjE1MSAyMy4xODU0VjQ1LjE2NTNIMTY2Ljk0VjU4LjEyNzhIMTQ0LjE1MVY5My42MzM3QzE0NC4xNTEgMTAwLjY3OSAxNDguMDkgMTAzLjc3OCAxNTUuNTQ1IDEwMy43NzhDMTU5LjQyNSAxMDMuNzk4IDE2My4yNjMgMTAyLjk4MSAxNjYuNzk5IDEwMS4zODNWMTE0LjYyN0MxNjIuMzY5IDExNi41NzQgMTU3LjU2OSAxMTcuNTM2IDE1Mi43MzIgMTE3LjQ0NUMxMzkuMDg3IDExNy40NDUgMTI5LjA5OSAxMDkuOTc4IDEyOS4wOTkgOTYuMTY5OFoiIGZpbGw9IiMyNTVCRTMiLz4KPHBhdGggZD0iTTE3OS4wMzcgNDUuMTY1M0gxOTQuMzdWMTE0LjkwOUgxNzkuMDM3VjQ1LjE2NTNaIiBmaWxsPSIjMjU1QkUzIi8+CjxwYXRoIGQ9Ik0xMzkuNjQ4IDAuNzgyODMyQzE1Mi4yNDEgMC43NTI3MyAxNjQuNjU3IDMuNzU4MzEgMTc1Ljg0NiA5LjU0NTc1QzE4Ny4wMzUgMTUuMzMzMiAxOTYuNjY5IDIzLjczMjUgMjAzLjkzNSAzNC4wMzQ0SDE4Ni4wN0MxODAuMjE0IDI3LjUxNTQgMTczLjA1NSAyMi4zMDI2IDE2NS4wNTggMTguNzM0M0MxNTcuMDYxIDE1LjE2NiAxNDguNDAzIDEzLjMyMjEgMTM5LjY0OCAxMy4zMjIxQzEzMC44OTMgMTMuMzIyMSAxMjIuMjM2IDE1LjE2NiAxMTQuMjM5IDE4LjczNDNDMTA2LjI0MiAyMi4zMDI2IDk5LjA4MjcgMjcuNTE1NCA5My4yMjcgMzQuMDM0NEg3NS4zNjE4QzgyLjYyNzcgMjMuNzMyNSA5Mi4yNjIxIDE1LjMzMzIgMTAzLjQ1MSA5LjU0NTc1QzExNC42NCAzLjc1ODMxIDEyNy4wNTUgMC43NTI3MyAxMzkuNjQ4IDAuNzgyODMyVjAuNzgyODMyWiIgZmlsbD0iI0ZGM0MyOCIvPgo8L3N2Zz4=" alt="Citi Group" class="h-8" style="filter: brightness(0) invert(1);" />
+        </div>
+        <button onclick="toggleMobileMenu()" class="p-2 text-white/60 hover:text-white hover:bg-white/10 rounded-lg transition-colors">
+            <span class="material-symbols-outlined">close</span>
+        </button>
+    </div>
+    <nav class="flex flex-col px-6 py-6 gap-1">
+        <a href="{% url 'home' %}" class="flex items-center gap-3 px-3 py-3 rounded-lg text-sm font-medium text-[var(--citi-blue)] bg-[var(--citi-blue)]/5 no-underline">
+            <span class="material-symbols-outlined text-[20px]">home</span> Home
+        </a>
+        <a href="{% url 'personal' %}" class="flex items-center gap-3 px-3 py-3 rounded-lg text-sm font-medium text-white/70 hover:bg-white/5 transition-colors no-underline">
+            <span class="material-symbols-outlined text-[20px]">person</span> Personal
+        </a>
+        <a href="{% url 'business' %}" class="flex items-center gap-3 px-3 py-3 rounded-lg text-sm font-medium text-white/70 hover:bg-white/5 transition-colors no-underline">
+            <span class="material-symbols-outlined text-[20px]">business</span> Business
+        </a>
+        <a href="{% url 'wealth' %}" class="flex items-center gap-3 px-3 py-3 rounded-lg text-sm font-medium text-white/70 hover:bg-white/5 transition-colors no-underline">
+            <span class="material-symbols-outlined text-[20px]">diamond</span> Wealth
+        </a>
+        <a href="{% url 'about' %}" class="flex items-center gap-3 px-3 py-3 rounded-lg text-sm font-medium text-white/70 hover:bg-white/5 transition-colors no-underline">
+            <span class="material-symbols-outlined text-[20px]">info</span> About Us
+        </a>
+        <a href="{% url 'careers' %}" class="flex items-center gap-3 px-3 py-3 rounded-lg text-sm font-medium text-white/70 hover:bg-white/5 transition-colors no-underline">
+            <span class="material-symbols-outlined text-[20px]">work</span> Careers
+        </a>
+        <a href="{% url 'contact' %}" class="flex items-center gap-3 px-3 py-3 rounded-lg text-sm font-medium text-white/70 hover:bg-white/5 transition-colors no-underline">
+            <span class="material-symbols-outlined text-[20px]">mail</span> Contact
+        </a>
+    </nav>
+    <div class="absolute bottom-0 left-0 right-0 p-6 border-t border-white/10 space-y-3">
+        {% if user.is_authenticated %}
+        <a href="{% url 'dashboard' %}" class="block w-full text-center btn-citi-primary text-sm">My Account</a>
+        {% else %}
+        <a href="{% url 'login' %}" class="block w-full text-center btn-citi-outline text-sm !py-3">Sign In</a>
+        {% endif %}
+    </div>
+</div>
+
+
+<!-- ===== HERO SECTION (CITI-STYLE FULL BLEED) ===== -->
+<main class="flex-grow">
+<section id="hero-section" class="relative w-full overflow-hidden" style="height: 85vh; min-height: 600px;">
+    <!-- Background Image -->
+    <div class="absolute inset-0">
+        <img src="{% static 'images/hero_skyline.jpg' %}" alt="Global financial district at dusk" class="w-full h-full object-cover hero-bg-animate" />
+    </div>
+    <!-- Dark Gradient Overlay -->
+    <div class="absolute inset-0 hero-overlay"></div>
+
+    <!-- Hero Content -->
+    <div class="relative z-10 h-full flex items-center">
+        <div class="mx-auto max-w-[1400px] w-full px-6 lg:px-12">
+            <div class="max-w-2xl">
+                <!-- Accent Bar -->
+                <div class="accent-bar mb-8" style="animation: countUp 0.6s ease-out both;"></div>
+
+                <h1 class="font-serif text-4xl sm:text-5xl lg:text-6xl font-bold text-white leading-[1.15] tracking-tight mb-6" style="animation: countUp 0.8s ease-out 0.1s both;">
+                    Enabling Growth and Economic Progress
+                </h1>
+
+                <p class="text-lg sm:text-xl text-white/70 leading-relaxed max-w-xl mb-10" style="animation: countUp 0.8s ease-out 0.25s both;">
+                    Citi Group is a leading global bank for institutions with cross-border needs, a global provider in wealth management and a U.S. personal bank.
+                </p>
+
+                <div class="flex flex-wrap gap-4" style="animation: countUp 0.8s ease-out 0.4s both;">
+                    <a href="{% url 'register' %}" class="btn-citi-primary">
+                        Open an Account
+                        <span class="material-symbols-outlined ml-2 text-[18px]">arrow_forward</span>
+                    </a>
+                    <a href="{% url 'about' %}" class="btn-citi-outline">
+                        Learn More
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scroll Indicator -->
+    <div class="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-2 text-white/40">
+        <span class="text-xs tracking-widest uppercase">Scroll</span>
+        <div class="w-px h-8 bg-white/20 relative overflow-hidden">
+            <div class="w-full h-3 bg-white/60 absolute top-0" style="animation: scrollDown 1.5s ease-in-out infinite;"></div>
+        </div>
+    </div>
+</section>
+
+
+<!-- ===== ABOUT / MISSION CARD (CITI-STYLE DARK) ===== -->
+<section class="dark-section" style="background: var(--citi-navy); padding: 100px 0;">
+    <div class="mx-auto max-w-[1400px] px-6 lg:px-12 reveal-section">
+        <div class="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+            <!-- Image -->
+            <div class="card-img-zoom rounded-lg overflow-hidden" style="aspect-ratio: 16/10;">
+                <img src="{% static 'images/about_boardroom.jpg' %}" alt="Premium boardroom with city views" class="w-full h-full object-cover" />
+            </div>
+            <!-- Content -->
+            <div>
+                <div class="accent-bar mb-6"></div>
+                <h2 class="font-serif text-3xl sm:text-4xl font-bold text-white leading-tight mb-6">
+                    We are dedicated to responsibly providing financial services to enable growth and economic progress.
+                </h2>
+                <p class="text-white/50 text-base leading-relaxed mb-8">
+                    With over two decades of serving clients in more than 160 countries and jurisdictions, Citi Group provides consumers, corporations, governments, and institutions with a broad range of financial products and services.
+                </p>
+                <a href="{% url 'about' %}" class="btn-citi-white">
+                    Learn More About Citi Group
+                    <span class="material-symbols-outlined ml-2 text-[18px]">arrow_forward</span>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- ===== OUR BUSINESSES (CITI-STYLE DARK WITH ARROW LINKS) ===== -->
+<section class="dark-section" style="background: var(--citi-navy); padding: 0 0 100px 0;">
+    <div class="mx-auto max-w-[1400px] px-6 lg:px-12 reveal-section">
+        <div class="grid lg:grid-cols-2 gap-12 lg:gap-24">
+            <!-- Left: Description -->
+            <div>
+                <span class="text-xs font-semibold tracking-[0.2em] uppercase text-white/40 block mb-4">Our Businesses</span>
+                <h2 class="font-serif text-3xl sm:text-4xl font-bold text-white leading-tight mb-6">
+                    We offer products and services as one integrated institution while treating our clients as one global relationship.
+                </h2>
+            </div>
+            <!-- Right: Arrow Links -->
+            <div class="flex flex-col justify-center">
+                <a href="{% url 'about' %}" class="arrow-link">
+                    <svg class="arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                    <span>Overview</span>
+                </a>
+                <a href="{% url 'personal' %}" class="arrow-link">
+                    <svg class="arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                    <span>Personal Banking</span>
+                </a>
+                <a href="{% url 'business' %}" class="arrow-link">
+                    <svg class="arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                    <span>Business & Commercial</span>
+                </a>
+                <a href="{% url 'wealth' %}" class="arrow-link">
+                    <svg class="arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                    <span>Wealth Management</span>
+                </a>
+                <a href="{% url 'loans' %}" class="arrow-link">
+                    <svg class="arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                    <span>Lending & Loans</span>
+                </a>
+                <a href="{% url 'cards' %}" class="arrow-link">
+                    <svg class="arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                    <span>Cards & Payments</span>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- ===== FEATURE CARDS (LIGHT SECTION) ===== -->
+<section style="background: var(--citi-white); padding: 100px 0;">
+    <div class="mx-auto max-w-[1400px] px-6 lg:px-12 reveal-section">
+        <div class="text-center max-w-2xl mx-auto mb-16">
+            <div class="accent-bar mx-auto mb-6"></div>
+            <h2 class="font-serif text-3xl sm:text-4xl font-bold text-[var(--citi-gray-900)] leading-tight mb-4">
+                Why Clients Choose Citi Group
+            </h2>
+            <p class="text-[var(--citi-gray-500)] text-base leading-relaxed">
+                We combine institutional strength with modern digital convenience to secure your financial future.
+            </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <!-- Feature 1 -->
+            <div class="group relative bg-[var(--citi-gray-50)] rounded-lg p-8 hover:bg-white hover:shadow-xl hover:shadow-black/5 transition-all duration-500 border border-transparent hover:border-[var(--citi-gray-100)]">
+                <div class="w-14 h-14 rounded-lg flex items-center justify-center mb-6" style="background: rgba(37, 91, 227, 0.08);">
+                    <span class="material-symbols-outlined text-[var(--citi-blue)] text-[28px]">bolt</span>
+                </div>
+                <h3 class="text-lg font-bold text-[var(--citi-gray-900)] mb-3">Global Transfers</h3>
+                <p class="text-[var(--citi-gray-500)] text-sm leading-relaxed mb-6">
+                    Send money to 160+ countries in seconds with competitive rates. Our real-time infrastructure ensures funds arrive when needed.
+                </p>
+                <a href="{% url 'register' %}" class="inline-flex items-center text-sm font-semibold text-[var(--citi-blue)] hover:gap-3 gap-1 transition-all no-underline">
+                    Learn more
+                    <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+                </a>
+            </div>
+
+            <!-- Feature 2 -->
+            <div class="group relative bg-[var(--citi-gray-50)] rounded-lg p-8 hover:bg-white hover:shadow-xl hover:shadow-black/5 transition-all duration-500 border border-transparent hover:border-[var(--citi-gray-100)]">
+                <div class="w-14 h-14 rounded-lg flex items-center justify-center mb-6" style="background: rgba(37, 91, 227, 0.08);">
+                    <span class="material-symbols-outlined text-[var(--citi-blue)] text-[28px]">shield_lock</span>
+                </div>
+                <h3 class="text-lg font-bold text-[var(--citi-gray-900)] mb-3">Enterprise Security</h3>
+                <p class="text-[var(--citi-gray-500)] text-sm leading-relaxed mb-6">
+                    256-bit encryption, biometric authentication, and real-time fraud monitoring protect every transaction you make.
+                </p>
+                <a href="{% url 'register' %}" class="inline-flex items-center text-sm font-semibold text-[var(--citi-blue)] hover:gap-3 gap-1 transition-all no-underline">
+                    Learn more
+                    <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+                </a>
+            </div>
+
+            <!-- Feature 3 -->
+            <div class="group relative bg-[var(--citi-gray-50)] rounded-lg p-8 hover:bg-white hover:shadow-xl hover:shadow-black/5 transition-all duration-500 border border-transparent hover:border-[var(--citi-gray-100)]">
+                <div class="w-14 h-14 rounded-lg flex items-center justify-center mb-6" style="background: rgba(37, 91, 227, 0.08);">
+                    <span class="material-symbols-outlined text-[var(--citi-blue)] text-[28px]">monitoring</span>
+                </div>
+                <h3 class="text-lg font-bold text-[var(--citi-gray-900)] mb-3">Wealth Growth</h3>
+                <p class="text-[var(--citi-gray-500)] text-sm leading-relaxed mb-6">
+                    Expert advisors and AI-driven insights to help grow your wealth. Set goals, track progress, and optimize returns.
+                </p>
+                <a href="{% url 'register' %}" class="inline-flex items-center text-sm font-semibold text-[var(--citi-blue)] hover:gap-3 gap-1 transition-all no-underline">
+                    Learn more
+                    <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- ===== SPLIT: PREMIUM CARDS + INVESTOR HIGHLIGHTS (CITI LAYOUT) ===== -->
+<section style="background: var(--citi-white); padding: 0 0 100px 0;">
+    <div class="mx-auto max-w-[1400px] px-6 lg:px-12 reveal-section">
+        <div class="grid lg:grid-cols-7 gap-12 lg:gap-16">
+
+            <!-- Left: Image + CTA Card (5 cols) -->
+            <div class="lg:col-span-4">
+                <div class="relative rounded-lg overflow-hidden card-img-zoom" style="aspect-ratio: 16/10;">
+                    <img src="{% static 'images/card_payment.jpg' %}" alt="Premium card payment at upscale restaurant" class="w-full h-full object-cover" />
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent"></div>
+                    <div class="absolute bottom-0 left-0 right-0 p-8">
+                        <span class="text-xs font-semibold tracking-[0.15em] uppercase text-white/60 block mb-2">Premium Cards</span>
+                        <h3 class="font-serif text-2xl sm:text-3xl font-bold text-white mb-4">Cards Designed for Your Lifestyle</h3>
+                        <p class="text-white/60 text-sm mb-6 max-w-md">Contactless payments, zero foreign transaction fees, airport lounge access, and exclusive rewards with every purchase.</p>
+                        <a href="{% url 'cards' %}" class="btn-citi-white text-sm">
+                            Explore Cards
+                            <span class="material-symbols-outlined ml-2 text-[16px]">arrow_forward</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right: Quick Links Panel (3 cols) -->
+            <div class="lg:col-span-3">
+                <div class="mb-8">
+                    <span class="text-xs font-semibold tracking-[0.2em] uppercase text-[var(--citi-gray-500)] block mb-3">Quick Access</span>
+                    <div class="accent-bar mb-6"></div>
+                </div>
+
+                <a href="{% url 'personal' %}" class="arrow-link-light arrow-link">
+                    <svg class="arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                    <span>Personal Banking</span>
+                </a>
+                <a href="{% url 'loans' %}" class="arrow-link-light arrow-link">
+                    <svg class="arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                    <span>Loan Products</span>
+                </a>
+                <a href="{% url 'wealth' %}" class="arrow-link-light arrow-link">
+                    <svg class="arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                    <span>Wealth Management</span>
+                </a>
+                <a href="{% url 'faq' %}" class="arrow-link-light arrow-link">
+                    <svg class="arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                    <span>Help Center & FAQs</span>
+                </a>
+                <a href="{% url 'about' %}" class="arrow-link-light arrow-link">
+                    <svg class="arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                    <span>About Citi Group</span>
+                </a>
+                <a href="{% url 'terms' %}" class="arrow-link-light arrow-link">
+                    <svg class="arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                    <span>Regulatory Information</span>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- ===== STATS SECTION (DARK STRIPE) ===== -->
+<section style="background: var(--citi-navy); padding: 80px 0;">
+    <div class="mx-auto max-w-[1400px] px-6 lg:px-12 reveal-section">
+        <div class="grid grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12 text-center">
+            <div class="stat-item">
+                <p class="text-4xl lg:text-5xl font-bold text-white mb-2">2M<span class="text-[var(--citi-blue)]">+</span></p>
+                <p class="text-sm text-white/40 font-medium">Active Clients Worldwide</p>
+            </div>
+            <div class="stat-item">
+                <p class="text-4xl lg:text-5xl font-bold text-white mb-2">$12B<span class="text-[var(--citi-blue)]">+</span></p>
+                <p class="text-sm text-white/40 font-medium">Assets Under Management</p>
+            </div>
+            <div class="stat-item">
+                <p class="text-4xl lg:text-5xl font-bold text-white mb-2">160<span class="text-[var(--citi-blue)]">+</span></p>
+                <p class="text-sm text-white/40 font-medium">Countries & Jurisdictions</p>
+            </div>
+            <div class="stat-item">
+                <p class="text-4xl lg:text-5xl font-bold text-white mb-2">24/7</p>
+                <p class="text-sm text-white/40 font-medium">Global Support</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- ===== NEWSLETTER SUBSCRIPTION (CITI-STYLE) ===== -->
+<section class="dark-section" style="background: var(--citi-navy); padding: 0 0 80px 0;">
+    <div class="mx-auto max-w-[1400px] px-6 lg:px-12 reveal-section">
+        <div class="border-t border-white/10 pt-16">
+            <div class="max-w-xl">
+                <h3 class="font-serif text-2xl font-bold text-white mb-3">Sign up to receive the latest insights from Citi Group.</h3>
+                <p class="text-white/40 text-sm mb-8">Stay informed with market trends, product updates, and exclusive offers delivered to your inbox.</p>
+                <form class="flex flex-col sm:flex-row gap-3" onsubmit="event.preventDefault(); this.querySelector('.success-msg').classList.remove('hidden'); this.querySelector('.form-row').classList.add('hidden');">
+                    <div class="form-row flex flex-col sm:flex-row gap-3 flex-1">
+                        <div class="flex-1">
+                            <label for="newsletter-email" class="text-xs text-white/50 block mb-1.5 font-medium">Email Address*</label>
+                            <input id="newsletter-email" type="email" placeholder="Your Email Address" required
+                                class="w-full px-4 py-3 bg-white/5 border border-white/15 rounded text-white text-sm placeholder-white/30 focus:outline-none focus:border-[var(--citi-blue)] focus:ring-1 focus:ring-[var(--citi-blue)] transition-all" />
+                        </div>
+                        <button type="submit" class="btn-citi-white self-end !py-3 !px-8 text-sm whitespace-nowrap">
+                            Subscribe
+                        </button>
+                    </div>
+                    <p class="success-msg hidden text-green-400 text-sm font-medium">âœ“ Thank you for subscribing. We'll be in touch.</p>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- ===== CTA SECTION ===== -->
+<section class="relative overflow-hidden" style="background: linear-gradient(135deg, var(--citi-blue), #1a3fa0); padding: 100px 0;">
+    <div class="absolute inset-0 opacity-5" style="background-image: radial-gradient(rgba(255,255,255,0.4) 1px, transparent 1px); background-size: 32px 32px;"></div>
+    <div class="relative mx-auto max-w-[1400px] px-6 lg:px-12 text-center reveal-section">
+        <div class="accent-bar mx-auto mb-8"></div>
+        <h2 class="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-6 leading-tight">
+            Ready to elevate your<br class="hidden sm:inline" /> financial future?
+        </h2>
+        <p class="text-white/60 text-lg max-w-2xl mx-auto mb-10">
+            Join over 2 million clients who trust Citi Group for their daily transactions, lending needs, and long-term wealth management.
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+            <a href="{% url 'register' %}" class="btn-citi-white !py-4 !px-10 text-base font-bold">
+                Open Account Now
+                <span class="material-symbols-outlined ml-2 text-[20px]">arrow_forward</span>
+            </a>
+            <a href="{% url 'contact' %}" class="btn-citi-outline !py-4 !px-10 text-base font-bold">
+                Contact Us
+            </a>
+        </div>
+    </div>
+</section>
+</main>
+
+
+<!-- ===== FOOTER (CITI-STYLE DARK) ===== -->
+<footer class="dark-section" style="background: var(--citi-navy); padding: 80px 0 40px 0;">
+    <div class="mx-auto max-w-[1400px] px-6 lg:px-12">
+        <div class="grid grid-cols-2 gap-8 md:grid-cols-4 lg:grid-cols-5 mb-16">
+            <!-- Brand -->
+            <div class="col-span-2 lg:col-span-2">
+                <div class="flex items-center mb-6">
+                    <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyMDQiIGhlaWdodD0iMTE4IiB2aWV3Qm94PSIwIDAgMjA0IDExOCIgZmlsbD0ibm9uZSI+CjxwYXRoIGQ9Ik0wLjk0Nzc1NCA3OS45NjY4QzAuOTQ3NzU0IDU4Ljk3MzIgMTguMTA5NiA0Mi42MjkyIDQwLjQ3NjMgNDIuNjI5MkM1My40MTggNDIuNjI5MiA2NS4yMzQ0IDQ4LjQwNTkgNzEuOTg2NiA1Ny4xNDE1TDYyLjI4MDMgNjYuODYzNEM1OS43MDU3IDYzLjU2MTggNTYuNDIwOCA2MC44ODQzIDUyLjY3MDEgNTkuMDMwM0M0OC45MTkzIDU3LjE3NjMgNDQuNzk5NCA1Ni4xOTM2IDQwLjYxNjkgNTYuMTU1M0MyNy4yNTMyIDU2LjE1NTMgMTYuNTYyMiA2Ni4xNTg5IDE2LjU2MjIgNzkuOTY2OEMxNi41NjIyIDkzLjkxNTUgMjcuMjUzMiAxMDMuOTE5IDQwLjYxNjkgMTAzLjkxOUM0NC45NDkgMTAzLjkxNCA0OS4yMjE0IDEwMi45MDcgNTMuMTAxIDEwMC45NzZDNTYuOTgwNiA5OS4wNDUyIDYwLjM2MjcgOTYuMjQzMiA2Mi45ODM2IDkyLjc4ODRMNzIuNTQ5MiAxMDIuMjI4QzY2LjA3ODQgMTExLjM4NyA1My42OTkzIDExNy40NDUgNDAuNDc2MyAxMTcuNDQ1QzE4LjEwOTYgMTE3LjQ0NSAwLjk0Nzc1NCAxMDEuMTAxIDAuOTQ3NzU0IDc5Ljk2NjhaIiBmaWxsPSIjMjU1QkUzIi8+CjxwYXRoIGQ9Ik04NS4yMDk1IDQ1LjE2NTNIMTAwLjU0M1YxMTQuOTA5SDg1LjIwOTVWNDUuMTY1M1oiIGZpbGw9IiMyNTVCRTMiLz4KPHBhdGggZD0iTTEyOS4wOTkgOTYuMTY5OFY1OC4xMjc4SDExMi4zNTlWNDUuMTY1M0gxMjkuODAzVjMwLjIzMDJMMTQ0LjE1MSAyMy4xODU0VjQ1LjE2NTNIMTY2Ljk0VjU4LjEyNzhIMTQ0LjE1MVY5My42MzM3QzE0NC4xNTEgMTAwLjY3OSAxNDguMDkgMTAzLjc3OCAxNTUuNTQ1IDEwMy43NzhDMTU5LjQyNSAxMDMuNzk4IDE2My4yNjMgMTAyLjk4MSAxNjYuNzk5IDEwMS4zODNWMTE0LjYyN0MxNjIuMzY5IDExNi41NzQgMTU3LjU2OSAxMTcuNTM2IDE1Mi43MzIgMTE3LjQ0NUMxMzkuMDg3IDExNy40NDUgMTI5LjA5OSAxMDkuOTc4IDEyOS4wOTkgOTYuMTY5OFoiIGZpbGw9IiMyNTVCRTMiLz4KPHBhdGggZD0iTTE3OS4wMzcgNDUuMTY1M0gxOTQuMzdWMTE0LjkwOUgxNzkuMDM3VjQ1LjE2NTNaIiBmaWxsPSIjMjU1QkUzIi8+CjxwYXRoIGQ9Ik0xMzkuNjQ4IDAuNzgyODMyQzE1Mi4yNDEgMC43NTI3MyAxNjQuNjU3IDMuNzU4MzEgMTc1Ljg0NiA5LjU0NTc1QzE4Ny4wMzUgMTUuMzMzMiAxOTYuNjY5IDIzLjczMjUgMjAzLjkzNSAzNC4wMzQ0SDE4Ni4wN0MxODAuMjE0IDI3LjUxNTQgMTczLjA1NSAyMi4zMDI2IDE2NS4wNTggMTguNzM0M0MxNTcuMDYxIDE1LjE2NiAxNDguNDAzIDEzLjMyMjEgMTM5LjY0OCAxMy4zMjIxQzEzMC44OTMgMTMuMzIyMSAxMjIuMjM2IDE1LjE2NiAxMTQuMjM5IDE4LjczNDNDMTA2LjI0MiAyMi4zMDI2IDk5LjA4MjcgMjcuNTE1NCA5My4yMjcgMzQuMDM0NEg3NS4zNjE4QzgyLjYyNzcgMjMuNzMyNSA5Mi4yNjIxIDE1LjMzMzIgMTAzLjQ1MSA5LjU0NTc1QzExNC42NCAzLjc1ODMxIDEyNy4wNTUgMC43NTI3MyAxMzkuNjQ4IDAuNzgyODMyVjAuNzgyODMyWiIgZmlsbD0iI0ZGM0MyOCIvPgo8L3N2Zz4=" alt="Citi Group" class="h-9" style="filter: brightness(0) invert(1);" />
+                </div>
+                <p class="text-white/40 text-sm leading-relaxed max-w-xs mb-6">
+                    A leading global bank providing financial services to enable growth and economic progress for clients and communities worldwide.
+                </p>
+                <div class="flex gap-4">
+                    <a href="#" class="w-9 h-9 rounded-full bg-white/5 hover:bg-white/10 flex items-center justify-center text-white/40 hover:text-white transition-all no-underline">
+                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+                    </a>
+                    <a href="#" class="w-9 h-9 rounded-full bg-white/5 hover:bg-white/10 flex items-center justify-center text-white/40 hover:text-white transition-all no-underline">
+                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M8.29 20.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0022 5.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.072 4.072 0 012.8 9.713v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 012 18.407a11.616 11.616 0 006.29 1.84"/></svg>
+                    </a>
+                    <a href="#" class="w-9 h-9 rounded-full bg-white/5 hover:bg-white/10 flex items-center justify-center text-white/40 hover:text-white transition-all no-underline">
+                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+                    </a>
+                </div>
+            </div>
+            <!-- Products -->
+            <div>
+                <h4 class="text-xs font-semibold text-white/70 uppercase tracking-[0.15em] mb-5">Products</h4>
+                <ul class="space-y-0">
+                    <li><a class="footer-link" href="{% url 'personal' %}">Personal Banking</a></li>
+                    <li><a class="footer-link" href="{% url 'business' %}">Business Banking</a></li>
+                    <li><a class="footer-link" href="{% url 'wealth' %}">Wealth Management</a></li>
+                    <li><a class="footer-link" href="{% url 'loans' %}">Loans & Lending</a></li>
+                    <li><a class="footer-link" href="{% url 'cards' %}">Cards</a></li>
+                </ul>
+            </div>
+            <!-- Company -->
+            <div>
+                <h4 class="text-xs font-semibold text-white/70 uppercase tracking-[0.15em] mb-5">Company</h4>
+                <ul class="space-y-0">
+                    <li><a class="footer-link" href="{% url 'about' %}">About Us</a></li>
+                    <li><a class="footer-link" href="{% url 'careers' %}">Careers</a></li>
+                    <li><a class="footer-link" href="{% url 'contact' %}">Contact</a></li>
+                    <li><a class="footer-link" href="{% url 'faq' %}">Help Center</a></li>
+                    <li><a class="footer-link" href="{% url 'support_contact' %}">Support</a></li>
+                </ul>
+            </div>
+            <!-- Legal -->
+            <div>
+                <h4 class="text-xs font-semibold text-white/70 uppercase tracking-[0.15em] mb-5">Legal</h4>
+                <ul class="space-y-0">
+                    <li><a class="footer-link" href="{% url 'privacy' %}">Privacy Policy</a></li>
+                    <li><a class="footer-link" href="{% url 'terms' %}">Terms of Service</a></li>
+                    <li><a class="footer-link" href="{% url 'privacy' %}">Cookie Policy</a></li>
+                    <li><a class="footer-link" href="{% url 'terms' %}">Regulatory</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Bottom Bar -->
+        <div class="border-t border-white/8 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
+            <p class="text-xs text-white/30">Â© 2026 Citi Group. All rights reserved. Member FDIC.</p>
+            <div class="flex items-center gap-6">
+                <a class="text-xs text-white/30 hover:text-white/60 transition-colors no-underline" href="{% url 'privacy' %}">Privacy</a>
+                <a class="text-xs text-white/30 hover:text-white/60 transition-colors no-underline" href="{% url 'terms' %}">Terms</a>
+                <a class="text-xs text-white/30 hover:text-white/60 transition-colors no-underline" href="{% url 'privacy' %}">Cookies</a>
+                <a class="text-xs text-white/30 hover:text-white/60 transition-colors no-underline" href="{% url 'contact' %}">Accessibility</a>
+            </div>
+        </div>
+    </div>
+</footer>
+
+</div><!-- end main wrapper -->
+
+<!-- ===== SCRIPTS ===== -->
+<style>
+    @keyframes scrollDown {
+        0% { top: -12px; }
+        100% { top: 32px; }
+    }
+</style>
+
+<script>
+    // â”€â”€ Sticky Nav: transparent on hero, solid white when scrolled â”€â”€
+    (function() {
+        const nav = document.getElementById('main-nav');
+        const logoImg = document.getElementById('nav-logo-img');
+        const navLinks = document.querySelectorAll('.nav-link-premium');
+        const loginBtn = document.getElementById('nav-btn-login');
+
+        function updateNav() {
+            const scrolled = window.scrollY > 80;
+            if (scrolled) {
+                nav.style.background = 'rgba(255,255,255,0.97)';
+                nav.style.backdropFilter = 'blur(12px)';
+                nav.style.boxShadow = '0 1px 3px rgba(0,0,0,0.08)';
+                if (logoImg) logoImg.style.filter = 'none';
+                navLinks.forEach(l => {
+                    l.style.color = 'var(--citi-gray-500)';
+                });
+                if (loginBtn) loginBtn.style.color = 'var(--citi-gray-700)';
+                const menuBtn = document.getElementById('mobile-menu-btn');
+                if (menuBtn) menuBtn.style.color = 'var(--citi-gray-700)';
+            } else {
+                nav.style.background = 'transparent';
+                nav.style.backdropFilter = 'none';
+                nav.style.boxShadow = 'none';
+                if (logoImg) logoImg.style.filter = 'brightness(0) invert(1)';
+                navLinks.forEach(l => {
+                    l.style.color = '';
+                });
+                if (loginBtn) loginBtn.style.color = '';
+                const menuBtn = document.getElementById('mobile-menu-btn');
+                if (menuBtn) menuBtn.style.color = '';
+            }
+        }
+
+        window.addEventListener('scroll', updateNav, { passive: true });
+        updateNav();
+    })();
+
+    // â”€â”€ Mobile menu toggle â”€â”€
+    function toggleMobileMenu() {
+        const menu = document.getElementById('mobile-menu');
+        const overlay = document.getElementById('mobile-overlay');
+        menu.classList.toggle('open');
+        overlay.classList.toggle('hidden');
+    }
+
+    // â”€â”€ Scroll reveal sections â”€â”€
+    (function() {
+        const sections = document.querySelectorAll('.reveal-section');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('revealed');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.12 });
+
+        sections.forEach(s => observer.observe(s));
+    })();
+</script>
+{% endblock %}

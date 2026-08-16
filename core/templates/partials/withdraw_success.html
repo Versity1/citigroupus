@@ -1,0 +1,15 @@
+{% load humanize %}
+<div class="text-center animate-fade-in">
+    <div class="w-16 h-16 rounded-full bg-amber-100 flex items-center justify-center mx-auto mb-4">
+        <span class="material-symbols-outlined text-amber-600 text-[32px]">schedule</span>
+    </div>
+    <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">Withdrawal Submitted</h3>
+    <p class="text-sm text-slate-500 mb-4">Your withdrawal of ${{ tx.amount|floatformat:2|intcomma }} is pending admin approval.</p>
+    <div class="bg-slate-50 dark:bg-slate-700/50 rounded-xl p-4 mb-6 text-left space-y-2">
+        <div class="flex justify-between text-sm"><span class="text-slate-500">Amount</span><span class="font-bold text-red-500">-${{ tx.amount|floatformat:2|intcomma }}</span></div>
+        <div class="flex justify-between text-sm"><span class="text-slate-500">Method</span><span class="font-bold text-slate-900 dark:text-white">{% if tx.deposit_method == 'crypto' %}Cryptocurrency{% elif tx.deposit_method == 'bank' %}Bank Transfer{% else %}—{% endif %}</span></div>
+        <div class="flex justify-between text-sm"><span class="text-slate-500">Status</span><span class="font-bold text-amber-600">Pending Approval</span></div>
+        <div class="flex justify-between text-sm"><span class="text-slate-500">Transaction ID</span><span class="font-medium text-slate-700 dark:text-slate-300">{{ tx.transaction_id }}</span></div>
+    </div>
+    <a href="{% url 'dashboard' %}" class="block w-full py-2.5 rounded-lg bg-primary text-white text-sm font-semibold hover:bg-primary-dark transition-all">Go to Dashboard</a>
+</div>

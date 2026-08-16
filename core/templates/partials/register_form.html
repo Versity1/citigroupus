@@ -1,0 +1,82 @@
+<form method="POST" hx-post="{% url 'register' %}" hx-target="#form-container" hx-swap="innerHTML" class="flex flex-col gap-5">
+    {% csrf_token %}
+
+    {% if form.errors %}
+    <div class="bg-red-50 border border-red-200 text-red-700 p-3 rounded-lg text-sm">
+        {% for field, errors in form.errors.items %}
+            {% for error in errors %}
+                <p>{{ error }}</p>
+            {% endfor %}
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    <!-- Name Fields -->
+    <div class="grid grid-cols-2 gap-4">
+        <div class="space-y-1.5">
+            <label class="text-sm font-medium text-slate-700 dark:text-slate-300" for="id_first_name">First Name</label>
+            <div class="relative">
+                <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-[20px]">person</span>
+                {{ form.first_name }}
+            </div>
+        </div>
+        <div class="space-y-1.5">
+            <label class="text-sm font-medium text-slate-700 dark:text-slate-300" for="id_last_name">Last Name</label>
+            <div class="relative">
+                <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-[20px]">badge</span>
+                {{ form.last_name }}
+            </div>
+        </div>
+    </div>
+
+    <!-- Email -->
+    <div class="space-y-1.5">
+        <label class="text-sm font-medium text-slate-700 dark:text-slate-300" for="id_email">Email Address</label>
+        <div class="relative">
+            <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-[20px]">mail</span>
+            {{ form.email }}
+        </div>
+    </div>
+
+    <!-- Phone -->
+    <div class="space-y-1.5">
+        <label class="text-sm font-medium text-slate-700 dark:text-slate-300" for="id_phone">Phone Number</label>
+        <div class="relative">
+            <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-[20px]">phone</span>
+            {{ form.phone }}
+        </div>
+    </div>
+
+    <!-- Password -->
+    <div class="space-y-1.5">
+        <label class="text-sm font-medium text-slate-700 dark:text-slate-300" for="id_password1">Password</label>
+        <div class="relative">
+            <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-[20px]">lock</span>
+            {{ form.password1 }}
+        </div>
+    </div>
+
+    <!-- Confirm Password -->
+    <div class="space-y-1.5">
+        <label class="text-sm font-medium text-slate-700 dark:text-slate-300" for="id_password2">Confirm Password</label>
+        <div class="relative">
+            <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-[20px]">lock</span>
+            {{ form.password2 }}
+        </div>
+    </div>
+
+    <!-- Terms -->
+    <label class="flex items-start gap-2 text-sm text-slate-600 dark:text-slate-400">
+        <input type="checkbox" required class="mt-0.5 rounded border-slate-300 text-primary focus:ring-primary" />
+        I agree to the <a href="#" class="text-primary font-semibold hover:underline">Terms of Service</a> and <a href="#" class="text-primary font-semibold hover:underline">Privacy Policy</a>
+    </label>
+
+    <!-- Submit -->
+    <button type="submit" class="relative mt-2 flex w-full cursor-pointer items-center justify-center overflow-hidden rounded-lg h-12 px-4 bg-primary hover:bg-blue-700 text-white text-base font-bold shadow-md shadow-blue-500/20 transition-all duration-200 active:scale-[0.98]">
+        <span class="htmx-indicator animate-spin mr-2">
+            <span class="material-symbols-outlined text-[20px]">progress_activity</span>
+        </span>
+        <span>Create Account</span>
+        <span class="material-symbols-outlined text-[18px] ml-2">arrow_forward</span>
+    </button>
+</form>

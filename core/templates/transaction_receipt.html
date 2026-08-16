@@ -1,0 +1,223 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Receipt - {{ tx.transaction_id }}</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f3f4f6; padding: 20px; display: flex; justify-content: center; min-height: 100vh; align-items: flex-start; }
+        .receipt-card { 
+            width: 100%; 
+            max-width: 420px; 
+            background: white; 
+            border-radius: 16px; 
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05); 
+            overflow: hidden; 
+            position: relative;
+            margin-top: 20px;
+            margin-bottom: 40px;
+        }
+        
+        .receipt-header {
+            background-color: #1152d4;
+            color: white;
+            text-align: center;
+            padding: 30px 20px 20px;
+            position: relative;
+        }
+
+        .status-icon {
+            width: 60px;
+            height: 60px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 15px;
+        }
+
+        .status-icon.completed { background: #10B981; }
+        .status-icon.pending { background: #F59E0B; }
+        .status-icon.failed { background: #EF4444; }
+
+        .dashed-divider {
+            border-top: 2px dashed #E5E7EB;
+            margin: 20px 0;
+            position: relative;
+        }
+
+        .dashed-divider::before, .dashed-divider::after {
+            content: '';
+            position: absolute;
+            top: -10px;
+            width: 20px;
+            height: 20px;
+            background-color: #f3f4f6;
+            border-radius: 50%;
+        }
+        .dashed-divider::before { left: -30px; }
+        .dashed-divider::after { right: -30px; }
+
+        .action-buttons {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        
+        .btn {
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-weight: 500;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .btn-primary { background: #1152d4; color: white; border: 1px solid #1152d4; }
+        .btn-primary:hover { background: #0a3aa0; }
+        .btn-secondary { background: white; color: #4B5563; border: 1px solid #D1D5DB; }
+        .btn-secondary:hover { background: #F3F4F6; }
+
+        @media print {
+            body { background: white; padding: 0; align-items: flex-start; }
+            .receipt-card { box-shadow: none; max-width: 100%; border-radius: 0; margin-top: 0; }
+            .dashed-divider::before, .dashed-divider::after { display: none; }
+            .no-print { display: none !important; }
+            .receipt-header { background-color: #1152d4 !important; color: white !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+        }
+    </style>
+</head>
+<body>
+    
+    <div>
+        <div class="action-buttons no-print">
+            <a href="{% url 'transaction_history' %}" class="btn btn-secondary">
+                <span class="material-symbols-outlined text-[18px]">arrow_back</span> Back
+            </a>
+            <button onclick="window.print()" class="btn btn-primary">
+                <span class="material-symbols-outlined text-[18px]">print</span> Print Receipt
+            </button>
+        </div>
+
+        <div class="receipt-card">
+            <!-- Header section -->
+            <div class="receipt-header {% if tx.status == 'completed' %}bg-primary{% elif tx.status == 'pending' %}bg-yellow-500{% else %}bg-red-500{% endif %}">
+                <div class="status-icon {% if tx.status == 'completed' %}completed{% elif tx.status == 'pending' %}pending{% else %}failed{% endif %}">
+                    <span class="material-symbols-outlined text-[32px] text-white">
+                        {% if tx.status == 'completed' %}check_circle
+                        {% elif tx.status == 'pending' %}pending
+                        {% else %}cancel
+                        {% endif %}
+                    </span>
+                </div>
+                <h2 class="text-white text-lg font-medium opacity-90 mb-1">
+                    {% if tx.status == 'completed' %}Transaction Successful
+                    {% elif tx.status == 'pending' %}Transaction Pending
+                    {% else %}Transaction Failed
+                    {% endif %}
+                </h2>
+                <h1 class="text-white text-4xl font-bold tracking-tight">
+                    {% if tx.is_credit %}+{% else %}-{% endif %}${{ tx.amount|floatformat:2 }}
+                </h1>
+            </div>
+
+            <div class="px-6 py-6 bg-white">
+                <div class="text-center mb-6">
+                    <h3 class="text-xl font-bold text-gray-900">Citi Group</h3>
+                    <p class="text-xs text-gray-500 uppercase tracking-widest mt-1">Digital Banking</p>
+                </div>
+
+                <!-- Detail rows -->
+                <div class="space-y-4 text-sm">
+                    
+                    <div class="flex justify-between">
+                        <span class="text-gray-500 font-medium">Transaction Type</span>
+                        <span class="text-gray-900 font-semibold capitalize">{{ tx.get_transaction_type_display }}</span>
+                    </div>
+
+                    <div class="flex justify-between">
+                        <span class="text-gray-500 font-medium">Date & Time</span>
+                        <span class="text-gray-900 font-semibold text-right">{{ tx.created_at|date:"M d, Y - g:i A" }}</span>
+                    </div>
+
+                    <div class="flex justify-between items-center">
+                        <span class="text-gray-500 font-medium">Transaction ID</span>
+                        <span class="text-gray-900 font-semibold">{{ tx.transaction_id }}</span>
+                    </div>
+
+                    <div class="dashed-divider"></div>
+
+                    <div class="flex flex-col gap-1 mb-2">
+                        <span class="text-gray-500 font-medium">Sender Details</span>
+                        <span class="text-gray-900 font-semibold">{{ tx.user.get_full_name }} ({{ tx.user.get_masked_account }})</span>
+                    </div>
+
+                    <div class="dashed-divider"></div>
+
+                    {% if tx.recipient_name or tx.recipient_account or tx.bank_name %}
+                    <div class="flex flex-col gap-1">
+                        <span class="text-gray-500 font-medium">Recipient Details</span>
+                        <span class="text-gray-900 font-semibold">
+                            {% if tx.recipient_name %}{{ tx.recipient_name }}{% else %}{{ tx.description }}{% endif %}
+                        </span>
+                        {% if tx.recipient_account %}
+                        <span class="text-gray-600 font-medium text-xs">{{ tx.recipient_account }}</span>
+                        {% endif %}
+                        {% if tx.bank_name %}
+                        <span class="text-gray-600 font-medium text-xs">{{ tx.bank_name }}</span>
+                        {% endif %}
+                    </div>
+                    {% else %}
+                    <div class="flex flex-col gap-1">
+                        <span class="text-gray-500 font-medium">Description</span>
+                        <span class="text-gray-900 font-semibold">{{ tx.description }}</span>
+                    </div>
+                    {% endif %}
+                    
+                    {% if tx.reference %}
+                    <div class="flex justify-between mt-2">
+                        <span class="text-gray-500 font-medium">Reference</span>
+                        <span class="text-gray-900 font-semibold">{{ tx.reference }}</span>
+                    </div>
+                    {% endif %}
+
+                    <div class="dashed-divider"></div>
+
+                    <div class="flex justify-between mb-1">
+                        <span class="text-gray-500 font-medium">Subtotal</span>
+                        <span class="text-gray-900 font-semibold">${{ tx.amount|floatformat:2 }}</span>
+                    </div>
+                    <div class="flex justify-between">
+                        <span class="text-gray-500 font-medium">Fee</span>
+                        <span class="text-gray-900 font-semibold">$0.00</span>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Footer Section -->
+            <div class="bg-gray-50 px-6 py-5 border-t border-gray-100 text-center">
+                <p class="text-xs text-gray-500 leading-relaxed font-medium">
+                    This receipt is computer generated and does not require a physical signature.
+                </p>
+                <div class="mt-4 text-[10px] text-gray-400 font-mono tracking-widest">
+                    *** END OF RECEIPT ***
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

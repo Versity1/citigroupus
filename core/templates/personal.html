@@ -1,0 +1,232 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Personal Banking — Checking, Savings & Cards | Citi Group{% endblock %}
+{% block meta_description %}Manage your everyday finances with Citi Group personal banking. High-yield savings, global checking, premium debit cards, and 24/7 digital security.{% endblock %}
+
+{% block extra_head %}
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+    :root {
+        --citi-navy: #0F1632;
+        --citi-navy-light: #1a2340;
+        --citi-blue: #255BE3;
+        --citi-blue-hover: #1d4dc4;
+        --citi-accent: #FF3C28;
+        --citi-gold: #C5A059;
+        --citi-white: #FFFFFF;
+        --citi-gray-50: #F7F8FA;
+        --citi-gray-100: #EDEFF3;
+        --citi-gray-200: #D4D8E0;
+        --citi-gray-500: #6B7280;
+        --citi-gray-700: #374151;
+        --citi-gray-900: #111827;
+        --citi-transition: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+    .font-serif { font-family: 'Playfair Display', Georgia, serif; }
+    .accent-bar { width: 48px; height: 3px; background: var(--citi-accent); border-radius: 2px; }
+    .btn-citi-primary {
+        display: inline-flex; align-items: center; justify-content: center; padding: 12px 28px;
+        background: var(--citi-blue); color: var(--citi-white); font-weight: 600; font-size: 14px;
+        border-radius: 4px; border: none; cursor: pointer; transition: all 0.3s var(--citi-transition); text-decoration: none;
+    }
+    .btn-citi-primary:hover { background: var(--citi-blue-hover); transform: translateY(-1px); box-shadow: 0 6px 20px rgba(37, 91, 227, 0.3); }
+    .btn-citi-white {
+        display: inline-flex; align-items: center; justify-content: center; padding: 12px 28px;
+        background: var(--citi-white); color: var(--citi-navy); font-weight: 600; font-size: 14px;
+        border-radius: 4px; border: none; cursor: pointer; transition: all 0.3s var(--citi-transition); text-decoration: none;
+    }
+    .btn-citi-white:hover { background: var(--citi-gray-100); transform: translateY(-1px); }
+    .btn-citi-outline {
+        display: inline-flex; align-items: center; justify-content: center; padding: 12px 28px;
+        background: transparent; color: var(--citi-white); font-weight: 600; font-size: 14px;
+        border-radius: 4px; border: 1.5px solid rgba(255,255,255,0.3); cursor: pointer; transition: all 0.3s var(--citi-transition); text-decoration: none;
+    }
+    .btn-citi-outline:hover { border-color: var(--citi-white); background: rgba(255,255,255,0.06); }
+    .nav-link-premium { position: relative; padding-bottom: 2px; }
+    .nav-link-premium::after {
+        content: ''; position: absolute; bottom: 0; left: 0; width: 0; height: 2px;
+        background: var(--citi-blue); transition: width 0.3s var(--citi-transition);
+    }
+    .nav-link-premium:hover::after, .nav-link-premium.active-tab::after { width: 100%; }
+    .mobile-menu-slide { transform: translateX(100%); transition: transform 0.35s var(--citi-transition); }
+    .mobile-menu-slide.open { transform: translateX(0); }
+</style>
+{% endblock %}
+
+{% block body %}
+<div class="relative flex min-h-screen w-full flex-col overflow-x-hidden bg-white">
+    {% include 'partials/public_header.html' with active_tab='personal' solid_nav=True %}
+
+    <main class="flex-grow pt-20">
+        <!-- Hero Section -->
+        <section class="relative overflow-hidden" style="background: var(--citi-navy); padding: 90px 0 80px 0;">
+            <div class="absolute inset-0 opacity-10" style="background-image: radial-gradient(rgba(255,255,255,0.3) 1px, transparent 1px); background-size: 24px 24px;"></div>
+            <div class="relative mx-auto max-w-[1400px] px-6 lg:px-12">
+                <div class="grid lg:grid-cols-12 gap-12 items-center">
+                    <div class="lg:col-span-7">
+                        <span class="text-xs font-semibold tracking-[0.2em] uppercase text-white/50 block mb-4">Personal Banking</span>
+                        <div class="accent-bar mb-6"></div>
+                        <h1 class="font-serif text-4xl sm:text-5xl lg:text-6xl font-bold text-white leading-tight mb-6">
+                            Banking That Fits Your Life and Ambitions
+                        </h1>
+                        <p class="text-lg sm:text-xl text-white/70 leading-relaxed mb-8 max-w-xl">
+                            From seamless everyday payments and high-yield savings to multi-currency global access, manage your finances with confidence and ease.
+                        </p>
+                        <div class="flex flex-wrap gap-4">
+                            <a href="{% url 'register' %}" class="btn-citi-primary">Open Free Account</a>
+                            <a href="{% url 'cards' %}" class="btn-citi-outline">Explore Cards</a>
+                        </div>
+                    </div>
+                    <div class="lg:col-span-5">
+                        <div class="rounded-lg overflow-hidden shadow-2xl border border-white/10" style="aspect-ratio: 16/10;">
+                            <img src="{% static 'images/personal_lifestyle.jpg' %}" alt="Personal Banking Lifestyle" class="w-full h-full object-cover" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Core Products Grid -->
+        <section class="py-20 lg:py-28 bg-white">
+            <div class="mx-auto max-w-[1400px] px-6 lg:px-12">
+                <div class="text-center max-w-2xl mx-auto mb-16">
+                    <div class="accent-bar mx-auto mb-6"></div>
+                    <h2 class="font-serif text-3xl sm:text-4xl font-bold text-slate-900 leading-tight mb-4">
+                        Tailored Accounts for Every Stage
+                    </h2>
+                    <p class="text-slate-600 text-base">
+                        Choose the right personal banking solution designed for modern digital convenience and institutional security.
+                    </p>
+                </div>
+
+                <div class="grid md:grid-cols-3 gap-8">
+                    <!-- Checking -->
+                    <div class="bg-[var(--citi-gray-50)] rounded-lg p-8 border border-slate-200/60 hover:shadow-lg hover:border-[var(--citi-blue)]/30 transition-all">
+                        <div class="w-12 h-12 rounded-lg flex items-center justify-center mb-6 bg-blue-50 text-[var(--citi-blue)]">
+                            <span class="material-symbols-outlined text-[26px]">account_balance</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-slate-900 mb-3">Everyday Checking</h3>
+                        <p class="text-slate-600 text-sm leading-relaxed mb-6">
+                            No minimum balance fees, free international wire transfers, and instant access via our mobile portal anytime, anywhere.
+                        </p>
+                        <ul class="space-y-2.5 text-xs text-slate-600 mb-8">
+                            <li class="flex items-center gap-2"><span class="material-symbols-outlined text-green-600 text-[16px]">check_circle</span> Zero foreign transaction fees</li>
+                            <li class="flex items-center gap-2"><span class="material-symbols-outlined text-green-600 text-[16px]">check_circle</span> Real-time push & SMS alerts</li>
+                            <li class="flex items-center gap-2"><span class="material-symbols-outlined text-green-600 text-[16px]">check_circle</span> Contactless debit card included</li>
+                        </ul>
+                        <a href="{% url 'register' %}" class="btn-citi-primary w-full text-center text-xs">Open Checking</a>
+                    </div>
+
+                    <!-- High Yield Savings -->
+                    <div class="bg-white rounded-lg p-8 border-2 border-[var(--citi-blue)] shadow-md hover:shadow-xl transition-all relative">
+                        <span class="absolute top-4 right-4 bg-blue-100 text-[var(--citi-blue)] text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded">Popular</span>
+                        <div class="w-12 h-12 rounded-lg flex items-center justify-center mb-6 bg-blue-50 text-[var(--citi-blue)]">
+                            <span class="material-symbols-outlined text-[26px]">trending_up</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-slate-900 mb-3">High-Yield Savings</h3>
+                        <p class="text-slate-600 text-sm leading-relaxed mb-6">
+                            Grow your funds faster with market-leading APY interest, automated recurring deposits, and goal-oriented sub-accounts.
+                        </p>
+                        <ul class="space-y-2.5 text-xs text-slate-600 mb-8">
+                            <li class="flex items-center gap-2"><span class="material-symbols-outlined text-green-600 text-[16px]">check_circle</span> Up to 4.75% Annual APY</li>
+                            <li class="flex items-center gap-2"><span class="material-symbols-outlined text-green-600 text-[16px]">check_circle</span> Interest calculated daily, paid monthly</li>
+                            <li class="flex items-center gap-2"><span class="material-symbols-outlined text-green-600 text-[16px]">check_circle</span> FDIC insured up to $250,000</li>
+                        </ul>
+                        <a href="{% url 'register' %}" class="btn-citi-primary w-full text-center text-xs">Start Saving</a>
+                    </div>
+
+                    <!-- Premium Debit & Cards -->
+                    <div class="bg-[var(--citi-gray-50)] rounded-lg p-8 border border-slate-200/60 hover:shadow-lg hover:border-[var(--citi-blue)]/30 transition-all">
+                        <div class="w-12 h-12 rounded-lg flex items-center justify-center mb-6 bg-blue-50 text-[var(--citi-blue)]">
+                            <span class="material-symbols-outlined text-[26px]">credit_card</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-slate-900 mb-3">Premium Debit & Credit</h3>
+                        <p class="text-slate-600 text-sm leading-relaxed mb-6">
+                            Enjoy worldwide ATM fee rebates, global airport lounge privileges, and up to 3% cashback on travel and dining expenses.
+                        </p>
+                        <ul class="space-y-2.5 text-xs text-slate-600 mb-8">
+                            <li class="flex items-center gap-2"><span class="material-symbols-outlined text-green-600 text-[16px]">check_circle</span> Instant card freeze & unfreeze</li>
+                            <li class="flex items-center gap-2"><span class="material-symbols-outlined text-green-600 text-[16px]">check_circle</span> Comprehensive travel insurance</li>
+                            <li class="flex items-center gap-2"><span class="material-symbols-outlined text-green-600 text-[16px]">check_circle</span> Virtual disposable card numbers</li>
+                        </ul>
+                        <a href="{% url 'cards' %}" class="btn-citi-primary w-full text-center text-xs">View Card Benefits</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Security & Mobile Section (Dark) -->
+        <section style="background: var(--citi-navy); padding: 100px 0;">
+            <div class="mx-auto max-w-[1400px] px-6 lg:px-12">
+                <div class="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+                    <div>
+                        <span class="text-xs font-semibold tracking-[0.2em] uppercase text-white/50 block mb-4">Enterprise Protection</span>
+                        <div class="accent-bar mb-6"></div>
+                        <h2 class="font-serif text-3xl sm:text-4xl font-bold text-white leading-tight mb-6">
+                            Bank With Complete Confidence, Protected by Institutional Security
+                        </h2>
+                        <p class="text-white/60 text-base leading-relaxed mb-8">
+                            We employ multi-layer biometric authorization, 256-bit SSL encryption, automated anomalous transaction scanning, and strict Swiss-standard regulatory controls.
+                        </p>
+                        <div class="space-y-4">
+                            <div class="flex items-start gap-4">
+                                <div class="w-10 h-10 rounded bg-white/10 flex items-center justify-center text-[var(--citi-blue)] shrink-0">
+                                    <span class="material-symbols-outlined text-[20px]">fingerprint</span>
+                                </div>
+                                <div>
+                                    <h4 class="text-sm font-bold text-white mb-1">Biometric Authentication</h4>
+                                    <p class="text-xs text-white/50">Fast, secure login with Face ID or fingerprint on all modern devices.</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start gap-4">
+                                <div class="w-10 h-10 rounded bg-white/10 flex items-center justify-center text-[var(--citi-blue)] shrink-0">
+                                    <span class="material-symbols-outlined text-[20px]">lock_reset</span>
+                                </div>
+                                <div>
+                                    <h4 class="text-sm font-bold text-white mb-1">Instant Card Controls</h4>
+                                    <p class="text-xs text-white/50">Lock, unlock, or set spending limits on your cards directly from your phone in real time.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-white/5 p-8 rounded-lg border border-white/10">
+                        <div class="text-center mb-8">
+                            <h3 class="font-serif text-2xl font-bold text-white mb-2">Open Your Account in 3 Minutes</h3>
+                            <p class="text-xs text-white/50">No paperwork required. Instant identity verification.</p>
+                        </div>
+                        <div class="space-y-4">
+                            <div class="flex items-center gap-3 p-3.5 bg-white/5 rounded border border-white/10 text-white text-xs">
+                                <span class="w-6 h-6 rounded-full bg-[var(--citi-blue)] flex items-center justify-center font-bold text-[11px]">1</span>
+                                <span>Submit your basic personal details online</span>
+                            </div>
+                            <div class="flex items-center gap-3 p-3.5 bg-white/5 rounded border border-white/10 text-white text-xs">
+                                <span class="w-6 h-6 rounded-full bg-[var(--citi-blue)] flex items-center justify-center font-bold text-[11px]">2</span>
+                                <span>Verify your identity in real-time</span>
+                            </div>
+                            <div class="flex items-center gap-3 p-3.5 bg-white/5 rounded border border-white/10 text-white text-xs">
+                                <span class="w-6 h-6 rounded-full bg-[var(--citi-blue)] flex items-center justify-center font-bold text-[11px]">3</span>
+                                <span>Receive your account number and start banking</span>
+                            </div>
+                        </div>
+                        <a href="{% url 'register' %}" class="btn-citi-white w-full text-center mt-6 !py-3 font-bold text-sm">Get Started Now</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    {% include 'partials/public_footer.html' %}
+</div>
+
+<script>
+    function toggleMobileMenu() {
+        const menu = document.getElementById('mobile-menu');
+        const overlay = document.getElementById('mobile-overlay');
+        menu.classList.toggle('open');
+        overlay.classList.toggle('hidden');
+    }
+</script>
+{% endblock %}

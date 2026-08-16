@@ -1,0 +1,10 @@
+<div class="flex items-center justify-between">
+    <span class="text-sm font-medium text-slate-700 dark:text-slate-300">Two-Factor Authentication</span>
+    <form method="POST" action="{% url 'toggle_2fa' %}" hx-post="{% url 'toggle_2fa' %}" hx-target="#2fa-container" hx-swap="innerHTML">
+        {% csrf_token %}
+        <button type="submit" class="relative inline-flex h-6 w-11 items-center rounded-full transition-colors {% if user.two_factor_enabled %}bg-primary{% else %}bg-slate-300{% endif %}">
+            <span class="inline-block h-4 w-4 transform rounded-full bg-white transition-transform {% if user.two_factor_enabled %}translate-x-6{% else %}translate-x-1{% endif %}"></span>
+        </button>
+    </form>
+</div>
+<p class="text-xs text-slate-500 mt-1">{% if user.two_factor_enabled %}2FA is enabled{% else %}Enable for extra security{% endif %}</p>

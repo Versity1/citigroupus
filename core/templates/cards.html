@@ -1,0 +1,253 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Premium Credit & Debit Cards | Citi Group{% endblock %}
+{% block meta_description %}Explore Citi Group's lineup of premium debit and credit cards. Zero foreign transaction fees, global airport lounge access, and tailored cash back rewards.{% endblock %}
+
+{% block extra_head %}
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+    :root {
+        --citi-navy: #0F1632;
+        --citi-navy-light: #1a2340;
+        --citi-blue: #255BE3;
+        --citi-blue-hover: #1d4dc4;
+        --citi-accent: #FF3C28;
+        --citi-gold: #C5A059;
+        --citi-white: #FFFFFF;
+        --citi-gray-50: #F7F8FA;
+        --citi-gray-100: #EDEFF3;
+        --citi-gray-200: #D4D8E0;
+        --citi-gray-500: #6B7280;
+        --citi-gray-700: #374151;
+        --citi-gray-900: #111827;
+        --citi-transition: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+    .font-serif { font-family: 'Playfair Display', Georgia, serif; }
+    .accent-bar { width: 48px; height: 3px; background: var(--citi-accent); border-radius: 2px; }
+    .btn-citi-primary {
+        display: inline-flex; align-items: center; justify-content: center; padding: 12px 28px;
+        background: var(--citi-blue); color: var(--citi-white); font-weight: 600; font-size: 14px;
+        border-radius: 4px; border: none; cursor: pointer; transition: all 0.3s var(--citi-transition); text-decoration: none;
+    }
+    .btn-citi-primary:hover { background: var(--citi-blue-hover); transform: translateY(-1px); box-shadow: 0 6px 20px rgba(37, 91, 227, 0.3); }
+    .btn-citi-white {
+        display: inline-flex; align-items: center; justify-content: center; padding: 12px 28px;
+        background: var(--citi-white); color: var(--citi-navy); font-weight: 600; font-size: 14px;
+        border-radius: 4px; border: none; cursor: pointer; transition: all 0.3s var(--citi-transition); text-decoration: none;
+    }
+    .btn-citi-white:hover { background: var(--citi-gray-100); transform: translateY(-1px); }
+    .btn-citi-outline {
+        display: inline-flex; align-items: center; justify-content: center; padding: 12px 28px;
+        background: transparent; color: var(--citi-white); font-weight: 600; font-size: 14px;
+        border-radius: 4px; border: 1.5px solid rgba(255,255,255,0.3); cursor: pointer; transition: all 0.3s var(--citi-transition); text-decoration: none;
+    }
+    .btn-citi-outline:hover { border-color: var(--citi-white); background: rgba(255,255,255,0.06); }
+    .nav-link-premium { position: relative; padding-bottom: 2px; }
+    .nav-link-premium::after {
+        content: ''; position: absolute; bottom: 0; left: 0; width: 0; height: 2px;
+        background: var(--citi-blue); transition: width 0.3s var(--citi-transition);
+    }
+    .nav-link-premium:hover::after, .nav-link-premium.active-tab::after { width: 100%; }
+    .card-shine { background: linear-gradient(135deg, rgba(255,255,255,0) 30%, rgba(255,255,255,0.12) 50%, rgba(255,255,255,0) 70%); background-size: 200% 200%; }
+    .mobile-menu-slide { transform: translateX(100%); transition: transform 0.35s var(--citi-transition); }
+    .mobile-menu-slide.open { transform: translateX(0); }
+</style>
+{% endblock %}
+
+{% block body %}
+<div class="relative flex min-h-screen w-full flex-col overflow-x-hidden bg-white">
+    {% include 'partials/public_header.html' with active_tab='cards' solid_nav=True %}
+
+    <main class="flex-grow pt-20">
+        <!-- Hero Section -->
+        <section class="relative overflow-hidden" style="background: var(--citi-navy); padding: 90px 0 80px 0;">
+            <div class="absolute inset-0 opacity-10" style="background-image: radial-gradient(rgba(255,255,255,0.3) 1px, transparent 1px); background-size: 24px 24px;"></div>
+            <div class="relative mx-auto max-w-[1400px] px-6 lg:px-12">
+                <div class="grid lg:grid-cols-12 gap-12 items-center">
+                    <div class="lg:col-span-7">
+                        <span class="text-xs font-semibold tracking-[0.2em] uppercase text-white/50 block mb-4">Cards & Digital Payments</span>
+                        <div class="accent-bar mb-6"></div>
+                        <h1 class="font-serif text-4xl sm:text-5xl lg:text-6xl font-bold text-white leading-tight mb-6">
+                            Cards Engineered for Seamless Global Living
+                        </h1>
+                        <p class="text-lg sm:text-xl text-white/70 leading-relaxed mb-8 max-w-xl">
+                            Experience zero foreign transaction fees, global airport lounge privileges, generous rewards, and real-time security on every purchase.
+                        </p>
+                        <div class="flex flex-wrap gap-4">
+                            <a href="{% url 'register' %}" class="btn-citi-primary">Request a Card</a>
+                            <a href="#compare-cards" class="btn-citi-outline">Compare Tiers</a>
+                        </div>
+                    </div>
+                    <div class="lg:col-span-5">
+                        <div class="rounded-lg overflow-hidden shadow-2xl border border-white/10" style="aspect-ratio: 16/10;">
+                            <img src="{% static 'images/card_payment.jpg' %}" alt="Premium Card Payment" class="w-full h-full object-cover" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3 Cards Showcase -->
+        <section id="compare-cards" class="py-20 lg:py-28 bg-white">
+            <div class="mx-auto max-w-[1400px] px-6 lg:px-12">
+                <div class="text-center max-w-2xl mx-auto mb-16">
+                    <div class="accent-bar mx-auto mb-6"></div>
+                    <h2 class="font-serif text-3xl sm:text-4xl font-bold text-slate-900 leading-tight mb-4">
+                        Select the Card That Matches Your Lifestyle
+                    </h2>
+                    <p class="text-slate-600 text-base">
+                        Each Citi Group card offers world-class convenience, contactless functionality, and global acceptance.
+                    </p>
+                </div>
+
+                <div class="grid md:grid-cols-3 gap-8">
+                    <!-- Classic Debit -->
+                    <div class="bg-[var(--citi-gray-50)] rounded-lg p-8 border border-slate-200/60 flex flex-col justify-between hover:shadow-xl transition-all">
+                        <div>
+                            <!-- Card Graphic -->
+                            <div class="relative w-full aspect-[1.6/1] rounded-xl p-5 text-white overflow-hidden bg-gradient-to-br from-primary via-blue-600 to-indigo-800 shadow-lg mb-6 card-shine">
+                                <div class="flex justify-between items-start">
+                                    <div>
+                                        <span class="text-[9px] uppercase tracking-widest text-white/60">Debit</span>
+                                        <p class="text-xs font-bold">Classic</p>
+                                    </div>
+                                    <span class="text-xs font-black tracking-wider text-white/80">CITI</span>
+                                </div>
+                                <div class="mt-8">
+                                    <p class="text-xs font-mono tracking-widest text-white/80">•••• •••• •••• 4821</p>
+                                    <div class="flex justify-between items-end mt-4 text-[9px] text-white/60 uppercase">
+                                        <div><span>Cardholder</span><p class="font-semibold text-white">CITI CLIENT</p></div>
+                                        <div><span>Exp</span><p class="font-semibold text-white">12/29</p></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <h3 class="text-xl font-bold text-slate-900 mb-2">Classic Debit</h3>
+                            <p class="text-xs text-slate-500 mb-6">Everyday transactions with zero maintenance fees and worldwide ATM fee reimbursements.</p>
+                            <ul class="space-y-2.5 text-xs text-slate-600 mb-8">
+                                <li class="flex items-center gap-2"><span class="material-symbols-outlined text-green-600 text-[16px]">check_circle</span> $0 Annual Fee</li>
+                                <li class="flex items-center gap-2"><span class="material-symbols-outlined text-green-600 text-[16px]">check_circle</span> 0% Foreign Transaction Fees</li>
+                                <li class="flex items-center gap-2"><span class="material-symbols-outlined text-green-600 text-[16px]">check_circle</span> Apple Pay & Google Pay ready</li>
+                            </ul>
+                        </div>
+                        <a href="{% url 'register' %}" class="btn-citi-primary w-full text-center text-xs">Get Classic Debit</a>
+                    </div>
+
+                    <!-- Gold Credit -->
+                    <div class="bg-white rounded-lg p-8 border-2 border-amber-500 shadow-xl flex flex-col justify-between hover:shadow-2xl transition-all relative">
+                        <span class="absolute -top-3 right-6 bg-amber-500 text-white text-[10px] font-bold uppercase tracking-wider px-3 py-1 rounded-full">Most Popular</span>
+                        <div>
+                            <!-- Card Graphic -->
+                            <div class="relative w-full aspect-[1.6/1] rounded-xl p-5 text-white overflow-hidden bg-gradient-to-br from-amber-600 via-yellow-700 to-amber-900 shadow-lg mb-6 card-shine">
+                                <div class="flex justify-between items-start">
+                                    <div>
+                                        <span class="text-[9px] uppercase tracking-widest text-white/60">Credit</span>
+                                        <p class="text-xs font-bold">Gold</p>
+                                    </div>
+                                    <span class="text-xs font-black tracking-wider text-white/80">CITI</span>
+                                </div>
+                                <div class="mt-8">
+                                    <p class="text-xs font-mono tracking-widest text-white/80">•••• •••• •••• 7392</p>
+                                    <div class="flex justify-between items-end mt-4 text-[9px] text-white/60 uppercase">
+                                        <div><span>Cardholder</span><p class="font-semibold text-white">CITI CLIENT</p></div>
+                                        <div><span>Exp</span><p class="font-semibold text-white">06/30</p></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <h3 class="text-xl font-bold text-slate-900 mb-2">Gold Credit</h3>
+                            <p class="text-xs text-slate-500 mb-6">Generous travel cashback, comprehensive insurance, and standard lounge access passes.</p>
+                            <ul class="space-y-2.5 text-xs text-slate-600 mb-8">
+                                <li class="flex items-center gap-2"><span class="material-symbols-outlined text-green-600 text-[16px]">check_circle</span> Up to $15,000 Credit Limit</li>
+                                <li class="flex items-center gap-2"><span class="material-symbols-outlined text-green-600 text-[16px]">check_circle</span> 3% Cashback on Dining & Travel</li>
+                                <li class="flex items-center gap-2"><span class="material-symbols-outlined text-green-600 text-[16px]">check_circle</span> 4 Complimentary Airport Lounge Passes</li>
+                            </ul>
+                        </div>
+                        <a href="{% url 'register' %}" class="btn-citi-primary w-full text-center text-xs bg-amber-600 hover:bg-amber-700 border-none">Get Gold Credit</a>
+                    </div>
+
+                    <!-- Platinum Credit -->
+                    <div class="bg-[var(--citi-gray-50)] rounded-lg p-8 border border-slate-200/60 flex flex-col justify-between hover:shadow-xl transition-all">
+                        <div>
+                            <!-- Card Graphic -->
+                            <div class="relative w-full aspect-[1.6/1] rounded-xl p-5 text-white overflow-hidden bg-gradient-to-br from-slate-900 via-slate-800 to-black shadow-lg mb-6 card-shine">
+                                <div class="flex justify-between items-start">
+                                    <div>
+                                        <span class="text-[9px] uppercase tracking-widest text-white/60">Credit</span>
+                                        <p class="text-xs font-bold text-slate-200">Platinum</p>
+                                    </div>
+                                    <span class="text-xs font-black tracking-wider text-white/80">CITI</span>
+                                </div>
+                                <div class="mt-8">
+                                    <p class="text-xs font-mono tracking-widest text-white/80">•••• •••• •••• 1053</p>
+                                    <div class="flex justify-between items-end mt-4 text-[9px] text-white/60 uppercase">
+                                        <div><span>Cardholder</span><p class="font-semibold text-white">CITI CLIENT</p></div>
+                                        <div><span>Exp</span><p class="font-semibold text-white">09/31</p></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <h3 class="text-xl font-bold text-slate-900 mb-2">Platinum Credit</h3>
+                            <p class="text-xs text-slate-500 mb-6">The definitive card for international travelers. 24/7 concierge and unlimited Priority Pass.</p>
+                            <ul class="space-y-2.5 text-xs text-slate-600 mb-8">
+                                <li class="flex items-center gap-2"><span class="material-symbols-outlined text-green-600 text-[16px]">check_circle</span> Up to $50,000 Credit Limit</li>
+                                <li class="flex items-center gap-2"><span class="material-symbols-outlined text-green-600 text-[16px]">check_circle</span> 5% Cashback on All Purchases</li>
+                                <li class="flex items-center gap-2"><span class="material-symbols-outlined text-green-600 text-[16px]">check_circle</span> Unlimited Priority Pass Lounge Access</li>
+                            </ul>
+                        </div>
+                        <a href="{% url 'register' %}" class="btn-citi-primary w-full text-center text-xs bg-slate-900 hover:bg-black border-none">Get Platinum Credit</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Digital Security Features (Dark) -->
+        <section style="background: var(--citi-navy); padding: 90px 0;">
+            <div class="mx-auto max-w-[1400px] px-6 lg:px-12 text-white">
+                <div class="text-center max-w-2xl mx-auto mb-16">
+                    <div class="accent-bar mx-auto mb-6"></div>
+                    <h2 class="font-serif text-3xl sm:text-4xl font-bold mb-4">Total Digital Control in Your Hands</h2>
+                    <p class="text-white/60 text-base">Manage spending, security, and card settings directly from your phone in real time.</p>
+                </div>
+
+                <div class="grid md:grid-cols-3 gap-8">
+                    <div class="p-6 rounded bg-white/5 border border-white/10">
+                        <div class="w-10 h-10 rounded bg-[var(--citi-blue)]/20 text-[var(--citi-blue)] flex items-center justify-center mb-4">
+                            <span class="material-symbols-outlined text-[22px]">pause_circle</span>
+                        </div>
+                        <h4 class="text-base font-bold mb-2">Instant Card Freeze</h4>
+                        <p class="text-xs text-white/50 leading-relaxed">Misplaced your card? Freeze it in one tap to block all transactions, and unfreeze instantly when found.</p>
+                    </div>
+
+                    <div class="p-6 rounded bg-white/5 border border-white/10">
+                        <div class="w-10 h-10 rounded bg-[var(--citi-blue)]/20 text-[var(--citi-blue)] flex items-center justify-center mb-4">
+                            <span class="material-symbols-outlined text-[22px]">tune</span>
+                        </div>
+                        <h4 class="text-base font-bold mb-2">Dynamic Spending Limits</h4>
+                        <p class="text-xs text-white/50 leading-relaxed">Set daily POS or ATM spending caps, disable online transactions, or restrict international charges on demand.</p>
+                    </div>
+
+                    <div class="p-6 rounded bg-white/5 border border-white/10">
+                        <div class="w-10 h-10 rounded bg-[var(--citi-blue)]/20 text-[var(--citi-blue)] flex items-center justify-center mb-4">
+                            <span class="material-symbols-outlined text-[22px]">contactless</span>
+                        </div>
+                        <h4 class="text-base font-bold mb-2">Contactless & Digital Wallets</h4>
+                        <p class="text-xs text-white/50 leading-relaxed">Add your card to Apple Pay, Google Wallet, or generate disposable virtual card numbers for safe online shopping.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    {% include 'partials/public_footer.html' %}
+</div>
+
+<script>
+    function toggleMobileMenu() {
+        const menu = document.getElementById('mobile-menu');
+        const overlay = document.getElementById('mobile-overlay');
+        menu.classList.toggle('open');
+        overlay.classList.toggle('hidden');
+    }
+</script>
+{% endblock %}

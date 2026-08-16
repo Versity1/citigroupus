@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Citi Group - Cards Management</title>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#135bec",
+                        "primary-dark": "#0e45b5",
+                        "background-light": "#f6f6f8",
+                        "background-dark": "#101622",
+                    },
+                    fontFamily: {
+                        "display": ["Manrope", "sans-serif"]
+                    },
+                    borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "2xl": "1rem", "full": "9999px" },
+                },
+            },
+        }
+    </script>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100 antialiased overflow-hidden">
+<div class="flex h-screen w-full flex-row overflow-hidden">
+<!-- Sidebar -->
+<div class="w-64 flex-shrink-0 border-r border-slate-200 dark:border-slate-800 bg-white dark:bg-[#151a25] flex flex-col justify-between p-4 z-20">
+<div class="flex flex-col gap-6">
+<!-- User Profile / Branding -->
+<div class="flex gap-3 items-center px-2">
+<div class="bg-center bg-no-repeat bg-cover rounded-full h-10 w-10 relative overflow-hidden ring-2 ring-primary/20" data-alt="User profile picture">
+<img alt="Alex Profile" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD3XKjxlGD9lThzUxM0tkZMyXN1AaXT5Zsc4FvZTsfnji6EqgPFAhGjtfprEPxxhAPpvuFUjFk6S2OMUQsGlkJZ7_l4uWYRcifDdDSpNlfiZYhdmVIgRusK7NXCo5v5KmnfirFnaZNyd3X4d7BbOgHRyfxe0UWS0hfZGAmIQuuELout7lmZ9DkqXz1tSussmeUcmxls7EMfr5fGeW0DhJJTSuq7hSB56vBnmTz7WaaDl7lC9JYaT6FvkTP6aLIgIeA7KoqPfqiysboI"/>
+</div>
+<div class="flex flex-col">
+<h1 class="text-slate-900 dark:text-white text-base font-bold leading-tight">Citi Group</h1>
+<p class="text-slate-500 dark:text-slate-400 text-xs font-medium">Welcome back, Alex</p>
+</div>
+</div>
+<!-- Navigation -->
+<nav class="flex flex-col gap-2">
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 hover:text-primary transition-colors group" href="#">
+<span class="material-symbols-outlined text-slate-500 group-hover:text-primary" style="font-size: 24px;">grid_view</span>
+<span class="text-sm font-medium">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 hover:text-primary transition-colors group" href="#">
+<span class="material-symbols-outlined text-slate-500 group-hover:text-primary" style="font-size: 24px;">attach_money</span>
+<span class="text-sm font-medium">Loans</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg bg-primary/10 text-primary dark:text-primary dark:bg-primary/20" href="#">
+<span class="material-symbols-outlined fill-1" style="font-size: 24px;">credit_card</span>
+<span class="text-sm font-medium">Cards</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 hover:text-primary transition-colors group" href="#">
+<span class="material-symbols-outlined text-slate-500 group-hover:text-primary" style="font-size: 24px;">account_balance_wallet</span>
+<span class="text-sm font-medium">Accounts</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 hover:text-primary transition-colors group" href="#">
+<span class="material-symbols-outlined text-slate-500 group-hover:text-primary" style="font-size: 24px;">pie_chart</span>
+<span class="text-sm font-medium">Reports</span>
+</a>
+</nav>
+</div>
+<!-- Bottom Settings -->
+<div class="flex flex-col gap-2">
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 hover:text-primary transition-colors group" href="#">
+<span class="material-symbols-outlined text-slate-500 group-hover:text-primary" style="font-size: 24px;">settings</span>
+<span class="text-sm font-medium">Settings</span>
+</a>
+</div>
+</div>
+<!-- Main Content -->
+<main class="flex-1 h-full overflow-y-auto bg-background-light dark:bg-background-dark p-6 lg:p-10">
+<div class="max-w-7xl mx-auto space-y-8">
+<!-- Header -->
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-4">
+<div>
+<h2 class="text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight">Cards Management</h2>
+<p class="text-slate-500 dark:text-slate-400 mt-1">Manage your active cards and explore new offers.</p>
+</div>
+<div class="flex items-center gap-3">
+<button class="flex items-center gap-2 px-4 py-2 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg text-sm font-medium text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors shadow-sm">
+<span class="material-symbols-outlined" style="font-size: 20px;">history</span>
+                            Transaction History
+                        </button>
+</div>
+</div>
+<!-- Active Cards Grid -->
+<div class="grid grid-cols-1 xl:grid-cols-2 gap-8">
+<!-- Card 1: Platinum Debit -->
+<div class="flex flex-col gap-5">
+<!-- 3D Card Visual -->
+<div class="relative w-full aspect-[1.586/1] rounded-2xl overflow-hidden shadow-xl transform transition-transform hover:scale-[1.01] group perspective-1000">
+<div class="absolute inset-0 bg-gradient-to-br from-slate-900 via-slate-800 to-black p-8 flex flex-col justify-between z-10" data-alt="Dark metallic credit card background">
+<div class="flex justify-between items-start">
+<span class="text-white/80 font-bold tracking-widest text-sm">Citi Group</span>
+<span class="text-white/90 font-bold italic">Platinum</span>
+</div>
+<div class="flex items-center gap-4 my-auto">
+<div class="w-12 h-9 bg-gradient-to-tr from-yellow-200 to-yellow-500 rounded-md opacity-90 shadow-sm border border-yellow-600/30"></div>
+<span class="material-symbols-outlined text-white/80" style="font-size: 28px;">contactless</span>
+</div>
+<div>
+<div class="text-white/90 text-2xl font-mono tracking-wider mb-2 drop-shadow-md">**** **** **** 4289</div>
+<div class="flex justify-between items-end">
+<div class="flex flex-col">
+<span class="text-xs text-white/50 uppercase tracking-wider">Card Holder</span>
+<span class="text-sm text-white/90 font-medium">ALEX MORGAN</span>
+</div>
+<div class="flex flex-col items-end">
+<span class="text-xs text-white/50 uppercase tracking-wider">Expires</span>
+<span class="text-sm text-white/90 font-medium">12/26</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Glossy overlay -->
+<div class="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent pointer-events-none z-20"></div>
+</div>
+<!-- Card Controls -->
+<div class="bg-white dark:bg-[#151a25] rounded-xl p-5 border border-slate-200 dark:border-slate-800 shadow-sm">
+<div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6 border-b border-slate-100 dark:border-slate-800 pb-4">
+<div>
+<span class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Available Balance</span>
+<div class="text-2xl font-bold text-slate-900 dark:text-white">$14,250.00</div>
+</div>
+<div class="flex items-center gap-2 px-3 py-1 bg-green-50 dark:bg-green-900/30 text-green-700 dark:text-green-400 rounded-full text-xs font-bold uppercase tracking-wide">
+<div class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></div>
+                                    Active
+                                </div>
+</div>
+<div class="grid grid-cols-3 gap-4">
+<button class="flex flex-col items-center justify-center gap-2 p-3 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors group">
+<div class="w-10 h-10 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-slate-600 dark:text-slate-400 group-hover:text-primary group-hover:bg-primary/10 transition-colors">
+<span class="material-symbols-outlined">lock_reset</span>
+</div>
+<span class="text-xs font-semibold text-slate-600 dark:text-slate-400 group-hover:text-primary">Change PIN</span>
+</button>
+<button class="flex flex-col items-center justify-center gap-2 p-3 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors group">
+<div class="w-10 h-10 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-slate-600 dark:text-slate-400 group-hover:text-primary group-hover:bg-primary/10 transition-colors">
+<span class="material-symbols-outlined">tune</span>
+</div>
+<span class="text-xs font-semibold text-slate-600 dark:text-slate-400 group-hover:text-primary">Set Limits</span>
+</button>
+<label class="cursor-pointer flex flex-col items-center justify-center gap-2 p-3 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors group">
+<div class="relative">
+<input class="sr-only peer" type="checkbox"/>
+<div class="w-10 h-6 bg-slate-200 peer-focus:outline-none rounded-full peer dark:bg-slate-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+</div>
+<span class="text-xs font-semibold text-slate-600 dark:text-slate-400 group-hover:text-primary">Freeze Card</span>
+</label>
+</div>
+</div>
+</div>
+<!-- Card 2: Travel Rewards -->
+<div class="flex flex-col gap-5">
+<!-- 3D Card Visual -->
+<div class="relative w-full aspect-[1.586/1] rounded-2xl overflow-hidden shadow-xl transform transition-transform hover:scale-[1.01] group perspective-1000">
+<div class="absolute inset-0 bg-gradient-to-bl from-primary to-blue-600 p-8 flex flex-col justify-between z-10" data-alt="Blue metallic credit card background">
+<div class="flex justify-between items-start">
+<span class="text-white/80 font-bold tracking-widest text-sm">Citi Group</span>
+<span class="text-white/90 font-bold italic">Travel Rewards</span>
+</div>
+<div class="flex items-center gap-4 my-auto">
+<div class="w-12 h-9 bg-gradient-to-tr from-slate-200 to-slate-400 rounded-md opacity-90 shadow-sm border border-slate-500/30"></div>
+<span class="material-symbols-outlined text-white/80" style="font-size: 28px;">wifi</span>
+</div>
+<div>
+<div class="text-white/90 text-2xl font-mono tracking-wider mb-2 drop-shadow-md">**** **** **** 8821</div>
+<div class="flex justify-between items-end">
+<div class="flex flex-col">
+<span class="text-xs text-white/50 uppercase tracking-wider">Card Holder</span>
+<span class="text-sm text-white/90 font-medium">ALEX MORGAN</span>
+</div>
+<div class="flex flex-col items-end">
+<span class="text-xs text-white/50 uppercase tracking-wider">Expires</span>
+<span class="text-sm text-white/90 font-medium">09/25</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Glossy overlay -->
+<div class="absolute inset-0 bg-gradient-to-br from-white/20 to-transparent pointer-events-none z-20"></div>
+</div>
+<!-- Card Controls -->
+<div class="bg-white dark:bg-[#151a25] rounded-xl p-5 border border-slate-200 dark:border-slate-800 shadow-sm">
+<div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6 border-b border-slate-100 dark:border-slate-800 pb-4">
+<div>
+<span class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Credit Limit</span>
+<div class="text-2xl font-bold text-slate-900 dark:text-white">$25,000.00</div>
+</div>
+<div class="flex items-center gap-2 px-3 py-1 bg-green-50 dark:bg-green-900/30 text-green-700 dark:text-green-400 rounded-full text-xs font-bold uppercase tracking-wide">
+<div class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></div>
+                                   Active
+                               </div>
+</div>
+<div class="grid grid-cols-3 gap-4">
+<button class="flex flex-col items-center justify-center gap-2 p-3 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors group">
+<div class="w-10 h-10 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-slate-600 dark:text-slate-400 group-hover:text-primary group-hover:bg-primary/10 transition-colors">
+<span class="material-symbols-outlined">lock_reset</span>
+</div>
+<span class="text-xs font-semibold text-slate-600 dark:text-slate-400 group-hover:text-primary">Change PIN</span>
+</button>
+<button class="flex flex-col items-center justify-center gap-2 p-3 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors group">
+<div class="w-10 h-10 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-slate-600 dark:text-slate-400 group-hover:text-primary group-hover:bg-primary/10 transition-colors">
+<span class="material-symbols-outlined">tune</span>
+</div>
+<span class="text-xs font-semibold text-slate-600 dark:text-slate-400 group-hover:text-primary">Set Limits</span>
+</button>
+<label class="cursor-pointer flex flex-col items-center justify-center gap-2 p-3 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors group">
+<div class="relative">
+<input class="sr-only peer" type="checkbox"/>
+<div class="w-10 h-6 bg-slate-200 peer-focus:outline-none rounded-full peer dark:bg-slate-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+</div>
+<span class="text-xs font-semibold text-slate-600 dark:text-slate-400 group-hover:text-primary">Freeze Card</span>
+</label>
+</div>
+</div>
+</div>
+</div>
+<!-- Request New Card Section -->
+<div class="mt-12">
+<div class="flex items-center gap-3 mb-8">
+<div class="p-2 bg-primary/10 rounded-lg text-primary">
+<span class="material-symbols-outlined">add_card</span>
+</div>
+<div>
+<h3 class="text-2xl font-bold text-slate-900 dark:text-white">Request New Card</h3>
+<p class="text-slate-500 dark:text-slate-400 text-sm">Choose a tier that fits your lifestyle.</p>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<!-- Classic Tier -->
+<div class="bg-white dark:bg-[#151a25] rounded-2xl p-6 border border-slate-200 dark:border-slate-800 shadow-sm flex flex-col hover:shadow-md transition-shadow">
+<div class="h-32 w-full rounded-xl bg-gradient-to-r from-slate-200 to-slate-300 mb-6 relative overflow-hidden" data-alt="Silver gradient abstract card background">
+<div class="absolute top-4 left-4 text-slate-500 font-bold text-sm">Classic</div>
+<div class="absolute bottom-4 right-4 text-slate-400">
+<span class="material-symbols-outlined">contactless</span>
+</div>
+</div>
+<h4 class="text-lg font-bold text-slate-900 dark:text-white mb-2">Classic</h4>
+<p class="text-sm text-slate-500 mb-6 min-h-[40px]">Perfect for everyday spending with zero annual fees.</p>
+<ul class="space-y-3 mb-8 flex-1">
+<li class="flex items-center gap-3 text-sm text-slate-700 dark:text-slate-300">
+<span class="material-symbols-outlined text-green-500 text-lg">check_circle</span>
+                                    Zero annual fees
+                                </li>
+<li class="flex items-center gap-3 text-sm text-slate-700 dark:text-slate-300">
+<span class="material-symbols-outlined text-green-500 text-lg">check_circle</span>
+                                    Standard withdrawal limits
+                                </li>
+<li class="flex items-center gap-3 text-sm text-slate-700 dark:text-slate-300">
+<span class="material-symbols-outlined text-green-500 text-lg">check_circle</span>
+                                    Fraud protection
+                                </li>
+</ul>
+<button class="w-full py-2.5 px-4 rounded-lg border border-primary text-primary hover:bg-primary/5 font-semibold transition-colors">
+                                Apply Now
+                            </button>
+</div>
+<!-- Gold Tier -->
+<div class="bg-white dark:bg-[#151a25] rounded-2xl p-6 border-2 border-yellow-400/30 dark:border-yellow-600/30 shadow-sm flex flex-col relative hover:shadow-md transition-shadow">
+<div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-yellow-500 text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">Best Value</div>
+<div class="h-32 w-full rounded-xl bg-gradient-to-r from-yellow-100 to-yellow-300 mb-6 relative overflow-hidden" data-alt="Gold gradient abstract card background">
+<div class="absolute top-4 left-4 text-yellow-800 font-bold text-sm">Gold</div>
+<div class="absolute bottom-4 right-4 text-yellow-700">
+<span class="material-symbols-outlined">contactless</span>
+</div>
+</div>
+<h4 class="text-lg font-bold text-slate-900 dark:text-white mb-2">Gold</h4>
+<p class="text-sm text-slate-500 mb-6 min-h-[40px]">Enhanced benefits for frequent travelers and shoppers.</p>
+<ul class="space-y-3 mb-8 flex-1">
+<li class="flex items-center gap-3 text-sm text-slate-700 dark:text-slate-300">
+<span class="material-symbols-outlined text-green-500 text-lg">check_circle</span>
+                                    2% Cashback on all purchases
+                                </li>
+<li class="flex items-center gap-3 text-sm text-slate-700 dark:text-slate-300">
+<span class="material-symbols-outlined text-green-500 text-lg">check_circle</span>
+                                    Comprehensive Travel Insurance
+                                </li>
+<li class="flex items-center gap-3 text-sm text-slate-700 dark:text-slate-300">
+<span class="material-symbols-outlined text-green-500 text-lg">check_circle</span>
+                                    Extended Warranty
+                                </li>
+<li class="flex items-center gap-3 text-sm text-slate-700 dark:text-slate-300">
+<span class="material-symbols-outlined text-green-500 text-lg">check_circle</span>
+                                    Higher limits
+                                </li>
+</ul>
+<button class="w-full py-2.5 px-4 rounded-lg bg-primary text-white hover:bg-primary-dark font-semibold transition-colors shadow-lg shadow-primary/25">
+                                Apply Now
+                            </button>
+</div>
+<!-- Platinum Tier -->
+<div class="bg-white dark:bg-[#151a25] rounded-2xl p-6 border border-slate-200 dark:border-slate-800 shadow-sm flex flex-col hover:shadow-md transition-shadow">
+<div class="h-32 w-full rounded-xl bg-gradient-to-r from-slate-700 to-slate-900 mb-6 relative overflow-hidden" data-alt="Dark platinum gradient abstract card background">
+<div class="absolute top-4 left-4 text-white font-bold text-sm">Platinum</div>
+<div class="absolute bottom-4 right-4 text-slate-400">
+<span class="material-symbols-outlined">contactless</span>
+</div>
+</div>
+<h4 class="text-lg font-bold text-slate-900 dark:text-white mb-2">Platinum</h4>
+<p class="text-sm text-slate-500 mb-6 min-h-[40px]">Exclusive luxury perks and premium concierge service.</p>
+<ul class="space-y-3 mb-8 flex-1">
+<li class="flex items-center gap-3 text-sm text-slate-700 dark:text-slate-300">
+<span class="material-symbols-outlined text-green-500 text-lg">check_circle</span>
+                                    24/7 Concierge Service
+                                </li>
+<li class="flex items-center gap-3 text-sm text-slate-700 dark:text-slate-300">
+<span class="material-symbols-outlined text-green-500 text-lg">check_circle</span>
+                                    Unlimited Airport Lounge Access
+                                </li>
+<li class="flex items-center gap-3 text-sm text-slate-700 dark:text-slate-300">
+<span class="material-symbols-outlined text-green-500 text-lg">check_circle</span>
+                                    Global Purchase Protection
+                                </li>
+<li class="flex items-center gap-3 text-sm text-slate-700 dark:text-slate-300">
+<span class="material-symbols-outlined text-green-500 text-lg">check_circle</span>
+                                    Zero foreign transaction fees
+                                </li>
+</ul>
+<button class="w-full py-2.5 px-4 rounded-lg border border-slate-300 dark:border-slate-700 text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 font-semibold transition-colors">
+                                Apply Now
+                            </button>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+</body></html>

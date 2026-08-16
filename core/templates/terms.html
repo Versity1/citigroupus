@@ -1,0 +1,114 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Terms of Service | Citi Group{% endblock %}
+{% block meta_description %}Citi Group Terms of Service — the agreement governing your account usage, digital banking services, and financial obligations.{% endblock %}
+
+{% block extra_head %}
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+    :root {
+        --citi-navy: #0F1632;
+        --citi-navy-light: #1a2340;
+        --citi-blue: #255BE3;
+        --citi-blue-hover: #1d4dc4;
+        --citi-accent: #FF3C28;
+        --citi-gold: #C5A059;
+        --citi-white: #FFFFFF;
+        --citi-gray-50: #F7F8FA;
+        --citi-gray-100: #EDEFF3;
+        --citi-gray-200: #D4D8E0;
+        --citi-gray-500: #6B7280;
+        --citi-gray-700: #374151;
+        --citi-gray-900: #111827;
+        --citi-transition: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+    .font-serif { font-family: 'Playfair Display', Georgia, serif; }
+    .accent-bar { width: 48px; height: 3px; background: var(--citi-accent); border-radius: 2px; }
+    .btn-citi-primary {
+        display: inline-flex; align-items: center; justify-content: center; padding: 12px 28px;
+        background: var(--citi-blue); color: var(--citi-white); font-weight: 600; font-size: 14px;
+        border-radius: 4px; border: none; cursor: pointer; transition: all 0.3s var(--citi-transition); text-decoration: none;
+    }
+    .btn-citi-primary:hover { background: var(--citi-blue-hover); transform: translateY(-1px); }
+    .nav-link-premium { position: relative; padding-bottom: 2px; }
+    .nav-link-premium::after {
+        content: ''; position: absolute; bottom: 0; left: 0; width: 0; height: 2px;
+        background: var(--citi-blue); transition: width 0.3s var(--citi-transition);
+    }
+    .nav-link-premium:hover { width: 100%; }
+    .mobile-menu-slide { transform: translateX(100%); transition: transform 0.35s var(--citi-transition); }
+    .mobile-menu-slide.open { transform: translateX(0); }
+</style>
+{% endblock %}
+
+{% block body %}
+<div class="relative flex min-h-screen w-full flex-col overflow-x-hidden bg-white">
+    {% include 'partials/public_header.html' with solid_nav=True %}
+
+    <main class="flex-grow pt-20">
+        <!-- Hero Section -->
+        <section class="relative overflow-hidden" style="background: var(--citi-navy); padding: 90px 0 80px 0;">
+            <div class="absolute inset-0 opacity-10" style="background-image: radial-gradient(rgba(255,255,255,0.3) 1px, transparent 1px); background-size: 24px 24px;"></div>
+            <div class="relative mx-auto max-w-[1400px] px-6 lg:px-12">
+                <div class="max-w-3xl">
+                    <span class="text-xs font-semibold tracking-[0.2em] uppercase text-white/50 block mb-4">Legal Agreement</span>
+                    <div class="accent-bar mb-6"></div>
+                    <h1 class="font-serif text-4xl sm:text-5xl font-bold text-white leading-tight mb-4">
+                        Terms of Service & Banking Agreement
+                    </h1>
+                    <p class="text-sm text-white/60">Effective Date: March 1, 2026 &bull; Member FDIC &bull; FINMA Regulatory Framework</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Content Section -->
+        <section class="py-20 bg-white">
+            <div class="mx-auto max-w-[900px] px-6 lg:px-12 space-y-10 text-slate-700 leading-relaxed text-sm">
+                <div class="p-4 rounded bg-blue-50 border border-blue-100 text-xs text-blue-900 font-medium">
+                    Please read these Terms of Service carefully before establishing an account or conducting financial transactions. By accessing our services, you accept and agree to be bound by these provisions.
+                </div>
+
+                <section>
+                    <h2 class="font-serif text-2xl font-bold text-slate-900 mb-4">1. Acceptance & Scope</h2>
+                    <p>These Terms of Service constitute a legally binding contract between the account holder ("Client", "You") and Citi Group and its affiliated banking entities ("Bank", "We", "Us"). This agreement governs checking accounts, high-yield savings, international wire facilities, credit card issuance, and wealth advisory services.</p>
+                </section>
+
+                <section>
+                    <h2 class="font-serif text-2xl font-bold text-slate-900 mb-4">2. Account Eligibility & Verification</h2>
+                    <p>To establish and maintain an account, you must be at least 18 years old with verified legal identity. You agree to provide accurate, up-to-date identification and beneficial ownership records under international Anti-Money Laundering (AML) and Counter-Terrorism Financing (CTF) statutory mandates.</p>
+                </section>
+
+                <section>
+                    <h2 class="font-serif text-2xl font-bold text-slate-900 mb-4">3. Transfers, Wires & Compliance Verifications</h2>
+                    <p class="mb-3">Funds transfers conducted via domestic ACH, Fedwire, SEPA, or global SWIFT channels are subject to automated compliance screening. For high-value or international transactions, the Bank reserves the statutory right to request a verified Tax Verification Number (TVN) or proof of funds origin prior to final settlement.</p>
+                    <p>Transactions deemed inconsistent with normal profile activity or subject to regulatory inquiry may be temporarily held pending review by the compliance department.</p>
+                </section>
+
+                <section>
+                    <h2 class="font-serif text-2xl font-bold text-slate-900 mb-4">4. Security Credentials & Client Obligations</h2>
+                    <p>Clients are strictly responsible for safeguarding their login credentials, multi-factor authentication tokens, and card PINs. Any authorized access resulting from client disclosure or negligence remains the legal responsibility of the account holder.</p>
+                </section>
+
+                <section>
+                    <h2 class="font-serif text-2xl font-bold text-slate-900 mb-4">5. Governing Law & Dispute Resolution</h2>
+                    <p>These terms shall be governed by and construed in accordance with applicable federal banking statutes and Swiss financial market supervisory standards. Any dispute not resolved through formal customer grievance procedures shall be submitted to binding arbitration in the applicable judicial seat.</p>
+                </section>
+            </div>
+        </section>
+    </main>
+
+    {% include 'partials/public_footer.html' %}
+</div>
+
+<script>
+    function toggleMobileMenu() {
+        const menu = document.getElementById('mobile-menu');
+        const overlay = document.getElementById('mobile-overlay');
+        menu.classList.toggle('open');
+        overlay.classList.toggle('hidden');
+    }
+</script>
+{% endblock %}

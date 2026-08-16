@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Citi Group - Finance Reimagined</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#1152d4",
+                        "primary-dark": "#0a3aa0",
+                        "gold": "#C5A059",
+                        "gold-light": "#E6C985",
+                        "slate-dark": "#1e293b",
+                        "slate-light": "#64748b",
+                        "background-light": "#f6f6f8",
+                        "background-dark": "#101622",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"],
+                        "sans": ["Inter", "sans-serif"],
+                    },
+                    borderRadius: {"DEFAULT": "0.375rem", "lg": "0.5rem", "xl": "0.75rem", "2xl": "1rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        /* Custom scrollbar for better aesthetics */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1; 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1; 
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8; 
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 font-display antialiased selection:bg-primary/20 selection:text-primary">
+<div class="relative flex min-h-screen w-full flex-col overflow-x-hidden">
+<!-- Navigation -->
+<header class="sticky top-0 z-50 w-full border-b border-slate-200 bg-white/90 backdrop-blur-md dark:border-slate-800 dark:bg-background-dark/90">
+<div class="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
+<!-- Logo -->
+<div class="flex items-center gap-2">
+<div class="flex h-8 w-8 items-center justify-center rounded-lg bg-primary text-white">
+<span class="material-symbols-outlined text-[20px]">account_balance</span>
+</div>
+<span class="text-xl font-bold tracking-tight text-slate-900 dark:text-white">Citi Group</span>
+</div>
+<!-- Desktop Menu -->
+<nav class="hidden md:flex items-center gap-8">
+<a class="text-sm font-medium text-slate-600 hover:text-primary transition-colors dark:text-slate-300 dark:hover:text-primary-light" href="#">Personal</a>
+<a class="text-sm font-medium text-slate-600 hover:text-primary transition-colors dark:text-slate-300 dark:hover:text-primary-light" href="#">Business</a>
+<a class="text-sm font-medium text-slate-600 hover:text-primary transition-colors dark:text-slate-300 dark:hover:text-primary-light" href="#">Wealth</a>
+<a class="text-sm font-medium text-slate-600 hover:text-primary transition-colors dark:text-slate-300 dark:hover:text-primary-light" href="#">About</a>
+</nav>
+<!-- Actions -->
+<div class="flex items-center gap-3">
+<button class="hidden sm:inline-flex items-center justify-center whitespace-nowrap rounded-lg border border-slate-200 bg-white px-4 py-2 text-sm font-medium text-slate-700 shadow-sm hover:bg-slate-50 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200 dark:hover:bg-slate-700 transition-all">
+                        Login
+                    </button>
+<button class="inline-flex items-center justify-center whitespace-nowrap rounded-lg bg-primary px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-primary-dark focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 transition-all">
+                        Open Account
+                    </button>
+<!-- Mobile menu button -->
+<button class="md:hidden p-2 text-slate-600 hover:bg-slate-100 rounded-md dark:text-slate-300 dark:hover:bg-slate-800">
+<span class="material-symbols-outlined">menu</span>
+</button>
+</div>
+</div>
+</header>
+<!-- Hero Section -->
+<main class="flex-grow">
+<section class="relative overflow-hidden pt-12 pb-16 lg:pt-20 lg:pb-24">
+<div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+<div class="lg:grid lg:grid-cols-12 lg:gap-16 items-center">
+<!-- Content -->
+<div class="lg:col-span-6 text-center lg:text-left z-10 relative">
+<div class="inline-flex items-center rounded-full border border-primary/10 bg-primary/5 px-3 py-1 text-sm font-medium text-primary mb-6">
+<span class="flex h-2 w-2 rounded-full bg-primary mr-2"></span>
+                                The Future of Swiss Finance
+                            </div>
+<h1 class="text-4xl font-black tracking-tight text-slate-900 sm:text-5xl md:text-6xl dark:text-white leading-[1.1]">
+                                Finance Reimagined for the <span class="text-primary relative inline-block">
+                                    Digital Age
+                                    <svg class="absolute w-full h-3 -bottom-1 left-0 text-gold opacity-40" preserveaspectratio="none" viewbox="0 0 100 10">
+<path d="M0 5 Q 50 10 100 5" fill="none" stroke="currentColor" stroke-width="8"></path>
+</svg>
+</span>
+</h1>
+<p class="mt-6 text-lg text-slate-600 dark:text-slate-300 max-w-2xl mx-auto lg:mx-0 leading-relaxed">
+                                Experience secure transactions, flexible loans, and smart savings with Switzerland's trusted digital partner. We combine precision with modern convenience.
+                            </p>
+<div class="mt-8 flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+<button class="inline-flex h-12 items-center justify-center rounded-lg bg-primary px-8 text-base font-semibold text-white shadow-lg shadow-primary/20 hover:bg-primary-dark hover:-translate-y-0.5 transition-all duration-200">
+                                    Open Free Account
+                                    <span class="material-symbols-outlined ml-2 text-[20px]">arrow_forward</span>
+</button>
+<button class="inline-flex h-12 items-center justify-center rounded-lg border border-slate-200 bg-white px-8 text-base font-semibold text-slate-700 shadow-sm hover:bg-slate-50 hover:text-primary transition-all duration-200 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200 dark:hover:bg-slate-700">
+<span class="material-symbols-outlined mr-2 text-[20px] text-gold">play_circle</span>
+                                    See How It Works
+                                </button>
+</div>
+<!-- Trust indicators -->
+<div class="mt-10 pt-8 border-t border-slate-200 dark:border-slate-800 flex flex-col sm:flex-row items-center gap-4 text-sm text-slate-500 justify-center lg:justify-start">
+<span class="font-medium">Regulated by FINMA</span>
+<span class="hidden sm:inline text-slate-300 dark:text-slate-700">•</span>
+<div class="flex gap-1 text-gold">
+<span class="material-symbols-outlined text-[18px] fill-current">star</span>
+<span class="material-symbols-outlined text-[18px] fill-current">star</span>
+<span class="material-symbols-outlined text-[18px] fill-current">star</span>
+<span class="material-symbols-outlined text-[18px] fill-current">star</span>
+<span class="material-symbols-outlined text-[18px] fill-current">star</span>
+</div>
+<span>Rated 4.9/5 by our clients</span>
+</div>
+</div>
+<!-- Hero Image -->
+<div class="lg:col-span-6 mt-12 lg:mt-0 relative group">
+<!-- Decor elements -->
+<div class="absolute -top-12 -right-12 h-64 w-64 rounded-full bg-primary/10 blur-3xl"></div>
+<div class="absolute -bottom-12 -left-12 h-64 w-64 rounded-full bg-gold/10 blur-3xl"></div>
+<div class="relative rounded-2xl overflow-hidden shadow-2xl shadow-slate-200/50 dark:shadow-none border border-slate-100 dark:border-slate-800">
+<div class="absolute inset-0 bg-gradient-to-tr from-primary/20 to-transparent mix-blend-overlay z-10"></div>
+<img alt="Modern glass skyscraper reflecting blue sky and clouds" class="h-full w-full object-cover transform transition-transform duration-700 group-hover:scale-105" data-alt="Modern glass skyscraper reflecting blue sky and clouds" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCjp_3lPweCiti Groupjr-NvDTwJKq_ai09Exc7WWE9_2Z5QYNOFMOlql1MVmc7vCzgVGZGChhQ2BgqntUZa6_QY3VG9UmArd9ToqLTGu_htkhdF_KW_P2uDk35AlzuevUgQq8sOEvshtz1Jh60L3Qd_K_dOcV7LQrjDAk4x8p7zDPquaCahTCuJ5KrbCobEm_yzDzyU8Svjna9nyS6oS4Xh1SdvArcHuWEh9KwBK7Ikac--_BwAcU2HoTjTcHCD0PM2RpxfMayj_Au-fRqjG" style="min-height: 500px;"/>
+<!-- Floating Card 1 -->
+<div class="absolute bottom-8 left-8 z-20 bg-white/90 backdrop-blur-sm p-4 rounded-xl shadow-lg border border-white/50 max-w-xs animate-in fade-in slide-in-from-bottom-4 duration-1000">
+<div class="flex items-center gap-3">
+<div class="h-10 w-10 rounded-full bg-green-100 flex items-center justify-center text-green-600">
+<span class="material-symbols-outlined">trending_up</span>
+</div>
+<div>
+<p class="text-xs text-slate-500 font-medium">Interest Earned</p>
+<p class="text-sm font-bold text-slate-900">+ $1,240.50</p>
+</div>
+</div>
+</div>
+<!-- Floating Card 2 -->
+<div class="absolute top-8 right-8 z-20 bg-white/90 backdrop-blur-sm p-4 rounded-xl shadow-lg border border-white/50 max-w-xs animate-in fade-in slide-in-from-top-4 duration-1000 delay-300">
+<div class="flex items-center gap-3">
+<div class="h-10 w-10 rounded-full bg-primary/10 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined">verified_user</span>
+</div>
+<div>
+<p class="text-xs text-slate-500 font-medium">Security Status</p>
+<p class="text-sm font-bold text-slate-900">Protected</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Features Section -->
+<section class="py-20 bg-white dark:bg-slate-900/50">
+<div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+<div class="text-center max-w-3xl mx-auto mb-16">
+<h2 class="text-3xl font-bold tracking-tight text-slate-900 dark:text-white sm:text-4xl">
+                            Why Choose Citi Group
+                        </h2>
+<p class="mt-4 text-lg text-slate-600 dark:text-slate-300">
+                            We combine Swiss precision with modern digital convenience to secure your financial future.
+                        </p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+<!-- Feature 1 -->
+<div class="group relative rounded-2xl border border-slate-200 bg-background-light p-8 hover:border-primary/30 hover:shadow-xl hover:shadow-primary/5 transition-all duration-300 dark:border-slate-800 dark:bg-slate-800">
+<div class="mb-6 inline-flex h-14 w-14 items-center justify-center rounded-xl bg-primary/10 text-primary group-hover:scale-110 transition-transform duration-300">
+<span class="material-symbols-outlined text-[32px]">bolt</span>
+</div>
+<h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">Instant Transfers</h3>
+<p class="text-slate-600 dark:text-slate-300 leading-relaxed">
+                                Send money globally in seconds with low fees. Our real-time infrastructure ensures your funds arrive when they're needed most.
+                            </p>
+<a class="mt-6 inline-flex items-center text-sm font-semibold text-primary hover:text-primary-dark" href="#">
+                                Learn more <span class="material-symbols-outlined ml-1 text-[16px]">arrow_forward</span>
+</a>
+</div>
+<!-- Feature 2 -->
+<div class="group relative rounded-2xl border border-slate-200 bg-background-light p-8 hover:border-primary/30 hover:shadow-xl hover:shadow-primary/5 transition-all duration-300 dark:border-slate-800 dark:bg-slate-800">
+<div class="mb-6 inline-flex h-14 w-14 items-center justify-center rounded-xl bg-gold/10 text-gold group-hover:scale-110 transition-transform duration-300">
+<span class="material-symbols-outlined text-[32px]">shield_lock</span>
+</div>
+<h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">Secure Loans</h3>
+<p class="text-slate-600 dark:text-slate-300 leading-relaxed">
+                                Flexible rates tailored to your lifestyle and needs. Apply in minutes and get approval without the paperwork headache.
+                            </p>
+<a class="mt-6 inline-flex items-center text-sm font-semibold text-primary hover:text-primary-dark" href="#">
+                                View rates <span class="material-symbols-outlined ml-1 text-[16px]">arrow_forward</span>
+</a>
+</div>
+<!-- Feature 3 -->
+<div class="group relative rounded-2xl border border-slate-200 bg-background-light p-8 hover:border-primary/30 hover:shadow-xl hover:shadow-primary/5 transition-all duration-300 dark:border-slate-800 dark:bg-slate-800">
+<div class="mb-6 inline-flex h-14 w-14 items-center justify-center rounded-xl bg-indigo-100 text-indigo-600 group-hover:scale-110 transition-transform duration-300 dark:bg-indigo-900/30 dark:text-indigo-400">
+<span class="material-symbols-outlined text-[32px]">monitoring</span>
+</div>
+<h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">Smart Savings</h3>
+<p class="text-slate-600 dark:text-slate-300 leading-relaxed">
+                                AI-driven insights to help grow your wealth faster. Set goals, track progress, and let our algorithms optimize your returns.
+                            </p>
+<a class="mt-6 inline-flex items-center text-sm font-semibold text-primary hover:text-primary-dark" href="#">
+                                Start saving <span class="material-symbols-outlined ml-1 text-[16px]">arrow_forward</span>
+</a>
+</div>
+</div>
+</div>
+</section>
+<!-- Pricing / Plans Preview -->
+<section class="py-20">
+<div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+<div class="text-center mb-12">
+<h2 class="text-3xl font-bold tracking-tight text-slate-900 dark:text-white">Choose Your Plan</h2>
+<p class="mt-4 text-slate-600 dark:text-slate-300">Transparent pricing. No hidden fees.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<!-- Standard -->
+<div class="flex flex-col rounded-2xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-800 dark:bg-slate-900">
+<div class="mb-4">
+<h3 class="text-lg font-semibold text-slate-900 dark:text-white">Standard</h3>
+<div class="mt-2 flex items-baseline">
+<span class="text-3xl font-bold text-slate-900 dark:text-white">$0</span>
+<span class="ml-1 text-sm text-slate-500">/month</span>
+</div>
+</div>
+<ul class="mb-8 space-y-3 flex-1">
+<li class="flex items-center text-sm text-slate-600 dark:text-slate-300">
+<span class="material-symbols-outlined mr-2 text-[20px] text-green-500">check</span>
+                                    Free local transfers
+                                </li>
+<li class="flex items-center text-sm text-slate-600 dark:text-slate-300">
+<span class="material-symbols-outlined mr-2 text-[20px] text-green-500">check</span>
+                                    Standard support
+                                </li>
+<li class="flex items-center text-sm text-slate-600 dark:text-slate-300">
+<span class="material-symbols-outlined mr-2 text-[20px] text-green-500">check</span>
+                                    Mobile app access
+                                </li>
+</ul>
+<button class="w-full rounded-lg bg-slate-100 py-2.5 text-sm font-semibold text-slate-900 hover:bg-slate-200 transition-colors dark:bg-slate-800 dark:text-white dark:hover:bg-slate-700">
+                                Get Started
+                            </button>
+</div>
+<!-- Gold -->
+<div class="relative flex flex-col rounded-2xl border-2 border-primary bg-white p-6 shadow-xl shadow-primary/10 transform md:-translate-y-4 z-10 dark:bg-slate-900 dark:border-primary">
+<div class="absolute -top-4 left-1/2 -translate-x-1/2 rounded-full bg-primary px-3 py-1 text-xs font-bold text-white uppercase tracking-wide">
+                                Most Popular
+                            </div>
+<div class="mb-4">
+<h3 class="text-lg font-semibold text-slate-900 dark:text-white">Gold</h3>
+<div class="mt-2 flex items-baseline">
+<span class="text-3xl font-bold text-slate-900 dark:text-white">$15</span>
+<span class="ml-1 text-sm text-slate-500">/month</span>
+</div>
+</div>
+<ul class="mb-8 space-y-3 flex-1">
+<li class="flex items-center text-sm text-slate-600 dark:text-slate-300">
+<span class="material-symbols-outlined mr-2 text-[20px] text-green-500">check</span>
+                                    Free global transfers
+                                </li>
+<li class="flex items-center text-sm text-slate-600 dark:text-slate-300">
+<span class="material-symbols-outlined mr-2 text-[20px] text-green-500">check</span>
+                                    Priority 24/7 support
+                                </li>
+<li class="flex items-center text-sm text-slate-600 dark:text-slate-300">
+<span class="material-symbols-outlined mr-2 text-[20px] text-green-500">check</span>
+                                    Travel insurance
+                                </li>
+<li class="flex items-center text-sm text-slate-600 dark:text-slate-300">
+<span class="material-symbols-outlined mr-2 text-[20px] text-green-500">check</span>
+                                    Metal card included
+                                </li>
+</ul>
+<button class="w-full rounded-lg bg-primary py-2.5 text-sm font-semibold text-white hover:bg-primary-dark transition-colors shadow-md">
+                                Choose Gold
+                            </button>
+</div>
+<!-- Platinum -->
+<div class="flex flex-col rounded-2xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-800 dark:bg-slate-900">
+<div class="mb-4">
+<h3 class="text-lg font-semibold text-slate-900 dark:text-white">Platinum</h3>
+<div class="mt-2 flex items-baseline">
+<span class="text-3xl font-bold text-slate-900 dark:text-white">$50</span>
+<span class="ml-1 text-sm text-slate-500">/month</span>
+</div>
+</div>
+<ul class="mb-8 space-y-3 flex-1">
+<li class="flex items-center text-sm text-slate-600 dark:text-slate-300">
+<span class="material-symbols-outlined mr-2 text-[20px] text-green-500">check</span>
+                                    Concierge Service
+                                </li>
+<li class="flex items-center text-sm text-slate-600 dark:text-slate-300">
+<span class="material-symbols-outlined mr-2 text-[20px] text-green-500">check</span>
+                                    Zero FX fees
+                                </li>
+<li class="flex items-center text-sm text-slate-600 dark:text-slate-300">
+<span class="material-symbols-outlined mr-2 text-[20px] text-green-500">check</span>
+                                    Exclusive lounge access
+                                </li>
+<li class="flex items-center text-sm text-slate-600 dark:text-slate-300">
+<span class="material-symbols-outlined mr-2 text-[20px] text-green-500">check</span>
+                                    Private banker
+                                </li>
+</ul>
+<button class="w-full rounded-lg bg-slate-100 py-2.5 text-sm font-semibold text-slate-900 hover:bg-slate-200 transition-colors dark:bg-slate-800 dark:text-white dark:hover:bg-slate-700">
+                                Choose Platinum
+                            </button>
+</div>
+</div>
+</div>
+</section>
+<!-- CTA Section -->
+<section class="bg-slate-900 py-20 relative overflow-hidden">
+<!-- Background pattern -->
+<div class="absolute inset-0 opacity-10" style="background-image: radial-gradient(#1152d4 1px, transparent 1px); background-size: 32px 32px;"></div>
+<div class="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center">
+<h2 class="text-3xl font-black text-white sm:text-4xl mb-6">Ready to elevate your financial life?</h2>
+<p class="text-slate-300 text-lg max-w-2xl mx-auto mb-10">
+                        Join over 2 million customers who trust Citi Group for their daily transactions and long-term wealth management.
+                    </p>
+<div class="flex flex-col sm:flex-row gap-4 justify-center">
+<button class="inline-flex items-center justify-center rounded-lg bg-white px-8 py-3 text-base font-bold text-primary shadow-lg hover:bg-slate-100 transition-all">
+                            Open Account Now
+                        </button>
+<button class="inline-flex items-center justify-center rounded-lg border border-slate-700 bg-transparent px-8 py-3 text-base font-bold text-white hover:bg-slate-800 transition-all">
+                            Download App
+                        </button>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="bg-white border-t border-slate-200 pt-16 pb-8 dark:bg-background-dark dark:border-slate-800">
+<div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+<div class="grid grid-cols-2 gap-8 md:grid-cols-4 lg:grid-cols-5 mb-12">
+<div class="col-span-2 lg:col-span-2">
+<div class="flex items-center gap-2 mb-6">
+<div class="flex h-8 w-8 items-center justify-center rounded-lg bg-primary text-white">
+<span class="material-symbols-outlined text-[20px]">account_balance</span>
+</div>
+<span class="text-xl font-bold tracking-tight text-slate-900 dark:text-white">Citi Group</span>
+</div>
+<p class="text-slate-500 text-sm max-w-xs mb-6">
+                            Finance made simple, secure, and smart for the modern world. Regulated by the Swiss Financial Market Supervisory Authority.
+                        </p>
+<div class="flex space-x-4">
+<a class="text-slate-400 hover:text-primary transition-colors" href="#">
+<span class="sr-only">LinkedIn</span>
+<!-- Using a placeholder for brand icon not available in Material Symbols -->
+<svg aria-hidden="true" class="h-6 w-6" fill="currentColor" viewbox="0 0 24 24"><path clip-rule="evenodd" d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" fill-rule="evenodd"></path></svg>
+</a>
+<a class="text-slate-400 hover:text-primary transition-colors" href="#">
+<span class="sr-only">Twitter</span>
+<svg aria-hidden="true" class="h-6 w-6" fill="currentColor" viewbox="0 0 24 24"><path d="M8.29 20.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0022 5.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.072 4.072 0 012.8 9.713v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 012 18.407a11.616 11.616 0 006.29 1.84"></path></svg>
+</a>
+</div>
+</div>
+<div>
+<h3 class="text-sm font-semibold text-slate-900 dark:text-white uppercase tracking-wider mb-4">Product</h3>
+<ul class="space-y-3">
+<li><a class="text-sm text-slate-600 hover:text-primary transition-colors dark:text-slate-400" href="#">Personal</a></li>
+<li><a class="text-sm text-slate-600 hover:text-primary transition-colors dark:text-slate-400" href="#">Business</a></li>
+<li><a class="text-sm text-slate-600 hover:text-primary transition-colors dark:text-slate-400" href="#">Wealth</a></li>
+<li><a class="text-sm text-slate-600 hover:text-primary transition-colors dark:text-slate-400" href="#">Loans</a></li>
+</ul>
+</div>
+<div>
+<h3 class="text-sm font-semibold text-slate-900 dark:text-white uppercase tracking-wider mb-4">Company</h3>
+<ul class="space-y-3">
+<li><a class="text-sm text-slate-600 hover:text-primary transition-colors dark:text-slate-400" href="#">About</a></li>
+<li><a class="text-sm text-slate-600 hover:text-primary transition-colors dark:text-slate-400" href="#">Careers</a></li>
+<li><a class="text-sm text-slate-600 hover:text-primary transition-colors dark:text-slate-400" href="#">Press</a></li>
+<li><a class="text-sm text-slate-600 hover:text-primary transition-colors dark:text-slate-400" href="#">Contact</a></li>
+</ul>
+</div>
+<div>
+<h3 class="text-sm font-semibold text-slate-900 dark:text-white uppercase tracking-wider mb-4">Support</h3>
+<ul class="space-y-3">
+<li><a class="text-sm text-slate-600 hover:text-primary transition-colors dark:text-slate-400" href="#">Help Center</a></li>
+<li><a class="text-sm text-slate-600 hover:text-primary transition-colors dark:text-slate-400" href="#">Security</a></li>
+<li><a class="text-sm text-slate-600 hover:text-primary transition-colors dark:text-slate-400" href="#">Legal</a></li>
+<li><a class="text-sm text-slate-600 hover:text-primary transition-colors dark:text-slate-400" href="#">Status</a></li>
+</ul>
+</div>
+</div>
+<div class="border-t border-slate-200 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 dark:border-slate-800">
+<p class="text-sm text-slate-500 text-center md:text-left">
+                        © 2024 Citi Group AG. All rights reserved.
+                    </p>
+<div class="flex gap-6 text-sm text-slate-500">
+<a class="hover:text-slate-900 dark:hover:text-white" href="#">Privacy Policy</a>
+<a class="hover:text-slate-900 dark:hover:text-white" href="#">Terms of Service</a>
+<a class="hover:text-slate-900 dark:hover:text-white" href="#">Cookies</a>
+</div>
+</div>
+</div>
+</footer>
+</div>
+</body></html>

@@ -1,0 +1,222 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Wealth Management & Private Banking | Citi Group{% endblock %}
+{% block meta_description %}Preserve and grow your generational wealth with Citi Group Private Wealth Management. Bespoke portfolio advisory, estate planning, and global capital access.{% endblock %}
+
+{% block extra_head %}
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+    :root {
+        --citi-navy: #0F1632;
+        --citi-navy-light: #1a2340;
+        --citi-blue: #255BE3;
+        --citi-blue-hover: #1d4dc4;
+        --citi-accent: #FF3C28;
+        --citi-gold: #C5A059;
+        --citi-white: #FFFFFF;
+        --citi-gray-50: #F7F8FA;
+        --citi-gray-100: #EDEFF3;
+        --citi-gray-200: #D4D8E0;
+        --citi-gray-500: #6B7280;
+        --citi-gray-700: #374151;
+        --citi-gray-900: #111827;
+        --citi-transition: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+    .font-serif { font-family: 'Playfair Display', Georgia, serif; }
+    .accent-bar { width: 48px; height: 3px; background: var(--citi-accent); border-radius: 2px; }
+    .btn-citi-primary {
+        display: inline-flex; align-items: center; justify-content: center; padding: 12px 28px;
+        background: var(--citi-blue); color: var(--citi-white); font-weight: 600; font-size: 14px;
+        border-radius: 4px; border: none; cursor: pointer; transition: all 0.3s var(--citi-transition); text-decoration: none;
+    }
+    .btn-citi-primary:hover { background: var(--citi-blue-hover); transform: translateY(-1px); box-shadow: 0 6px 20px rgba(37, 91, 227, 0.3); }
+    .btn-citi-white {
+        display: inline-flex; align-items: center; justify-content: center; padding: 12px 28px;
+        background: var(--citi-white); color: var(--citi-navy); font-weight: 600; font-size: 14px;
+        border-radius: 4px; border: none; cursor: pointer; transition: all 0.3s var(--citi-transition); text-decoration: none;
+    }
+    .btn-citi-white:hover { background: var(--citi-gray-100); transform: translateY(-1px); }
+    .btn-citi-outline {
+        display: inline-flex; align-items: center; justify-content: center; padding: 12px 28px;
+        background: transparent; color: var(--citi-white); font-weight: 600; font-size: 14px;
+        border-radius: 4px; border: 1.5px solid rgba(255,255,255,0.3); cursor: pointer; transition: all 0.3s var(--citi-transition); text-decoration: none;
+    }
+    .btn-citi-outline:hover { border-color: var(--citi-white); background: rgba(255,255,255,0.06); }
+    .nav-link-premium { position: relative; padding-bottom: 2px; }
+    .nav-link-premium::after {
+        content: ''; position: absolute; bottom: 0; left: 0; width: 0; height: 2px;
+        background: var(--citi-blue); transition: width 0.3s var(--citi-transition);
+    }
+    .nav-link-premium:hover::after, .nav-link-premium.active-tab::after { width: 100%; }
+    .mobile-menu-slide { transform: translateX(100%); transition: transform 0.35s var(--citi-transition); }
+    .mobile-menu-slide.open { transform: translateX(0); }
+</style>
+{% endblock %}
+
+{% block body %}
+<div class="relative flex min-h-screen w-full flex-col overflow-x-hidden bg-white">
+    {% include 'partials/public_header.html' with active_tab='wealth' solid_nav=True %}
+
+    <main class="flex-grow pt-20">
+        <!-- Hero Section -->
+        <section class="relative overflow-hidden" style="background: var(--citi-navy); padding: 90px 0 80px 0;">
+            <div class="absolute inset-0 opacity-10" style="background-image: radial-gradient(rgba(255,255,255,0.3) 1px, transparent 1px); background-size: 24px 24px;"></div>
+            <div class="relative mx-auto max-w-[1400px] px-6 lg:px-12">
+                <div class="grid lg:grid-cols-12 gap-12 items-center">
+                    <div class="lg:col-span-7">
+                        <span class="text-xs font-semibold tracking-[0.2em] uppercase text-white/50 block mb-4">Wealth Management & Private Banking</span>
+                        <div class="accent-bar mb-6"></div>
+                        <h1 class="font-serif text-4xl sm:text-5xl lg:text-6xl font-bold text-white leading-tight mb-6">
+                            Bespoke Advisory & Generational Asset Preservation
+                        </h1>
+                        <p class="text-lg sm:text-xl text-white/70 leading-relaxed mb-8 max-w-xl">
+                            We combine sophisticated global market access with personalized advisory to grow, manage, and protect family wealth across generations.
+                        </p>
+                        <div class="flex flex-wrap gap-4">
+                            <a href="{% url 'contact' %}" class="btn-citi-primary">Connect with a Wealth Advisor</a>
+                            <a href="{% url 'cards' %}" class="btn-citi-outline">Platinum Privileges</a>
+                        </div>
+                    </div>
+                    <div class="lg:col-span-5">
+                        <div class="rounded-lg overflow-hidden shadow-2xl border border-white/10" style="aspect-ratio: 16/10;">
+                            <img src="{% static 'images/wealth_management.jpg' %}" alt="Private Wealth Management Office" class="w-full h-full object-cover" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Wealth Management Services -->
+        <section class="py-20 lg:py-28 bg-white">
+            <div class="mx-auto max-w-[1400px] px-6 lg:px-12">
+                <div class="text-center max-w-2xl mx-auto mb-16">
+                    <div class="accent-bar mx-auto mb-6"></div>
+                    <h2 class="font-serif text-3xl sm:text-4xl font-bold text-slate-900 leading-tight mb-4">
+                        Tailored Private Wealth Solutions
+                    </h2>
+                    <p class="text-slate-600 text-base">
+                        Comprehensive services designed for ultra-high-net-worth individuals, business owners, and global families.
+                    </p>
+                </div>
+
+                <div class="grid md:grid-cols-3 gap-8">
+                    <!-- Discretionary Portfolio Management -->
+                    <div class="bg-[var(--citi-gray-50)] rounded-lg p-8 border border-slate-200/60 hover:shadow-lg transition-all">
+                        <div class="w-12 h-12 rounded-lg flex items-center justify-center mb-6 bg-blue-50 text-[var(--citi-blue)]">
+                            <span class="material-symbols-outlined text-[26px]">pie_chart</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-slate-900 mb-3">Portfolio Management</h3>
+                        <p class="text-slate-600 text-sm leading-relaxed mb-6">
+                            Institutional asset allocation across global equities, fixed income, private equity, and alternative hedge strategies aligned with your risk profile.
+                        </p>
+                        <ul class="space-y-2.5 text-xs text-slate-600">
+                            <li class="flex items-center gap-2"><span class="material-symbols-outlined text-green-600 text-[16px]">check_circle</span> Discretionary & Advisory mandates</li>
+                            <li class="flex items-center gap-2"><span class="material-symbols-outlined text-green-600 text-[16px]">check_circle</span> Direct access to IPOs & primary debt markets</li>
+                            <li class="flex items-center gap-2"><span class="material-symbols-outlined text-green-600 text-[16px]">check_circle</span> Structured notes & tailored derivative overlays</li>
+                        </ul>
+                    </div>
+
+                    <!-- Estate & Trust Planning -->
+                    <div class="bg-[var(--citi-gray-50)] rounded-lg p-8 border border-slate-200/60 hover:shadow-lg transition-all">
+                        <div class="w-12 h-12 rounded-lg flex items-center justify-center mb-6 bg-blue-50 text-[var(--citi-blue)]">
+                            <span class="material-symbols-outlined text-[26px]">family_restroom</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-slate-900 mb-3">Estate & Trust Structuring</h3>
+                        <p class="text-slate-600 text-sm leading-relaxed mb-6">
+                            Protect and transition your legacy across jurisdictions with multi-generational trust administration, foundations, and tax-efficient structures.
+                        </p>
+                        <ul class="space-y-2.5 text-xs text-slate-600">
+                            <li class="flex items-center gap-2"><span class="material-symbols-outlined text-green-600 text-[16px]">check_circle</span> Swiss & international trust administration</li>
+                            <li class="flex items-center gap-2"><span class="material-symbols-outlined text-green-600 text-[16px]">check_circle</span> Succession planning for family enterprises</li>
+                            <li class="flex items-center gap-2"><span class="material-symbols-outlined text-green-600 text-[16px]">check_circle</span> Cross-border tax compliance advisory</li>
+                        </ul>
+                    </div>
+
+                    <!-- Private Client Lending -->
+                    <div class="bg-[var(--citi-gray-50)] rounded-lg p-8 border border-slate-200/60 hover:shadow-lg transition-all">
+                        <div class="w-12 h-12 rounded-lg flex items-center justify-center mb-6 bg-blue-50 text-[var(--citi-blue)]">
+                            <span class="material-symbols-outlined text-[26px]">real_estate_agent</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-slate-900 mb-3">Customized Liquidity & Credit</h3>
+                        <p class="text-slate-600 text-sm leading-relaxed mb-6">
+                            Unlock liquidity without selling core investment assets through securities-backed lending, luxury real estate financing, and yacht/aircraft loans.
+                        </p>
+                        <ul class="space-y-2.5 text-xs text-slate-600">
+                            <li class="flex items-center gap-2"><span class="material-symbols-outlined text-green-600 text-[16px]">check_circle</span> Margin & Lombard credit lines</li>
+                            <li class="flex items-center gap-2"><span class="material-symbols-outlined text-green-600 text-[16px]">check_circle</span> Prime residential & commercial mortgages</li>
+                            <li class="flex items-center gap-2"><span class="material-symbols-outlined text-green-600 text-[16px]">check_circle</span> Customized covenants & repayment terms</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Wealth Tiers (Dark) -->
+        <section style="background: var(--citi-navy); padding: 90px 0;">
+            <div class="mx-auto max-w-[1400px] px-6 lg:px-12 text-white">
+                <div class="text-center max-w-2xl mx-auto mb-16">
+                    <div class="accent-bar mx-auto mb-6"></div>
+                    <h2 class="font-serif text-3xl sm:text-4xl font-bold mb-4">Membership Tiers & Privileges</h2>
+                    <p class="text-white/60 text-base">
+                        Dedicated service levels designed to match the scope of your global wealth.
+                    </p>
+                </div>
+
+                <div class="grid md:grid-cols-3 gap-8">
+                    <div class="p-8 rounded-lg bg-white/5 border border-white/10 hover:border-white/20 transition-all">
+                        <span class="text-xs font-bold text-[var(--citi-gold)] tracking-widest uppercase mb-2 block">Tier 01</span>
+                        <h3 class="text-2xl font-bold font-serif mb-2">Gold Wealth</h3>
+                        <p class="text-xs text-white/50 mb-6">Assets: $100K - $1M</p>
+                        <ul class="space-y-3 text-xs text-white/70">
+                            <li class="flex items-center gap-2"><span class="material-symbols-outlined text-green-400 text-[16px]">check</span> Dedicated Wealth Relationship Manager</li>
+                            <li class="flex items-center gap-2"><span class="material-symbols-outlined text-green-400 text-[16px]">check</span> Preferred foreign exchange spreads</li>
+                            <li class="flex items-center gap-2"><span class="material-symbols-outlined text-green-400 text-[16px]">check</span> Gold Debit & Credit privileges</li>
+                        </ul>
+                    </div>
+
+                    <div class="p-8 rounded-lg bg-white/10 border-2 border-[var(--citi-blue)] shadow-xl relative">
+                        <span class="absolute top-4 right-4 bg-[var(--citi-blue)] text-white text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded">Elite</span>
+                        <span class="text-xs font-bold text-blue-300 tracking-widest uppercase mb-2 block">Tier 02</span>
+                        <h3 class="text-2xl font-bold font-serif mb-2">Platinum Private</h3>
+                        <p class="text-xs text-white/50 mb-6">Assets: $1M - $10M</p>
+                        <ul class="space-y-3 text-xs text-white/70">
+                            <li class="flex items-center gap-2"><span class="material-symbols-outlined text-green-400 text-[16px]">check</span> Senior Private Banker & Investment Strategist</li>
+                            <li class="flex items-center gap-2"><span class="material-symbols-outlined text-green-400 text-[16px]">check</span> Direct access to Private Equity & Pre-IPO deals</li>
+                            <li class="flex items-center gap-2"><span class="material-symbols-outlined text-green-400 text-[16px]">check</span> Worldwide VIP Airport Lounge & Concierge</li>
+                        </ul>
+                    </div>
+
+                    <div class="p-8 rounded-lg bg-white/5 border border-white/10 hover:border-white/20 transition-all">
+                        <span class="text-xs font-bold text-purple-300 tracking-widest uppercase mb-2 block">Tier 03</span>
+                        <h3 class="text-2xl font-bold font-serif mb-2">Family Office</h3>
+                        <p class="text-xs text-white/50 mb-6">Assets: $10M+</p>
+                        <ul class="space-y-3 text-xs text-white/70">
+                            <li class="flex items-center gap-2"><span class="material-symbols-outlined text-green-400 text-[16px]">check</span> Multi-family office advisory & governance</li>
+                            <li class="flex items-center gap-2"><span class="material-symbols-outlined text-green-400 text-[16px]">check</span> Bespoke institutional custody & clearing</li>
+                            <li class="flex items-center gap-2"><span class="material-symbols-outlined text-green-400 text-[16px]">check</span> Direct line to C-Suite & Global Research</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="mt-14 text-center">
+                    <a href="{% url 'contact' %}" class="btn-citi-white !py-3.5 !px-8 text-sm font-bold">Request a Private Wealth Consultation</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    {% include 'partials/public_footer.html' %}
+</div>
+
+<script>
+    function toggleMobileMenu() {
+        const menu = document.getElementById('mobile-menu');
+        const overlay = document.getElementById('mobile-overlay');
+        menu.classList.toggle('open');
+        overlay.classList.toggle('hidden');
+    }
+</script>
+{% endblock %}
